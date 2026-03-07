@@ -1,16 +1,49 @@
 @import "tailwindcss" source(".");
 
 @theme {
-	--font-sans:
-		"Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+
+	/* WSM Official Brand Colors */
+	--color-wsm-light-blue: #d8e6f9;
+	--color-wsm-glacier: #b1e2f5;
+	--color-wsm-mountain: #53c4ee;
+	--color-wsm-cliff: #036588;
+	--color-wsm-victory: #fe735f;
+	--color-wsm-dark: #101622;
+
+	/* Mapped aliases (used across components) */
+	--color-navy-950: #00276f;
+	--color-navy-900: #061c3f;
+	--color-navy-800: #0e203b;
+	--color-navy-700: #101622;
+	--color-brand-teal: #036588;
+	--color-brand-sky: #53c4ee;
+	--color-brand-sky-light: #b1e2f5;
+	--color-brand-coral: #fe735f;
+	--color-brand-peach: #fcdebe;
+	--color-brand-blue: #0176d3;
+	--color-brand-blue-light: #1b96ff;
+	--color-brand-blue-dark: #005db9;
+	--color-brand-green: #04844b;
+	--color-brand-green-light: #4bca81;
+	--color-summit-dark: #0d1a29;
+	--color-summit-gray: #3e506b;
+	--color-teal-green: #6da6a9;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 html,
 body {
-	@apply bg-white dark:bg-gray-950;
+	@apply bg-white text-gray-900;
+}
 
-	@media (prefers-color-scheme: dark) {
-		color-scheme: dark;
-	}
+.splsh1_clouds_img {
+	transform: scaleX(-1);
+	filter: blur(4px);
+	mix-blend-mode: luminosity;
 }
