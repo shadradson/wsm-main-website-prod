@@ -5,6 +5,7 @@ function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [heroLogoGone, setHeroLogoGone] = useState(false);
+	const [navVisible, setNavVisible] = useState(false);
 	const location = useLocation();
 	const isHome = location.pathname === "/";
 
@@ -12,8 +13,8 @@ function Header() {
 		const onScroll = () => {
 			setScrolled(window.scrollY > 20);
 			if (isHome) {
-				// Hero logo disappears roughly when scrolled past ~40% of viewport
-				setHeroLogoGone(window.scrollY > window.innerHeight * 0.35);
+				setHeroLogoGone(window.scrollY > window.innerHeight * 1);
+				setNavVisible(window.scrollY > window.innerHeight * 0.5);
 			}
 		};
 		onScroll();
@@ -22,7 +23,6 @@ function Header() {
 	}, [isHome]);
 
 	const navLinks = [
-		{ to: "/", label: "Home" },
 		{ to: "/about-us", label: "About Us" },
 		{ to: "/expertise", label: "Expertise" },
 		{ to: "/case-studies", label: "Case Studies" },
@@ -31,18 +31,29 @@ function Header() {
 	];
 
 	return (
-		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-summit-dark/95 backdrop-blur-sm border-b border-white/10" : "bg-transparent border-b border-transparent"}`}>
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex items-center justify-between h-16 lg:h-20">
-					<Link to="/" className="flex items-center gap-3">
+		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isHome && !navVisible ? "opacity-0 -translate-y-full" : "opacity-100 translate-y-0"} ${scrolled ? "bg-summit-dark/95 backdrop-blur-sm border-b border-white/10" : "bg-transparent border-b border-transparent"}`}>
+			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div id="header-row" className="relative flex items-center h-12 lg:h-16">
+					{/* Logo: centered on mobile always, left-aligned on desktop */}
+					<Link
+						to="/"
+						id="header-logo-link"
+						className={`transition-all duration-300 lg:relative ${
+							isHome && !heroLogoGone
+								? "absolute left-1/2 -translate-x-1/2 lg:opacity-0 lg:pointer-events-none"
+								: "absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
+						}`}
+					>
 						<img
+							id="header-logo"
 							src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
 							alt="We Summit Mountains"
-							className={`h-10 transition-all duration-300 ${isHome && !heroLogoGone ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}`}
+							className="h-10"
 						/>
 					</Link>
 
-					<nav className="hidden lg:flex items-center gap-1">
+					{/* Desktop nav: centered when logo hidden, right-aligned when logo shows */}
+					<nav id="desktop-nav" className={`hidden lg:flex items-center gap-1 transition-all duration-300 ${isHome && !heroLogoGone ? "mx-auto" : "ml-auto"}`}>
 						{navLinks.map((link) => (
 							<NavLink
 								key={link.to}
@@ -60,15 +71,17 @@ function Header() {
 							</NavLink>
 						))}
 						<Link
+							id="header-cta"
 							to="/contact"
-							className="ml-4 px-5 py-2.5 bg-brand-blue text-white text-sm font-medium rounded-lg hover:bg-brand-blue-light transition-colors"
+							className="ml-4 px-5 py-2.5 bg-brand-blue text-white text-sm font-medium hover:bg-brand-blue-light transition-colors"
 						>
 							Get Started
 						</Link>
 					</nav>
 
 					<button
-						className="lg:hidden text-white p-2"
+						id="mobile-menu-toggle"
+						className="lg:hidden text-white p-2 absolute right-0"
 						onClick={() => setMobileOpen(!mobileOpen)}
 						aria-label="Toggle menu"
 					>
@@ -86,8 +99,8 @@ function Header() {
 			</div>
 
 			{mobileOpen && (
-				<div className="lg:hidden bg-summit-dark border-t border-white/10">
-					<div className="px-4 py-4 space-y-1">
+				<div id="mobile-menu" className="lg:hidden bg-summit-dark border-t border-white/10">
+					<div id="mobile-nav-links" className="px-4 py-4 space-y-1">
 						{navLinks.map((link) => (
 							<NavLink
 								key={link.to}
@@ -108,7 +121,7 @@ function Header() {
 						<Link
 							to="/contact"
 							onClick={() => setMobileOpen(false)}
-							className="block mt-4 px-4 py-3 bg-brand-blue text-white text-sm font-medium rounded-lg text-center hover:bg-brand-blue-light transition-colors"
+							className="block mt-4 px-4 py-3 bg-brand-blue text-white text-sm font-medium text-center hover:bg-brand-blue-light transition-colors"
 						>
 							Get Started
 						</Link>
@@ -121,24 +134,26 @@ function Header() {
 
 function Footer() {
 	return (
-		<footer className="bg-summit-dark text-gray-400">
+		<footer id="main-footer" className="bg-summit-dark text-gray-400">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-					<div className="lg:col-span-1">
+				<div className="flex flex-wrap gap-12">
+					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
 						<Link to="/" className="flex items-center gap-3 mb-4">
-							<MountainIcon className="w-8 h-8 text-brand-sky" />
-							<span className="text-white font-bold text-lg">
-								We Summit Mountains
-							</span>
+							<img
+							id="header-logo"
+							src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
+							alt="We Summit Mountains"
+							className="h-10"
+						/>
 						</Link>
 						<p className="text-sm leading-relaxed">
-							Tailored software development to drive business
+							Tailored AI Solutions, CTO Solutions, and Salesforce Implementation to drive business
 							success. Let's climb your software mountain
 							together.
 						</p>
 					</div>
 
-					<div>
+					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
 						<h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
 							Services
 						</h3>
@@ -166,7 +181,7 @@ function Footer() {
 						</ul>
 					</div>
 
-					<div>
+					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
 						<h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
 							Company
 						</h3>
@@ -194,7 +209,7 @@ function Footer() {
 						</ul>
 					</div>
 
-					<div>
+					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
 						<h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
 							Connect
 						</h3>
@@ -246,9 +261,9 @@ function MountainIcon({ className }: { className?: string }) {
 
 export default function Layout() {
 	return (
-		<div className="min-h-screen flex flex-col">
+		<div id="app-layout" className="min-h-screen flex flex-col">
 			<Header />
-			<main className="flex-1">
+			<main id="main-content" className="flex-1">
 				<Outlet />
 			</main>
 			<Footer />

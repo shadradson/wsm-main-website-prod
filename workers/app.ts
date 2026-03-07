@@ -1,4 +1,5 @@
 import { createRequestHandler } from "react-router";
+import { runSync } from "../app/lib/sync.server";
 
 declare module "react-router" {
 	export interface AppLoadContext {
@@ -19,5 +20,17 @@ export default {
 		return requestHandler(request, {
 			cloudflare: { env, ctx },
 		});
+	},
+
+	async scheduled(event, env, ctx) {
+		ctx.waitUntil(
+			runSync(env).then((result) => {
+				console.log(
+					`Sync complete: ${result.contactsSynced} contacts, ${result.articlesSynced} articles`,
+				);
+			}).catch((error) => {
+				console.error("Sync failed:", error);
+			}),
+		);
 	},
 } satisfies ExportedHandler<Env>;

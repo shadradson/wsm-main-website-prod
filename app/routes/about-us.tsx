@@ -26,22 +26,24 @@ export default function AboutUs() {
 
 function PageHero() {
 	return (
-		<section className="bg-summit-dark py-20 lg:py-28">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="max-w-3xl">
-					<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">
-						About Us
-					</p>
-					<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-						Transforming Challenges Into{" "}
-						<span className="text-brand-sky">Opportunities</span>
-					</h1>
-					<p className="text-lg text-gray-300 leading-relaxed">
-						We Summit Mountains is a Dallas-based software
-						development firm that partners with organizations to
-						provide strategic guidance and innovative tools for
-						measurable business results.
-					</p>
+		<section id="about-hero" className="bg-summit-dark">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl">
+						<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">
+							About Us
+						</p>
+						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
+							Transforming Challenges Into{" "}
+							<span className="text-brand-sky">Opportunities</span>
+						</h1>
+						<p className="text-lg text-gray-300 leading-relaxed">
+							We Summit Mountains is a Dallas-based software
+							development firm that partners with organizations to
+							provide strategic guidance and innovative tools for
+							measurable business results.
+						</p>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -50,33 +52,35 @@ function PageHero() {
 
 function MissionSection() {
 	return (
-		<section className="py-20 lg:py-28">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-					<div>
-						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-							Our Mission
-						</h2>
-						<p className="text-lg text-gray-600 leading-relaxed mb-6">
-							To solve problems, overcome obstacles, and foster
-							progress together. We partner with organizations to
-							provide strategic guidance and innovative tools for
-							measurable business results.
-						</p>
-						<p className="text-lg text-gray-600 leading-relaxed">
-							Every mountain represents a challenge waiting to be
-							conquered. We believe that with the right team, the
-							right tools, and the right strategy, no peak is out
-							of reach.
-						</p>
-					</div>
-					<div className="bg-gradient-to-br from-brand-teal/10 to-brand-blue/10 rounded-3xl p-12 text-center">
-						<blockquote className="text-2xl font-light text-gray-800 italic leading-relaxed">
-							"Let's climb your software mountain together."
-						</blockquote>
-						<p className="mt-4 text-brand-blue font-semibold">
-							— We Summit Mountains
-						</p>
+		<section id="about-mission">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="flex flex-col lg:flex-row gap-16 items-center">
+						<div className="lg:w-1/2">
+							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+								Our Mission
+							</h2>
+							<p className="text-lg text-gray-600 leading-relaxed mb-6">
+								To solve problems, overcome obstacles, and foster
+								progress together. We partner with organizations to
+								provide strategic guidance and innovative tools for
+								measurable business results.
+							</p>
+							<p className="text-lg text-gray-600 leading-relaxed">
+								Every mountain represents a challenge waiting to be
+								conquered. We believe that with the right team, the
+								right tools, and the right strategy, no peak is out
+								of reach.
+							</p>
+						</div>
+						<div className="lg:w-1/2 bg-gradient-to-br from-brand-teal/10 to-brand-blue/10 rounded-3xl p-12 text-center">
+							<blockquote className="text-2xl font-light text-gray-800 italic leading-relaxed">
+								"Let's climb your software mountain together."
+							</blockquote>
+							<p className="mt-4 text-brand-blue font-semibold">
+								— We Summit Mountains
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -129,35 +133,37 @@ function ValuesSection() {
 	];
 
 	return (
-		<section className="py-20 lg:py-28 bg-gray-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="text-center max-w-2xl mx-auto mb-16">
-					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-						Our Core Values
-					</h2>
-					<p className="text-lg text-gray-600">
-						These principles guide everything we do and every
-						solution we build.
-					</p>
-				</div>
+		<section id="about-values" className="bg-gray-50">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="text-center max-w-2xl mx-auto mb-16">
+						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+							Our Core Values
+						</h2>
+						<p className="text-lg text-gray-600">
+							These principles guide everything we do and every
+							solution we build.
+						</p>
+					</div>
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-					{values.map((value) => (
-						<div
-							key={value.title}
-							className="bg-white p-8 rounded-2xl shadow-sm"
-						>
-							<div className="w-14 h-14 rounded-xl bg-brand-sky/10 text-brand-sky flex items-center justify-center mb-5">
-								{value.icon}
+					<div className="flex flex-wrap gap-8">
+						{values.map((value) => (
+							<div
+								key={value.title}
+								className="w-full sm:w-[calc(50%-1rem)] bg-white p-8 rounded-2xl shadow-sm cursor-pointer"
+							>
+								<div className="w-14 h-14 rounded-xl bg-brand-sky/10 text-brand-sky flex items-center justify-center mb-5">
+									{value.icon}
+								</div>
+								<h3 className="text-xl font-bold text-gray-900 mb-3">
+									{value.title}
+								</h3>
+								<p className="text-gray-600 leading-relaxed">
+									{value.description}
+								</p>
 							</div>
-							<h3 className="text-xl font-bold text-gray-900 mb-3">
-								{value.title}
-							</h3>
-							<p className="text-gray-600 leading-relaxed">
-								{value.description}
-							</p>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -166,30 +172,32 @@ function ValuesSection() {
 
 function StorySection() {
 	return (
-		<section className="py-20 lg:py-28">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="max-w-3xl mx-auto text-center">
-					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-						Our Story
-					</h2>
-					<p className="text-lg text-gray-600 leading-relaxed mb-6">
-						Founded in 2023 in Dallas, Texas, We Summit Mountains
-						was born from a shared passion for solving complex
-						technology challenges. Our founders saw a gap in the
-						market — organizations struggling to build functional
-						software that truly serves their needs.
-					</p>
-					<p className="text-lg text-gray-600 leading-relaxed mb-6">
-						We set out to change that. By combining deep Salesforce
-						expertise with a collaborative, partnership-driven
-						approach, we help businesses of all sizes unlock the full
-						potential of their technology investments.
-					</p>
-					<p className="text-lg text-gray-600 leading-relaxed">
-						Today, we continue to grow — not just as a company, but
-						as partners to the organizations we serve. Together, we
-						summit mountains.
-					</p>
+		<section id="about-story">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto text-center">
+						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+							Our Story
+						</h2>
+						<p className="text-lg text-gray-600 leading-relaxed mb-6">
+							Founded in 2023 in Dallas, Texas, We Summit Mountains
+							was born from a shared passion for solving complex
+							technology challenges. Our founders saw a gap in the
+							market — organizations struggling to build functional
+							software that truly serves their needs.
+						</p>
+						<p className="text-lg text-gray-600 leading-relaxed mb-6">
+							We set out to change that. By combining deep Salesforce
+							expertise with a collaborative, partnership-driven
+							approach, we help businesses of all sizes unlock the full
+							potential of their technology investments.
+						</p>
+						<p className="text-lg text-gray-600 leading-relaxed">
+							Today, we continue to grow — not just as a company, but
+							as partners to the organizations we serve. Together, we
+							summit mountains.
+						</p>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -198,28 +206,30 @@ function StorySection() {
 
 function CTASection() {
 	return (
-		<section className="py-20 bg-gray-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-				<h2 className="text-3xl font-bold text-gray-900 mb-4">
-					Ready to Start Climbing?
-				</h2>
-				<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-					Join the organizations that have partnered with us to reach
-					new heights.
-				</p>
-				<div className="flex flex-col sm:flex-row gap-4 justify-center">
-					<Link
-						to="/contact"
-						className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold rounded-xl hover:bg-brand-blue-light transition-all"
-					>
-						Get In Touch
-					</Link>
-					<Link
-						to="/our-team"
-						className="inline-flex items-center justify-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-all"
-					>
-						Meet Our Team
-					</Link>
+		<section id="about-cta" className="bg-gray-50">
+			<div className="py-20">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+					<h2 className="text-3xl font-bold text-gray-900 mb-4">
+						Ready to Start Climbing?
+					</h2>
+					<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+						Join the organizations that have partnered with us to reach
+						new heights.
+					</p>
+					<div className="flex flex-col sm:flex-row gap-4 justify-center">
+						<Link
+							to="/contact"
+							className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all"
+						>
+							Get In Touch
+						</Link>
+						<Link
+							to="/our-team"
+							className="inline-flex items-center justify-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
+						>
+							Meet Our Team
+						</Link>
+					</div>
 				</div>
 			</div>
 		</section>

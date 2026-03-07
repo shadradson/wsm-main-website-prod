@@ -10,5 +10,21 @@
 	"upload_source_maps": true,
 	"vars": {
 		"VALUE_FROM_CLOUDFLARE": "hello"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "wsm-website-db",
+			"database_id": "3237766f-f5f4-49f5-8b50-614578b59566"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "ASSETS_BUCKET",
+			"bucket_name": "wsm-website-assets"
+		}
+	],
+	"triggers": {
+		"crons": ["0 * * * *"]
 	}
 }

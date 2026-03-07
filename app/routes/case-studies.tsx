@@ -25,20 +25,22 @@ export default function CaseStudies() {
 
 function PageHero() {
 	return (
-		<section className="bg-summit-dark py-20 lg:py-28">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="max-w-3xl">
-					<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">
-						Case Studies
-					</p>
-					<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-						Real Results,{" "}
-						<span className="text-brand-sky">Real Impact</span>
-					</h1>
-					<p className="text-lg text-gray-300 leading-relaxed">
-						Discover how we've helped organizations overcome their
-						technology challenges and achieve measurable success.
-					</p>
+		<section id="cases-hero" className="bg-summit-dark">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl">
+						<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">
+							Case Studies
+						</p>
+						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
+							Real Results,{" "}
+							<span className="text-brand-sky">Real Impact</span>
+						</h1>
+						<p className="text-lg text-gray-300 leading-relaxed">
+							Discover how we've helped organizations overcome their
+							technology challenges and achieve measurable success.
+						</p>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -110,75 +112,77 @@ function CaseStudiesList() {
 	];
 
 	return (
-		<section className="py-20 lg:py-28">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="space-y-12">
-					{caseStudies.map((study, i) => (
-						<div
-							key={study.title}
-							className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow"
-						>
-							<div className="p-8 lg:p-10">
-								<div className="flex flex-wrap gap-2 mb-4">
-									<span className="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">
-										{study.industry}
-									</span>
-									{study.tags.map((tag) => (
-										<span
-											key={tag}
-											className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full"
-										>
-											{tag}
+		<section id="cases-list">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="space-y-12">
+						{caseStudies.map((study, i) => (
+							<div
+								key={study.title}
+								className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+							>
+								<div className="p-8 lg:p-10">
+									<div className="flex flex-wrap gap-2 mb-4">
+										<span className="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">
+											{study.industry}
 										</span>
-									))}
-								</div>
-
-								<h3 className="text-2xl font-bold text-gray-900 mb-6">
-									{study.title}
-								</h3>
-
-								<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-									<div>
-										<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-											<span className="w-2 h-2 rounded-full bg-red-400" />
-											Challenge
-										</h4>
-										<p className="text-gray-600 text-sm leading-relaxed">
-											{study.challenge}
-										</p>
+										{study.tags.map((tag) => (
+											<span
+												key={tag}
+												className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full"
+											>
+												{tag}
+											</span>
+										))}
 									</div>
-									<div>
-										<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-											<span className="w-2 h-2 rounded-full bg-brand-blue" />
-											Solution
-										</h4>
-										<p className="text-gray-600 text-sm leading-relaxed">
-											{study.solution}
-										</p>
-									</div>
-									<div>
-										<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-											<span className="w-2 h-2 rounded-full bg-brand-green" />
-											Results
-										</h4>
-										<ul className="space-y-2">
-											{study.results.map((result) => (
-												<li
-													key={result}
-													className="flex items-start gap-2 text-sm text-gray-600"
-												>
-													<svg className="w-4 h-4 text-brand-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-													</svg>
-													{result}
-												</li>
-											))}
-										</ul>
+
+									<h3 className="text-2xl font-bold text-gray-900 mb-6">
+										{study.title}
+									</h3>
+
+									<div className="flex flex-col lg:flex-row gap-8">
+										<div className="lg:flex-1">
+											<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+												<span className="w-2 h-2 rounded-full bg-red-400" />
+												Challenge
+											</h4>
+											<p className="text-gray-600 text-sm leading-relaxed">
+												{study.challenge}
+											</p>
+										</div>
+										<div className="lg:flex-1">
+											<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+												<span className="w-2 h-2 rounded-full bg-brand-blue" />
+												Solution
+											</h4>
+											<p className="text-gray-600 text-sm leading-relaxed">
+												{study.solution}
+											</p>
+										</div>
+										<div className="lg:flex-1">
+											<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+												<span className="w-2 h-2 rounded-full bg-brand-green" />
+												Results
+											</h4>
+											<ul className="space-y-2">
+												{study.results.map((result) => (
+													<li
+														key={result}
+														className="flex items-start gap-2 text-sm text-gray-600"
+													>
+														<svg className="w-4 h-4 text-brand-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+														</svg>
+														{result}
+													</li>
+												))}
+											</ul>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -194,22 +198,24 @@ function ResultsSection() {
 	];
 
 	return (
-		<section className="py-16 bg-summit-dark">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<h2 className="text-2xl font-bold text-white text-center mb-12">
-					By the Numbers
-				</h2>
-				<div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-					{stats.map((stat) => (
-						<div key={stat.label} className="text-center">
-							<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">
-								{stat.value}
-							</p>
-							<p className="text-gray-400 text-sm uppercase tracking-wider">
-								{stat.label}
-							</p>
-						</div>
-					))}
+		<section id="cases-results" className="bg-summit-dark">
+			<div className="py-16">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<h2 className="text-2xl font-bold text-white text-center mb-12">
+						By the Numbers
+					</h2>
+					<div className="flex flex-wrap gap-8">
+						{stats.map((stat) => (
+							<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
+								<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">
+									{stat.value}
+								</p>
+								<p className="text-gray-400 text-sm uppercase tracking-wider">
+									{stat.label}
+								</p>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -218,21 +224,23 @@ function ResultsSection() {
 
 function CTASection() {
 	return (
-		<section className="py-20 lg:py-28">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-				<h2 className="text-3xl font-bold text-gray-900 mb-4">
-					Your Success Story Starts Here
-				</h2>
-				<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-					Ready to become our next case study? Let's discuss your
-					challenges and build a solution together.
-				</p>
-				<Link
-					to="/contact"
-					className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold rounded-xl hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
-				>
-					Start Your Project
-				</Link>
+		<section id="cases-cta">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+					<h2 className="text-3xl font-bold text-gray-900 mb-4">
+						Your Success Story Starts Here
+					</h2>
+					<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+						Ready to become our next case study? Let's discuss your
+						challenges and build a solution together.
+					</p>
+					<Link
+						to="/contact"
+						className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
+					>
+						Start Your Project
+					</Link>
+				</div>
 			</div>
 		</section>
 	);
