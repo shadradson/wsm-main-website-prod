@@ -14,4 +14,7 @@ export default [
 		route("our-team", "routes/our-team.tsx"),
 		route("contact", "routes/contact.tsx"),
 	]),
+	route("api/sync", "routes/api.sync.ts"),
+	route("api/assets/*", "routes/api.assets.$.ts"),
+	route("api/debug", "routes/api.debug.ts"),
 ] satisfies RouteConfig;

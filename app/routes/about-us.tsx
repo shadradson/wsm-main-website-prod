@@ -91,9 +91,9 @@ function MissionSection() {
 function ValuesSection() {
 	const values = [
 		{
-			title: "Collaboration",
+			title: "We All Climb Together",
 			description:
-				"We build lasting partnerships with our clients, working side-by-side to understand challenges and co-create solutions.",
+				"Climbing is difficult, but we're not doing it alone! We all help each other when we can. This allows us to do much more as a group, and the effects are exponential.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -101,9 +101,9 @@ function ValuesSection() {
 			),
 		},
 		{
-			title: "Innovation",
+			title: "We Climb to Grow",
 			description:
-				"We stay at the forefront of technology, bringing fresh perspectives and cutting-edge solutions to every project.",
+				"We work to to grow ourselves and the others around us. Growth is painful, but the reward is great. There is nothing as fulfilling as breaking through the walls that hold you back to accomplish what the previous version of yourself did not think was possible.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
@@ -111,22 +111,12 @@ function ValuesSection() {
 			),
 		},
 		{
-			title: "Excellence",
+			title: "We Keep Climbing",
 			description:
-				"We hold ourselves to the highest standards, delivering solutions that enable operational excellence and sustainable success.",
+				"We are not here to do the bare minimum. We are not here to take the easy path. We are here to take the right path to the top of every mountain we face together. Let's go.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-				</svg>
-			),
-		},
-		{
-			title: "Growth",
-			description:
-				"We grow ourselves and encourage others. Every engagement is an opportunity for mutual learning and development.",
-			icon: (
-				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
 				</svg>
 			),
 		},
@@ -180,22 +170,13 @@ function StorySection() {
 							Our Story
 						</h2>
 						<p className="text-lg text-gray-600 leading-relaxed mb-6">
-							Founded in 2023 in Dallas, Texas, We Summit Mountains
-							was born from a shared passion for solving complex
-							technology challenges. Our founders saw a gap in the
-							market — organizations struggling to build functional
-							software that truly serves their needs.
+							Founded in 2023 
 						</p>
 						<p className="text-lg text-gray-600 leading-relaxed mb-6">
-							We set out to change that. By combining deep Salesforce
-							expertise with a collaborative, partnership-driven
-							approach, we help businesses of all sizes unlock the full
-							potential of their technology investments.
+							
 						</p>
 						<p className="text-lg text-gray-600 leading-relaxed">
-							Today, we continue to grow — not just as a company, but
-							as partners to the organizations we serve. Together, we
-							summit mountains.
+							
 						</p>
 					</div>
 				</div>

@@ -1,5 +1,16 @@
 import type { Route } from "./+types/our-team";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+interface TeamMember {
+	sf_id: string;
+	first_name: string;
+	last_name: string;
+	title: string | null;
+	certifications: string | null;
+	about_us_sort_order: number;
+	trailblazer_url: string | null;
+	photo_r2_key: string | null;
+}
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -10,6 +21,15 @@ export function meta({}: Route.MetaArgs) {
 				"Meet the team behind We Summit Mountains. Certified Salesforce professionals dedicated to helping you reach your technology summit.",
 		},
 	];
+}
+
+export async function loader({ context }: Route.LoaderArgs) {
+	const db = context.cloudflare.env.DB;
+	const { results } = await db.prepare(
+		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, photo_r2_key FROM contacts ORDER BY about_us_sort_order ASC",
+	).all<TeamMember>();
+
+	return { team: results ?? [] };
 }
 
 export default function OurTeam() {
@@ -33,8 +53,8 @@ function PageHero() {
 							Our Team
 						</p>
 						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-							The People Behind{" "}
-							<span className="text-brand-sky">Every Summit</span>
+							<p>The People Who</p>
+							<p class="bg-gradient-to-r from-wsm-glacier to-brand-peach inline-block text-transparent bg-clip-text">Summit Moutains</p>
 						</h1>
 						<p className="text-lg text-gray-300 leading-relaxed">
 							We solve problems, overcome challenges, grow ourselves
@@ -49,72 +69,58 @@ function PageHero() {
 }
 
 function TeamGrid() {
-	const team = [
-		{
-			name: "Jason Booher",
-			role: "Company Owner",
-			bio: "With deep expertise in Salesforce and a passion for solving complex business challenges, Jason founded We Summit Mountains to help organizations unlock the full potential of their technology investments.",
-			linkedin: "https://www.linkedin.com/in/jason-booher-058510133/",
-			initials: "JB",
-		},
-		{
-			name: "Jonathan Davis",
-			role: "Managing Partner",
-			bio: "Jonathan brings strategic vision and hands-on technical leadership to every engagement. His focus on building lasting client partnerships drives the company's collaborative approach to consulting.",
-			linkedin: "https://www.linkedin.com/in/jcd386/",
-			initials: "JD",
-		},
-		{
-			name: "Ashley Blue",
-			role: "Implementation Consultant",
-			bio: "Ashley specializes in Salesforce implementation and optimization, turning complex requirements into elegant, user-friendly solutions that drive adoption and measurable results.",
-			linkedin: "https://www.linkedin.com/in/ashleymblue/",
-			initials: "AB",
-		},
-		{
-			name: "Zachary Byrd",
-			role: "Consultant",
-			bio: "Zachary brings a unique perspective to technology consulting, combining analytical thinking with creative problem-solving to deliver innovative solutions for our clients.",
-			linkedin: "https://www.linkedin.com/in/zacharybyrd/",
-			initials: "ZB",
-		},
-	];
+	const { team } = useLoaderData<typeof loader>();
 
 	return (
 		<section id="team-grid">
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-wrap gap-8">
-						{team.map((member) => (
-							<div
-								key={member.name}
-								className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] group text-center p-8 rounded-2xl border border-gray-200 hover:border-brand-blue/30 hover:shadow-xl transition-all cursor-pointer"
-							>
-								<div className="w-24 h-24 rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-2xl font-bold mx-auto mb-5">
-									{member.initials}
+					<div className="flex flex-wrap">
+						{team.map((member: TeamMember) => {
+							const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
+							return (
+								<div key={member.sf_id} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] group text-center p-8 border border-gray-200 hover:border-brand-blue/30 hover:shadow-xl transition-all cursor-pointer p-2">
+									{member.photo_r2_key ? (
+										<img
+											src={`/api/assets/${member.photo_r2_key}`}
+											alt={`${member.first_name} ${member.last_name}`}
+											className="w-24 h-24 rounded-full object-cover mx-auto mb-5"
+										/>
+									) : (
+										<div className="w-24 h-24 rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-2xl font-bold mx-auto mb-5">
+											{initials}
+										</div>
+									)}
+									<h3 className="text-lg font-bold text-gray-900 mb-1">
+										{member.first_name} {member.last_name}
+									</h3>
+									{member.title && (
+										<p className="text-brand-blue text-sm font-medium mb-4">
+											{member.title}
+										</p>
+									)}
+									{member.certifications && (
+										<div
+											className="text-gray-600 text-sm leading-relaxed mb-5"
+											dangerouslySetInnerHTML={{ __html: member.certifications }}
+										/>
+									)}
+									{member.trailblazer_url && (
+										<a
+											href={member.trailblazer_url}
+											target="_blank"
+											rel="noreferrer"
+											className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-brand-blue transition-colors"
+										>
+											<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+												<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+											</svg>
+											Trailblazer
+										</a>
+									)}
 								</div>
-								<h3 className="text-lg font-bold text-gray-900 mb-1">
-									{member.name}
-								</h3>
-								<p className="text-brand-blue text-sm font-medium mb-4">
-									{member.role}
-								</p>
-								<p className="text-gray-600 text-sm leading-relaxed mb-5">
-									{member.bio}
-								</p>
-								<a
-									href={member.linkedin}
-									target="_blank"
-									rel="noreferrer"
-									className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-brand-blue transition-colors"
-								>
-									<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-										<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-									</svg>
-									LinkedIn
-								</a>
-							</div>
-						))}
+							);
+						})}
 					</div>
 				</div>
 			</div>
@@ -168,7 +174,7 @@ function CTASection() {
 			<div className="py-20">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 					<h2 className="text-3xl font-bold text-gray-900 mb-4">
-						Want to Join Our Team?
+						Want to Join We Summit?
 					</h2>
 					<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
 						We're always looking for talented individuals who share our

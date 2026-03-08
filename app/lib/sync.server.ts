@@ -17,6 +17,7 @@ interface SFContact {
 	Id: string;
 	FirstName: string;
 	LastName: string;
+	Title: string | null;
 	zbe_Certifications__c: string | null;
 	zbe_AboutUsSortOrder__c: number | null;
 	Trailblazer_Account_URL__c: string | null;
@@ -24,11 +25,12 @@ interface SFContact {
 }
 
 const CONTACT_QUERY = `
-	SELECT Id, FirstName, LastName,
+	SELECT Id, FirstName, LastName, Title,
 		zbe_Certifications__c, zbe_AboutUsSortOrder__c,
 		Trailblazer_Account_URL__c, WSM_Website_Photo_1__c
 	FROM Contact
 	WHERE zbe_AboutUsSortOrder__c != null
+		AND Contact_Status__c = 'WSM - Actively Employed'
 	ORDER BY zbe_AboutUsSortOrder__c ASC
 `;
 
@@ -128,7 +130,9 @@ function extractImageUrl(fieldValue: string | null): string | null {
 	}
 	// If it's rich text with an <img> tag, extract the src
 	const match = fieldValue.match(/src=["']([^"']+)["']/);
-	return match ? match[1] : null;
+	if (!match) return null;
+	// Decode HTML entities (e.g., &amp; -> &)
+	return match[1].replace(/&amp;/g, "&");
 }
 
 async function syncImageToR2(
@@ -136,11 +140,12 @@ async function syncImageToR2(
 	bucket: R2Bucket,
 	imageFieldValue: string | null,
 	r2Key: string,
+	contactId?: string,
 ): Promise<string | null> {
 	const imageUrl = extractImageUrl(imageFieldValue);
 	if (!imageUrl) return null;
 
-	const image = await fetchImage(token, imageUrl);
+	const image = await fetchImage(token, imageUrl, contactId);
 	if (!image) return null;
 
 	await bucket.put(r2Key, image.data, {
@@ -176,21 +181,23 @@ export async function runSync(env: SyncEnv): Promise<{
 				env.ASSETS_BUCKET,
 				c.WSM_Website_Photo_1__c,
 				`contacts/${c.Id}.jpg`,
+				c.Id,
 			);
 
 			await env.DB.prepare(`
-				INSERT INTO contacts (sf_id, first_name, last_name, certifications, about_us_sort_order, trailblazer_url, photo_r2_key, synced_at)
-				VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+				INSERT INTO contacts (sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, photo_r2_key, synced_at)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
 				ON CONFLICT(sf_id) DO UPDATE SET
 					first_name = excluded.first_name,
 					last_name = excluded.last_name,
+					title = excluded.title,
 					certifications = excluded.certifications,
 					about_us_sort_order = excluded.about_us_sort_order,
 					trailblazer_url = excluded.trailblazer_url,
 					photo_r2_key = excluded.photo_r2_key,
 					synced_at = excluded.synced_at
 			`).bind(
-				c.Id, c.FirstName, c.LastName,
+				c.Id, c.FirstName, c.LastName, c.Title,
 				c.zbe_Certifications__c, c.zbe_AboutUsSortOrder__c,
 				c.Trailblazer_Account_URL__c, photoKey,
 			).run();

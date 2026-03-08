@@ -60,10 +60,30 @@ export async function soqlQuery<T = Record<string, unknown>>(
 export async function fetchImage(
 	token: SalesforceTokenResponse,
 	imageUrl: string,
+	contactId?: string,
 ): Promise<{ data: ArrayBuffer; contentType: string } | null> {
 	if (!imageUrl) return null;
 
-	// Handle both relative Salesforce URLs and absolute URLs
+	// For rtaImage URLs, use the Salesforce REST API richTextImageFields endpoint
+	const rtaMatch = imageUrl.match(/refid=([a-zA-Z0-9]+)/);
+	if (rtaMatch && contactId) {
+		const refId = rtaMatch[1];
+		const apiUrl = `${token.instance_url}/services/data/v62.0/sobjects/Contact/${contactId}/richTextImageFields/WSM_Website_Photo_1__c/${refId}`;
+
+		const res = await fetch(apiUrl, {
+			headers: { Authorization: `Bearer ${token.access_token}` },
+		});
+
+		if (!res.ok) return null;
+
+		const contentType = res.headers.get("content-type") || "image/jpeg";
+		if (contentType.includes("text/html")) return null;
+
+		const data = await res.arrayBuffer();
+		return { data, contentType };
+	}
+
+	// Fallback: direct URL fetch
 	const fullUrl = imageUrl.startsWith("http")
 		? imageUrl
 		: `${token.instance_url}${imageUrl}`;
@@ -75,6 +95,8 @@ export async function fetchImage(
 	if (!res.ok) return null;
 
 	const contentType = res.headers.get("content-type") || "image/png";
+	if (contentType.includes("text/html")) return null;
+
 	const data = await res.arrayBuffer();
 	return { data, contentType };
 }
