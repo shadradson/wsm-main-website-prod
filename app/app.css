@@ -56,6 +56,19 @@ body {
 	pointer-events: none;
 }
 
+.pattern-bg-dots-sm {
+	position: relative;
+}
+.pattern-bg-dots-sm::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	--pattern-fg: color-mix(in oklab, var(--color-wsm-dark) 25%, transparent);
+	background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
+	background-size: 10px 10px;
+	pointer-events: none;
+}
+
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Experience <<<<<<<<<<<<<<<<<<<<<<<<<*/
     @keyframes leftmarquee {0% {left:300px;} 100% {left:-1000px;}}
     .left_start > div {left:0; animation: leftmarquee linear; animation-timeline: view();}

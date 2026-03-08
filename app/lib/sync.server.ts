@@ -21,13 +21,14 @@ interface SFContact {
 	zbe_Certifications__c: string | null;
 	zbe_AboutUsSortOrder__c: number | null;
 	Trailblazer_Account_URL__c: string | null;
+	Linked_In_URL__c: string | null;
 	WSM_Website_Photo_1__c: string | null;
 }
 
 const CONTACT_QUERY = `
 	SELECT Id, FirstName, LastName, Title,
 		zbe_Certifications__c, zbe_AboutUsSortOrder__c,
-		Trailblazer_Account_URL__c, WSM_Website_Photo_1__c
+		Trailblazer_Account_URL__c, Linked_In_URL__c, WSM_Website_Photo_1__c
 	FROM Contact
 	WHERE zbe_AboutUsSortOrder__c != null
 		AND Contact_Status__c = 'WSM - Actively Employed'
@@ -185,8 +186,8 @@ export async function runSync(env: SyncEnv): Promise<{
 			);
 
 			await env.DB.prepare(`
-				INSERT INTO contacts (sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, photo_r2_key, synced_at)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+				INSERT INTO contacts (sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, photo_r2_key, synced_at)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
 				ON CONFLICT(sf_id) DO UPDATE SET
 					first_name = excluded.first_name,
 					last_name = excluded.last_name,
@@ -194,12 +195,13 @@ export async function runSync(env: SyncEnv): Promise<{
 					certifications = excluded.certifications,
 					about_us_sort_order = excluded.about_us_sort_order,
 					trailblazer_url = excluded.trailblazer_url,
+					linkedin_url = excluded.linkedin_url,
 					photo_r2_key = excluded.photo_r2_key,
 					synced_at = excluded.synced_at
 			`).bind(
 				c.Id, c.FirstName, c.LastName, c.Title,
 				c.zbe_Certifications__c, c.zbe_AboutUsSortOrder__c,
-				c.Trailblazer_Account_URL__c, photoKey,
+				c.Trailblazer_Account_URL__c, c.Linked_In_URL__c, photoKey,
 			).run();
 		}
 
