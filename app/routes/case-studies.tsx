@@ -1,5 +1,25 @@
 import type { Route } from "./+types/case-studies";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+interface Article {
+	sf_id: string;
+	name: string;
+	subtitle: string | null;
+	short_description: string | null;
+	article_body: string | null;
+	html_body: string | null;
+	article_category: string | null;
+	subcategory: string | null;
+	author_first_name: string | null;
+	author_last_name: string | null;
+	author_title: string | null;
+	splash_image_url: string | null;
+	splash_image_background: string | null;
+	publish_status: string | null;
+	article_order: number | null;
+	vertical_product: string | null;
+	admin_approval: number;
+}
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -12,11 +32,33 @@ export function meta({}: Route.MetaArgs) {
 	];
 }
 
+export async function loader({ context }: Route.LoaderArgs) {
+	const db = context.cloudflare.env.DB;
+	const { results } = await db.prepare(
+		`SELECT sf_id, name, subtitle, short_description, article_body, html_body,
+			article_category, subcategory, author_first_name, author_last_name, author_title,
+			splash_image_url, splash_image_background, publish_status, article_order,
+			vertical_product, admin_approval
+		FROM articles
+		WHERE article_category = 'Case Study'
+			AND admin_approval = 1
+			AND publish_status = 'Published'
+		ORDER BY article_order ASC`
+	).all<Article>();
+
+	const articles = results ?? [];
+	const industryArticles = articles.filter((a) => a.subcategory === "Industry");
+	const productArticles = articles.filter((a) => a.subcategory === "Product");
+
+	return { industryArticles, productArticles };
+}
+
 export default function CaseStudies() {
 	return (
 		<>
 			<PageHero />
-			<CaseStudiesList />
+			<IndustrySection />
+			<ProductSection />
 			<ResultsSection />
 			<CTASection />
 		</>
@@ -47,142 +89,102 @@ function PageHero() {
 	);
 }
 
-function CaseStudiesList() {
-	const caseStudies = [
-		{
-			title: "Nonprofit CRM Transformation",
-			industry: "Nonprofit",
-			challenge:
-				"A growing nonprofit struggled with disconnected donor management systems, manual reporting, and limited visibility into fundraising performance.",
-			solution:
-				"We implemented Salesforce Nonprofit Cloud with custom donation tracking, automated acknowledgment workflows, and real-time fundraising dashboards.",
-			results: [
-				"60% reduction in manual data entry",
-				"Real-time visibility into donor engagement",
-				"Automated tax receipt generation",
-				"Unified donor communication platform",
-			],
-			tags: ["Salesforce", "Nonprofit Cloud", "Automation"],
-		},
-		{
-			title: "Sales Pipeline Modernization",
-			industry: "Professional Services",
-			challenge:
-				"A professional services firm was losing deals due to an outdated CRM, lack of pipeline visibility, and inconsistent sales processes across teams.",
-			solution:
-				"We redesigned their Sales Cloud implementation with custom opportunity stages, automated lead scoring, and integrated email tracking to create a unified sales engine.",
-			results: [
-				"40% improvement in pipeline visibility",
-				"25% increase in lead conversion rates",
-				"Standardized sales process across all teams",
-				"Automated weekly forecasting reports",
-			],
-			tags: ["Sales Cloud", "Lead Management", "Analytics"],
-		},
-		{
-			title: "Multi-System Integration Hub",
-			industry: "Technology",
-			challenge:
-				"A fast-growing tech company had critical data spread across 5+ disconnected systems, causing duplicate records, missed handoffs, and reporting nightmares.",
-			solution:
-				"We built a centralized integration hub connecting Salesforce, their ERP, marketing automation, support platform, and billing system with real-time data synchronization.",
-			results: [
-				"Eliminated 95% of duplicate records",
-				"Real-time data sync across all platforms",
-				"Single source of truth for customer data",
-				"4-hour reduction in daily manual processes",
-			],
-			tags: ["Integration", "API Development", "Data Quality"],
-		},
-		{
-			title: "AI-Powered Customer Service",
-			industry: "E-Commerce",
-			challenge:
-				"An e-commerce company faced rising support ticket volumes with declining resolution times and customer satisfaction scores.",
-			solution:
-				"We deployed Salesforce Service Cloud with Einstein AI for case classification, automated routing, and a self-service knowledge base powered by intelligent search.",
-			results: [
-				"50% reduction in average resolution time",
-				"30% decrease in support ticket volume",
-				"Customer satisfaction score increased to 92%",
-				"AI-powered case routing accuracy of 88%",
-			],
-			tags: ["Service Cloud", "Einstein AI", "Self-Service"],
-		},
-	];
+function ArticleCard({ article }: { article: Article }) {
+	return (
+		<div className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+			<div className="p-8 lg:p-10">
+				<div className="flex flex-wrap gap-2 mb-4">
+					{article.subcategory && (
+						<span className="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">
+							{article.subcategory}
+						</span>
+					)}
+					{article.vertical_product && (
+						<span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+							{article.vertical_product}
+						</span>
+					)}
+				</div>
+
+				<h3 className="text-2xl font-bold text-gray-900 mb-2">
+					{article.name}
+				</h3>
+
+				{article.subtitle && (
+					<p className="text-brand-sky font-medium mb-4">
+						{article.subtitle}
+					</p>
+				)}
+
+				{article.short_description && (
+					<p className="text-gray-600 leading-relaxed mb-4">
+						{article.short_description}
+					</p>
+				)}
+
+				{article.author_first_name && (
+					<p className="text-sm text-gray-500">
+						By {article.author_first_name} {article.author_last_name}
+						{article.author_title && ` — ${article.author_title}`}
+					</p>
+				)}
+			</div>
+		</div>
+	);
+}
+
+function IndustrySection() {
+	const { industryArticles } = useLoaderData<typeof loader>();
 
 	return (
-		<section id="cases-list">
+		<section id="cases-industry">
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="space-y-12">
-						{caseStudies.map((study, i) => (
-							<div
-								key={study.title}
-								className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-							>
-								<div className="p-8 lg:p-10">
-									<div className="flex flex-wrap gap-2 mb-4">
-										<span className="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">
-											{study.industry}
-										</span>
-										{study.tags.map((tag) => (
-											<span
-												key={tag}
-												className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full"
-											>
-												{tag}
-											</span>
-										))}
-									</div>
+					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+						Industry Knowledge
+					</h2>
+					<p className="text-lg text-gray-600 mb-12">
+						Deep expertise across the industries we serve.
+					</p>
 
-									<h3 className="text-2xl font-bold text-gray-900 mb-6">
-										{study.title}
-									</h3>
+					{industryArticles.length === 0 ? (
+						<p className="text-gray-500 italic">No industry case studies yet.</p>
+					) : (
+						<div className="space-y-8">
+							{industryArticles.map((article) => (
+								<ArticleCard key={article.sf_id} article={article} />
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+		</section>
+	);
+}
 
-									<div className="flex flex-col lg:flex-row gap-8">
-										<div className="lg:flex-1">
-											<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-												<span className="w-2 h-2 rounded-full bg-red-400" />
-												Challenge
-											</h4>
-											<p className="text-gray-600 text-sm leading-relaxed">
-												{study.challenge}
-											</p>
-										</div>
-										<div className="lg:flex-1">
-											<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-												<span className="w-2 h-2 rounded-full bg-brand-blue" />
-												Solution
-											</h4>
-											<p className="text-gray-600 text-sm leading-relaxed">
-												{study.solution}
-											</p>
-										</div>
-										<div className="lg:flex-1">
-											<h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-												<span className="w-2 h-2 rounded-full bg-brand-green" />
-												Results
-											</h4>
-											<ul className="space-y-2">
-												{study.results.map((result) => (
-													<li
-														key={result}
-														className="flex items-start gap-2 text-sm text-gray-600"
-													>
-														<svg className="w-4 h-4 text-brand-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-														</svg>
-														{result}
-													</li>
-												))}
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
+function ProductSection() {
+	const { productArticles } = useLoaderData<typeof loader>();
+
+	return (
+		<section id="cases-products" className="bg-gray-50">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+						Software Proficiencies
+					</h2>
+					<p className="text-lg text-gray-600 mb-12">
+						Proven results with the platforms and tools we specialize in.
+					</p>
+
+					{productArticles.length === 0 ? (
+						<p className="text-gray-500 italic">No product case studies yet.</p>
+					) : (
+						<div className="space-y-8">
+							{productArticles.map((article) => (
+								<ArticleCard key={article.sf_id} article={article} />
+							))}
+						</div>
+					)}
 				</div>
 			</div>
 		</section>
@@ -204,7 +206,7 @@ function ResultsSection() {
 					<h2 className="text-2xl font-bold text-white text-center mb-12">
 						By the Numbers
 					</h2>
-					<div className="flex flex-wrap gap-8">
+					<div className="flex flex-wrap gap-8 justify-center">
 						{stats.map((stat) => (
 							<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
 								<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">

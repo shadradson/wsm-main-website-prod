@@ -136,11 +136,11 @@ function ValuesSection() {
 						</p>
 					</div>
 
-					<div className="flex flex-wrap gap-8">
+					<div className="flex flex-col gap-8">
 						{values.map((value) => (
 							<div
 								key={value.title}
-								className="w-full sm:w-[calc(50%-1rem)] bg-white p-8 rounded-2xl shadow-sm cursor-pointer"
+								className="w-full bg-white p-8 rounded-2xl shadow-sm cursor-pointer"
 							>
 								<div className="w-14 h-14 rounded-xl bg-brand-sky/10 text-brand-sky flex items-center justify-center mb-5">
 									{value.icon}

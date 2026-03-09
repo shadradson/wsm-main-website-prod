@@ -36,26 +36,114 @@ export async function loader({ context }: Route.LoaderArgs) {
 export default function OurTeam() {
 	return (
 		<>
-			<PageHero />
+			<OurTeamHero />
 			<TeamGrid />
+			<TransitionLayer2 />
+			<OurStats />
 			<CertificationsSection />
 			<CTASection />
 		</>
 	);
 }
 
+function OurTeamHero() {
+	return (
+		<div className="parallax_container ">
+			<div className="para_layers_all bg-[#111412]" id="parallax">
+				<div className="our_team_para_layer layer1" data-speed="-1" data-blur="0" data-baseblur="0" style={{ filter: "blur(7px)" }}>
+					<div className="clouds slide">
+						<img src="/images/clouds.svg" className="clouds_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer2" data-speed="-1" data-blur="4" data-baseblur="0" style={{ filter: "blur(0px)" }}>
+					<div className="mountains_mid slide">
+						<img src="/images/MountaisMid.svg" className="mountains_mid_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer3" data-speed="-0.9" data-blur="3" data-baseblur="1" style={{ filter: "blur(1px)" }}>
+					<div className="mountains_botleft slide">
+						<img src="/images/mountains_botleft.svg" className="mountains_botleft_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer4" data-speed="-0.6" data-blur="2" data-baseblur="2" style={{ filter: "blur(2px)" }}>
+					<div className="mountains_botright slide">
+						<img src="/images/mountains_botright.svg" className="mountains_botright_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer5 mix_blend_ex" id="keyart-0" data-speed="-0.8" data-blur="0" data-baseblur="0">
+					<div className="wsm slide">
+						<img src="/images/WSM_LOGO_V2_Norm_Wht.svg" className="wsm_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer6" id="keyart-0" data-speed="-0.5" data-blur="1" data-baseblur="3" style={{ filter: "blur(3px)" }}>
+					<div className="hillside slide">
+						<img src="/images/hillside.svg" className="hillside_img" />
+					</div>
+				</div>
+
+				<div className="birds birds1-anim">
+					<div className="birds1 slide">
+						<img src="/images/Flying Birds0.svg" className="birds1_img" />
+					</div>
+				</div>
+				<div className="birds birds2-anim">
+					<div className="birds2 slide">
+						<img src="/images/Flying Birds1.svg" className="birds2_img" />
+					</div>
+				</div>
+				<div className="birds birds3-anim">
+					<div className="birds3 slide">
+						<img src="/images/Flying Birds2.svg" className="birds3_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer7" id="keyart-0" data-speed="-0.4" data-blur="-5" data-baseblur="5" style={{ filter: "blur(5px)" }}>
+					<div className="extra_trees slide">
+						<img src="/images/extra_trees.svg" className="extra_trees_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer8" data-speed="0" data-blur="-6" data-baseblur="6" style={{ filter: "blur(6px)" }}>
+					<div className="close_trees slide">
+						<img src="/images/trees_close.svg" className="close_trees_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer9" data-speed="0" data-blur="-7" data-baseblur="7" style={{ filter: "blur(7px)" }}>
+					<div className="close_rocks slide">
+						<img src="/images/CloseRocksSVG.svg" className="close_rocks_img" />
+					</div>
+				</div>
+
+				<div className="our_team_para_layer layer10" id="keyart-8" data-speed="100">
+					<h1 className="text-white">OUR TEAM</h1>
+					<h2 className="text-white">The people who</h2>
+					<h2 className="text-white">Summit Mountains</h2>
+				</div>
+
+			</div>
+			<div className="para_layer_overlay" data-speed="100"></div>
+		</div>
+	);
+}
+
 function PageHero() {
 	return (
-		<section id="team-hero" className="bg-summit-dark">
-			<div className="py-20 lg:py-28">
+		<section id="team-hero" className="bg-gradient-to-b from-wsm-cliff to-wsm-dark pattern-bg-dots">
+			<div className="py-20 lg:py-28 h-[80vh]">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
 						<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">
 							Our Team
 						</p>
 						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-							<p>The People Who</p>
-							<p class="bg-gradient-to-r from-wsm-glacier to-brand-peach inline-block text-transparent bg-clip-text">Summit Moutains</p>
+							<span className="block">The People Who</span>
+							<span className="bg-gradient-to-r from-wsm-glacier to-brand-peach inline-block text-transparent bg-clip-text">Summit Mountains</span>
 						</h1>
 						<p className="text-lg text-gray-300 leading-relaxed">
 							We solve problems, overcome challenges, grow ourselves
@@ -69,53 +157,55 @@ function PageHero() {
 	);
 }
 
+
 function TeamGrid() {
 	const { team } = useLoaderData<typeof loader>();
 
 	return (
 		<section id="team-grid">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-2 border-solid border-gray-200 bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15">
-					<div className="flex flex-wrap justify-center bg-gray-200">
+			<div className="py-20 lg:py-28 bg-gradient-to-b from-[#111412] to-wsm-cliff
+			 pattern-bg-dots">
+				<div className="max-w-7xl mx-auto p-4 border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15 mix-blend-screen">
+					<div className="flex flex-wrap justify-center bg-[#ffffff22]">
 						{team.map((member: TeamMember) => {
 							const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
 							return (
-								<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] group p-1 hover:shadow-xl transition-all cursor-pointer">
-									<div className="bg-white rounded-md border-2 border-solid border-gray-200 flex flex-col h-full relative z-10">
+								<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[400px] grow group p-1 hover:shadow-xl transition-all cursor-pointer">
+									<div className="bg-black border-2 border-solid border-gray-600 flex flex-col h-full relative z-10">
 										{/* Top row: photo left, name/title right */}
 										<div className="flex items-start gap-4 p-2">
 											{member.photo_r2_key ? (
 												<img
 													src={`/api/assets/${member.photo_r2_key}`}
 													alt={`${member.first_name} ${member.last_name}`}
-													className="w-20 h-20 object-cover flex-shrink-0"
+													className="flex-1 apect-square object-cover flex-shrink-0"
 												/>
 											) : (
-												<div className="w-20 h-20 rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
+												<div className="flex-1  apect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
 													{initials}
 												</div>
 											)}
-											<div className="text-left p-2">
-												<h3 className="text-lg font-bold text-gray-900">
+											<div className="text-left p-2 flex-2">
+												<h3 className="text-lg font-bold text-white">
 													{member.first_name} {member.last_name}
 												</h3>
 												{member.title && (
-													<p className="text-brand-blue text-sm font-medium mt-1">
+													<p className="text-wsm-glacier text-sm font-medium mt-1">
 														{member.title}
 													</p>
 												)}
+												{/* Certifications */}
+												{member.certifications && (
+													<div
+														className="text-gray-200 text-sm leading-relaxed text-left flex-grow p-2"
+														dangerouslySetInnerHTML={{ __html: member.certifications }}
+													/>
+												)}
 											</div>
 										</div>
-										{/* Certifications */}
-										{member.certifications && (
-											<div
-												className="text-gray-600 text-sm leading-relaxed text-left flex-grow p-2"
-												dangerouslySetInnerHTML={{ __html: member.certifications }}
-											/>
-										)}
 										{/* Buttons */}
 										{(member.linkedin_url || member.trailblazer_url) && (
-											<div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100 p-2 pattern-bg-dots-sm relative">
+											<div className="flex items-center gap-3 mt-auto border-t border-gray-500 p-2 pattern-bg-dots-sm relative">
 												{member.linkedin_url && (
 													<a
 														href={member.linkedin_url}
@@ -153,6 +243,62 @@ function TeamGrid() {
 			</div>
 		</section>
 	);
+}
+
+function TransitionLayer2() {
+	return (
+		<div>
+			<div className="transition1 bg-wsm-cliff">
+				<div className="translayer midlay t1_lay5">
+					<div className="splash_tag_box">
+						<div className="splash_tag_text text-wsm-dark">
+							STATS
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	);
+}
+
+function OurStats() {
+	const Stats = [
+		{
+			label: "Certifications",
+			data: "30"
+		},
+		{
+			label: "Years Experience",
+			data: "22"
+		},
+		{
+			label: "Cats",
+			data: "5"
+		},
+	]
+
+	return (
+		<section id="home-stats" className="bg-gradient-to-b from-wsm-dark to-summit-dark">
+			<div className="py-16">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="flex flex-wrap gap-8 justify-center">
+						{Stats.map((stat) => (
+							<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center stats-fade-in">
+								<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">
+									{stat.data}
+								</p>
+								<p className="text-gray-400 text-sm uppercase tracking-wider">
+									{stat.label}
+								</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+
 }
 
 function CertificationsSection() {

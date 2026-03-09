@@ -8,10 +8,15 @@ function Header() {
 	const [navVisible, setNavVisible] = useState(false);
 	const location = useLocation();
 	const isHome = location.pathname === "/";
+	const isOurTeam = location.pathname === "/our-team";
 
 	useEffect(() => {
 		const onScroll = () => {
-			setScrolled(window.scrollY > 20);
+			if (isOurTeam) {
+				setScrolled(window.scrollY > window.innerHeight * 1);
+			} else {
+				setScrolled(window.scrollY > 20);
+			}
 			if (isHome) {
 				setHeroLogoGone(window.scrollY > window.innerHeight * 1);
 				setNavVisible(window.scrollY > window.innerHeight * 0.5);
@@ -20,7 +25,7 @@ function Header() {
 		onScroll();
 		window.addEventListener("scroll", onScroll, { passive: true });
 		return () => window.removeEventListener("scroll", onScroll);
-	}, [isHome]);
+	}, [isHome, isOurTeam]);
 
 	const navLinks = [
 		{ to: "/about-us", label: "About Us" },

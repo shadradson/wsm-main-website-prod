@@ -1,0 +1,1 @@
+ALTER TABLE articles ADD COLUMN admin_approval INTEGER DEFAULT 0;

@@ -59,6 +59,7 @@ interface SFArticle {
 	Intended_Audiences__c: string | null;
 	Parent_Article__c: string | null;
 	Vertical_Product__c: string | null;
+	Admin_Approval__c: boolean;
 }
 
 const ARTICLE_QUERY = `
@@ -68,7 +69,7 @@ const ARTICLE_QUERY = `
 		Splash_Image_URL__c, Splash_Image_Background__c,
 		Publish_Status__c, Order__c, Navigation_Type__c, NavJSON__c,
 		Rich_Text_or_HTML_body__c, Intended_Audiences__c,
-		Parent_Article__c, Vertical_Product__c
+		Parent_Article__c, Vertical_Product__c, Admin_Approval__c
 	FROM Article__c
 	ORDER BY Order__c ASC NULLS LAST
 `;
@@ -214,8 +215,8 @@ export async function runSync(env: SyncEnv): Promise<{
 					article_category, subcategory, author_id, author_first_name, author_last_name, author_title,
 					splash_image_url, splash_image_background, publish_status, article_order,
 					navigation_type, nav_json, body_type, intended_audiences, parent_article_id,
-					vertical_product, synced_at)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+					vertical_product, admin_approval, synced_at)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
 				ON CONFLICT(sf_id) DO UPDATE SET
 					name = excluded.name,
 					subtitle = excluded.subtitle,
@@ -238,6 +239,7 @@ export async function runSync(env: SyncEnv): Promise<{
 					intended_audiences = excluded.intended_audiences,
 					parent_article_id = excluded.parent_article_id,
 					vertical_product = excluded.vertical_product,
+					admin_approval = excluded.admin_approval,
 					synced_at = excluded.synced_at
 			`).bind(
 				a.Id, a.Name, a.Subtitle__c, a.Short_Description__c,
@@ -247,6 +249,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				a.Order__c, a.Navigation_Type__c, a.NavJSON__c,
 				a.Rich_Text_or_HTML_body__c, a.Intended_Audiences__c,
 				a.Parent_Article__c, a.Vertical_Product__c,
+				a.Admin_Approval__c ? 1 : 0,
 			).run();
 		}
 
