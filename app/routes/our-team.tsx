@@ -178,14 +178,14 @@ function TeamGrid() {
 												<img
 													src={`/api/assets/${member.photo_r2_key}`}
 													alt={`${member.first_name} ${member.last_name}`}
-													className="flex-1 apect-square object-cover flex-shrink-0"
+													className="w-1/3 aspect-square object-cover flex-shrink-0"
 												/>
 											) : (
-												<div className="flex-1  apect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
+												<div className="w-1/3 aspect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
 													{initials}
 												</div>
 											)}
-											<div className="text-left p-2 flex-2">
+											<div className="text-left p-2 w-2/3">
 												<h3 className="text-lg font-bold text-white">
 													{member.first_name} {member.last_name}
 												</h3>
