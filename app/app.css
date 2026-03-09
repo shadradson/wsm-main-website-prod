@@ -1057,6 +1057,5 @@ img.close_rocks_img {
 .stats-fade-in {
 	animation: statsFadeIn ease-out both;
 	animation-timeline: view();
-	animation-range-start: entry 0%;
-	animation-range-end: 90vh;
+	animation-range: entry 0% entry 100%;
 }
