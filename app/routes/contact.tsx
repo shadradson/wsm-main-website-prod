@@ -25,7 +25,23 @@ export default function Contact() {
 function PageHero() {
 	return (
 		<section id="contact-hero" className="bg-summit-dark relative overflow-hidden">
-			<ParticleDots lineColor="#ffffff44" linkDistance={80} />
+			<ParticleDots
+					particleCount={800}
+					color="#ffffff33"
+					lineColor="#ffffff44"
+					repelRadius={120}
+					repelStrength={0.08}
+					linkDistance={80}
+					svgLinkDistance={80}
+					svgPath="M2 4h20v16H2V4zm0 0l10 8 10-8"
+					svgScale={12}
+					svgOffsetX={0}
+					svgOffsetY={20}
+					svgPoints={800}
+					attractStrength={0.015}
+					svgFit="none"
+					svgAlign="center"
+				/>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">

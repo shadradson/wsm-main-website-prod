@@ -1,6 +1,7 @@
 import type { Route } from "./+types/case-studies";
 import { Link, useLoaderData } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
+import { WSM_LOGO_PATH } from "~/lib/svgPaths";
 
 interface Article {
 	sf_id: string;
@@ -68,8 +69,24 @@ export default function CaseStudies() {
 
 function PageHero() {
 	return (
-		<section id="cases-hero" className="bg-summit-dark relative overflow-hidden">
-			<ParticleDots lineColor="#ffffff44" linkDistance={80} />
+		<section id="cases-hero" className="bg-gradient-to-br from-wsm-cliff to-wsm-glacier min-h-[50vh] relative overflow-hidden">
+			<ParticleDots
+					particleCount={600}
+					color="#ffffff22"
+					lineColor="#ffffff"
+					repelRadius={180}
+					repelStrength={0.08}
+					linkDistance={90}
+					svgLinkDistance={50}
+					svgPath={WSM_LOGO_PATH}
+					svgScale={5}
+					svgOffsetX={-200}
+					svgOffsetY={20}
+					svgPoints={200}
+					attractStrength={0.005}
+					svgFit="none"
+					svgAlign="right"
+				/>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">

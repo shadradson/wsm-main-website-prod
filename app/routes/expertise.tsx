@@ -1,6 +1,7 @@
 import type { Route } from "./+types/expertise";
 import { Link } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
+import { MOUNTAIN_POINTS_PATH } from "~/lib/svgPaths";
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -27,8 +28,24 @@ export default function Expertise() {
 
 function PageHero() {
 	return (
-		<section id="expertise-hero" className="bg-summit-dark relative overflow-hidden">
-			<ParticleDots lineColor="#ffffff44" linkDistance={80} />
+		<section id="expertise-hero" className="bg-gradient-to-tl from-summit-dark to-wsm-cliff min-h-[50vh] relative overflow-hidden">
+			<ParticleDots
+					particleCount={600}
+					color="#ffffff33"
+					lineColor="#ffffff44"
+					repelRadius={180}
+					repelStrength={0.1}
+					linkDistance={100}
+					svgLinkDistance={100}
+					svgPath={MOUNTAIN_POINTS_PATH}
+					svgScale={1}
+					svgOffsetX={300}
+					svgOffsetY={30}
+					svgPoints={300}
+					attractStrength={0.015}
+					svgFit="height"
+					svgAlign="right"
+				/>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
