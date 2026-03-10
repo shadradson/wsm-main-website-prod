@@ -734,9 +734,9 @@ img.hillside_img {
 img.wsm_img {
 	position: absolute;
 	top: CALC(40vh - 10vw);
-	height: 20vw;
-	min-height: 300px;
-	min-width: 300px;
+	height: 18vw;
+	min-height: 260px;
+	min-width: 260px;
 	opacity: 0.8;
 	z-index: 5;
 }

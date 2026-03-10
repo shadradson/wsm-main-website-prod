@@ -300,9 +300,10 @@ function WhyChooseUs() {
 function StatsSection() {
 	const stats = [
 		{ value: "2023", label: "Founded" },
-		{ value: "100%", label: "Client Satisfaction" },
+		{ value: "5 / 5", label: "CSAT Score" },
 		{ value: "100+", label: "Projects Delivered" },
-		{ value: "28", label: "Certifications" },
+		{ value: "30+", label: "Certifications" },
+		{ value: "USA", label: "Located" },
 	];
 
 	return (
@@ -311,11 +312,11 @@ function StatsSection() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-wrap gap-8">
 						{stats.map((stat) => (
-							<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
-								<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">
+							<div key={stat.label} className="flex-1 min-w-[25%] w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
+								<p className="text-4xl sm:text-5xl font-bold text-brand-sky mb-2">
 									{stat.value}
 								</p>
-								<p className="text-gray-400 text-sm uppercase tracking-wider">
+								<p className="text-gray-400 text-1xl uppercase tracking-wider">
 									{stat.label}
 								</p>
 							</div>
@@ -330,11 +331,11 @@ function StatsSection() {
 function CTASection() {
 	return (
 		<section id="home-cta">
-			<div className="py-20 lg:py-28">
+			<div className="py-20 lg:py-28 bg-summit-dark">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div id="home-cta-card" className="relative bg-gradient-to-br from-navy-800 to-summit-dark rounded-3xl p-12 lg:p-16 text-center overflow-hidden">
-						<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10 rounded-full blur-3xl" />
-						<div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-blue/10 rounded-full blur-3xl" />
+					<div id="home-cta-card" className="relative bg-gradient-to-br from-brand-peach to-summit-dark p-12 lg:p-16 text-center overflow-hidden">
+						<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
+						<div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-blue/10  blur-3xl" />
 
 						<div className="relative">
 							<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">

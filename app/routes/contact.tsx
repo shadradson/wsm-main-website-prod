@@ -1,5 +1,6 @@
 import type { Route } from "./+types/contact";
 import { Link } from "react-router";
+import ParticleDots from "~/components/ParticleDots";
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -23,8 +24,9 @@ export default function Contact() {
 
 function PageHero() {
 	return (
-		<section id="contact-hero" className="bg-summit-dark">
-			<div className="py-20 lg:py-28">
+		<section id="contact-hero" className="bg-summit-dark relative overflow-hidden">
+			<ParticleDots lineColor="#ffffff44" linkDistance={80} />
+			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
 						<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">

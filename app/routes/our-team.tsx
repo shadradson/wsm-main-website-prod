@@ -10,6 +10,7 @@ interface TeamMember {
 	about_us_sort_order: number;
 	trailblazer_url: string | null;
 	linkedin_url: string | null;
+	time_in_industry: number | null;
 	photo_r2_key: string | null;
 }
 
@@ -27,10 +28,13 @@ export function meta({ }: Route.MetaArgs) {
 export async function loader({ context }: Route.LoaderArgs) {
 	const db = context.cloudflare.env.DB;
 	const { results } = await db.prepare(
-		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, photo_r2_key FROM contacts ORDER BY about_us_sort_order ASC",
+		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, time_in_industry, photo_r2_key FROM contacts ORDER BY about_us_sort_order ASC",
 	).all<TeamMember>();
 
-	return { team: results ?? [] };
+	const team = results ?? [];
+	const totalYearsExperience = team.reduce((sum, m) => sum + (m.time_in_industry ?? 0), 0);
+
+	return { team, totalYearsExperience };
 }
 
 export default function OurTeam() {
@@ -39,7 +43,6 @@ export default function OurTeam() {
 			<OurTeamHero />
 			<TeamGrid />
 			<TransitionLayer2 />
-			<OurStats />
 			<CertificationsSection />
 			<CTASection />
 		</>
@@ -77,6 +80,7 @@ function OurTeamHero() {
 				<div className="our_team_para_layer layer5 mix_blend_ex" id="keyart-0" data-speed="-0.8" data-blur="0" data-baseblur="0">
 					<div className="wsm slide">
 						<img src="/images/WSM_LOGO_V2_Norm_Wht.svg" className="wsm_img" />
+						<h1 className="absolute top-[calc(75vh-10vw)] text-5xl font-bold text-white">OUR TEAM</h1>
 					</div>
 				</div>
 
@@ -121,9 +125,7 @@ function OurTeamHero() {
 				</div>
 
 				<div className="our_team_para_layer layer10" id="keyart-8" data-speed="100">
-					<h1 className="text-white">OUR TEAM</h1>
-					<h2 className="text-white">The people who</h2>
-					<h2 className="text-white">Summit Mountains</h2>
+
 				</div>
 
 			</div>
@@ -132,40 +134,37 @@ function OurTeamHero() {
 	);
 }
 
-function PageHero() {
-	return (
-		<section id="team-hero" className="bg-gradient-to-b from-wsm-cliff to-wsm-dark pattern-bg-dots">
-			<div className="py-20 lg:py-28 h-[80vh]">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="max-w-3xl">
-						<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">
-							Our Team
-						</p>
-						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-							<span className="block">The People Who</span>
-							<span className="bg-gradient-to-r from-wsm-glacier to-brand-peach inline-block text-transparent bg-clip-text">Summit Mountains</span>
-						</h1>
-						<p className="text-lg text-gray-300 leading-relaxed">
-							We solve problems, overcome challenges, grow ourselves
-							and encourage others. Meet the team that makes it all
-							happen.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
+
 
 
 function TeamGrid() {
-	const { team } = useLoaderData<typeof loader>();
+	const { team, totalYearsExperience } = useLoaderData<typeof loader>();
+	const Stats = [
+		{
+			label: "Certifications",
+			data: "30",
+		},
+		{
+			label: "Years Experience",
+			data: String(totalYearsExperience || "22"),
+		},
+		{
+			label: "Cats",
+			data: "5",
+		},
+	]
 
 	return (
 		<section id="team-grid">
 			<div className="py-20 lg:py-28 bg-gradient-to-b from-[#111412] to-wsm-cliff
 			 pattern-bg-dots">
 				<div className="max-w-7xl mx-auto p-4 border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15 mix-blend-screen">
+					<div className="bg-black p-4 border-2 border-solid border-[#ffffff22]">
+						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
+							<span className="block">The Humans Who</span>
+							<span className="bg-gradient-to-r from-wsm-glacier to-brand-peach inline-block text-transparent bg-clip-text">Summit Mountains</span>
+						</h1>
+					</div>
 					<div className="flex flex-wrap justify-center bg-[#ffffff22]">
 						{team.map((member: TeamMember) => {
 							const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
@@ -241,9 +240,30 @@ function TeamGrid() {
 					</div>
 				</div>
 			</div>
+			<div id="home-stats" className="bg-wsm-cliff">
+				<div className="py-16">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="flex flex-wrap gap-8 justify-center">
+							{Stats.map((stat) => (
+								<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center stats-fade-in">
+									<p className="text-5xl sm:text-5xl font-bold text-white mb-2">
+										{stat.data}
+									</p>
+									<p className="text-gray-400 text-sm uppercase tracking-wider">
+										{stat.label}
+									</p>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
+
 	);
 }
+
+
 
 function TransitionLayer2() {
 	return (
@@ -251,8 +271,8 @@ function TransitionLayer2() {
 			<div className="transition1 bg-wsm-cliff">
 				<div className="translayer midlay t1_lay5">
 					<div className="splash_tag_box">
-						<div className="splash_tag_text text-wsm-dark">
-							STATS
+						<div className="splash_tag_text text-gray-50">
+							CERTS
 						</div>
 					</div>
 				</div>
@@ -262,51 +282,18 @@ function TransitionLayer2() {
 	);
 }
 
-function OurStats() {
-	const Stats = [
-		{
-			label: "Certifications",
-			data: "30"
-		},
-		{
-			label: "Years Experience",
-			data: "22"
-		},
-		{
-			label: "Cats",
-			data: "5"
-		},
-	]
-
-	return (
-		<section id="home-stats" className="bg-gradient-to-b from-wsm-dark to-summit-dark">
-			<div className="py-16">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-wrap gap-8 justify-center">
-						{Stats.map((stat) => (
-							<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center stats-fade-in">
-								<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">
-									{stat.data}
-								</p>
-								<p className="text-gray-400 text-sm uppercase tracking-wider">
-									{stat.label}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-
-}
-
 function CertificationsSection() {
-	const certifications = [
+	const sfcertifications = [
 		"Salesforce Certified Administrator",
 		"Salesforce Sales Cloud Consultant",
 		"Salesforce Platform Developer I",
 		"Salesforce Service Cloud Consultant",
+		"Salesforce Digital Experience Consultant",
+		"Salesforce Platform App Builder",
+		"Salesforce Data Architect",
+		"Salesforce Sharing and Visbility Designer",
+		"Salesforce CPQ Certified Administrator",
+		"Salesforce Business Analyst",
 	];
 
 	return (
@@ -320,11 +307,26 @@ function CertificationsSection() {
 						Our team maintains the industry's most respected
 						certifications to deliver the highest quality solutions.
 					</p>
+					{/* Salesforce Partner Badge */}
+					<div className="flex justify-center mb-12">
+						<div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
+							<div className="w-4/5">
+								<img src="/images/Salesforce logo.svg" alt="Salesforce" />
+							</div>
+							<div className="text-center text-wsm-dark">
+								<p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
+							</div>
+							<div className="text-center text-wsm-dark">
+								<p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
+							</div>
+						</div>
+					</div>
+
 					<div className="flex flex-wrap justify-center gap-4">
-						{certifications.map((cert) => (
+						{sfcertifications.map((cert) => (
 							<div
 								key={cert}
-								className="flex items-center gap-3 px-6 py-4 bg-white rounded-xl border border-gray-200 shadow-sm"
+								className="flex-1 min-w-[300px] items-center gap-3 px-6 py-4 bg-white rounded-xl border border-gray-200 shadow-sm"
 							>
 								<svg className="w-6 h-6 text-brand-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />

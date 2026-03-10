@@ -14,12 +14,16 @@ function Header() {
 		const onScroll = () => {
 			if (isOurTeam) {
 				setScrolled(window.scrollY > window.innerHeight * 1);
+				setNavVisible(window.scrollY > window.innerHeight * 1.4);
 			} else {
 				setScrolled(window.scrollY > 20);
 			}
 			if (isHome) {
 				setHeroLogoGone(window.scrollY > window.innerHeight * 1);
 				setNavVisible(window.scrollY > window.innerHeight * 0.5);
+			}
+			if (!isHome && !isOurTeam) {
+				setNavVisible(true);
 			}
 		};
 		onScroll();
@@ -36,18 +40,17 @@ function Header() {
 	];
 
 	return (
-		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isHome && !navVisible ? "opacity-0 -translate-y-full" : "opacity-100 translate-y-0"} ${scrolled ? "bg-summit-dark/95 backdrop-blur-sm border-b border-white/10" : "bg-transparent border-b border-transparent"}`}>
+		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${scrolled ? "bg-summit-dark/95 backdrop-blur-sm border-b border-white/10" : "bg-transparent border-b border-transparent"}`}>
 			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div id="header-row" className="relative flex items-center h-12 lg:h-16">
 					{/* Logo: centered on mobile always, left-aligned on desktop */}
 					<Link
 						to="/"
 						id="header-logo-link"
-						className={`transition-all duration-300 lg:relative ${
-							isHome && !heroLogoGone
+						className={`transition-all duration-300 lg:relative ${isHome && !heroLogoGone
 								? "absolute left-1/2 -translate-x-1/2 lg:opacity-0 lg:pointer-events-none"
 								: "absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
-						}`}
+							}`}
 					>
 						<img
 							id="header-logo"
@@ -65,10 +68,9 @@ function Header() {
 								to={link.to}
 								end={link.to === "/"}
 								className={({ isActive }) =>
-									`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-										isActive
-											? "text-brand-sky bg-white/10"
-											: "text-gray-300 hover:text-white hover:bg-white/5"
+									`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
+										? "text-brand-sky bg-white/10"
+										: "text-gray-300 hover:text-white hover:bg-white/5"
 									}`
 								}
 							>
@@ -113,10 +115,9 @@ function Header() {
 								end={link.to === "/"}
 								onClick={() => setMobileOpen(false)}
 								className={({ isActive }) =>
-									`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-										isActive
-											? "text-brand-sky bg-white/10"
-											: "text-gray-300 hover:text-white hover:bg-white/5"
+									`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+										? "text-brand-sky bg-white/10"
+										: "text-gray-300 hover:text-white hover:bg-white/5"
 									}`
 								}
 							>
@@ -139,82 +140,77 @@ function Header() {
 
 function Footer() {
 	return (
-		<footer id="main-footer" className="bg-summit-dark text-gray-400">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				<div className="flex flex-wrap gap-12">
-					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
-						<Link to="/" className="flex items-center gap-3 mb-4">
-							<img
-							id="header-logo"
-							src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
-							alt="We Summit Mountains"
-							className="h-10"
-						/>
-						</Link>
-						<p className="text-sm leading-relaxed">
+		<footer id="main-footer" className="bg-gradient-to-b from-wsm-cliff to-wsm-dark text-gray-400 flex flex-col items-center w-full">
+			<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+				<div className="flex flex-wrap gap-12 justify-center">
+					<div className="flex-1">
+						<p className="text-sm text-white leading-relaxed">
 							Tailored AI Solutions, CTO Solutions, and Salesforce Implementation to drive business
-							success. Let's climb your software mountain
+							success.
+						</p>
+						<p className="text-sm text-white leading-relaxed">
+							Let's summit your software mountain
 							together.
 						</p>
 					</div>
 
-					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
+					<div className="flex-1">
 						<h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
 							Services
 						</h3>
 						<ul className="space-y-3 text-sm">
 							<li>
-								<Link to="/expertise" className="hover:text-brand-sky transition-colors">
+								<Link to="/expertise" className="hover:text-wsm-glacier text-white transition-colors">
 									Salesforce Implementation
 								</Link>
 							</li>
 							<li>
-								<Link to="/expertise" className="hover:text-brand-sky transition-colors">
+								<Link to="/expertise" className="hover:text-wsm-glacier text-white transition-colors">
 									Cloud CRM Solutions
 								</Link>
 							</li>
 							<li>
-								<Link to="/expertise" className="hover:text-brand-sky transition-colors">
+								<Link to="/expertise" className="hover:text-wsm-glacier text-white transition-colors">
 									System Integrations
 								</Link>
 							</li>
 							<li>
-								<Link to="/expertise" className="hover:text-brand-sky transition-colors">
+								<Link to="/expertise" className="hover:text-wsm-glacier text-white transition-colors">
 									AI Consulting
 								</Link>
 							</li>
 						</ul>
 					</div>
 
-					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
+					<div className="flex-1">
 						<h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
 							Company
 						</h3>
 						<ul className="space-y-3 text-sm">
 							<li>
-								<Link to="/about-us" className="hover:text-brand-sky transition-colors">
+								<Link to="/about-us" className="hover:text-wsm-glacier text-white transition-colors">
 									About Us
 								</Link>
 							</li>
 							<li>
-								<Link to="/our-team" className="hover:text-brand-sky transition-colors">
+								<Link to="/our-team" className="hover:text-wsm-glacier text-white transition-colors">
 									Our Team
 								</Link>
 							</li>
 							<li>
-								<Link to="/case-studies" className="hover:text-brand-sky transition-colors">
+								<Link to="/case-studies" className="hover:text-wsm-glacier text-white transition-colors">
 									Case Studies
 								</Link>
 							</li>
 							<li>
-								<Link to="/contact" className="hover:text-brand-sky transition-colors">
+								<Link to="/contact" className="hover:text-wsm-glacier text-white transition-colors">
 									Contact
 								</Link>
 							</li>
 						</ul>
 					</div>
 
-					<div className="w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(25%-2.25rem)]">
+					<div className="flex-1">
 						<h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
 							Connect
 						</h3>
@@ -224,7 +220,7 @@ function Footer() {
 									href="https://www.linkedin.com/company/we-summit-mountains"
 									target="_blank"
 									rel="noreferrer"
-									className="hover:text-brand-sky transition-colors"
+									className="hover:text-wsm-glacier text-white transition-colors"
 								>
 									LinkedIn
 								</a>
@@ -236,12 +232,25 @@ function Footer() {
 					</div>
 				</div>
 
-				<div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-					<p className="text-sm">
-						&copy; {new Date().getFullYear()} We Summit Mountains
-						LLC. All rights reserved.
-					</p>
 				</div>
+
+			<div className="w-full">
+				<Link to="/" className="block w-[400px] mx-auto">
+					<div className="bg-wsm-cliff text-center p-4">
+						<img
+							id="footer-logo"
+							src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
+							alt="We Summit Mountains"
+							className="min-w-[200px] max-w-[300px] p-4 mx-auto"
+						/>
+						<p className="text-sm text-white">
+							&copy; {new Date().getFullYear()} We Summit Mountains
+						</p>
+						<p className="text-sm text-white">
+							All rights reserved.
+						</p>
+					</div>
+				</Link>
 			</div>
 		</footer>
 	);

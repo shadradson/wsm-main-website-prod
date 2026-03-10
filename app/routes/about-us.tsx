@@ -26,7 +26,7 @@ export default function AboutUs() {
 
 function PageHero() {
 	return (
-		<section id="about-hero" className="bg-summit-dark">
+		<section id="about-hero" className="bg-wsm-cliff relative overflow-hidden">
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
@@ -34,18 +34,19 @@ function PageHero() {
 							About Us
 						</p>
 						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-							Transforming Challenges Into{" "}
+							Transforming Mountains Into{" "}
 							<span className="text-brand-sky">Opportunities</span>
 						</h1>
 						<p className="text-lg text-gray-300 leading-relaxed">
-							We Summit Mountains is a Dallas-based software
-							development firm that partners with organizations to
+							We Summit Mountains is a team of exceptional individuals
+							excited to partner with organizations to
 							provide strategic guidance and innovative tools for
 							measurable business results.
 						</p>
 					</div>
 				</div>
 			</div>
+			
 		</section>
 	);
 }
@@ -61,10 +62,9 @@ function MissionSection() {
 								Our Mission
 							</h2>
 							<p className="text-lg text-gray-600 leading-relaxed mb-6">
-								To solve problems, overcome obstacles, and foster
-								progress together. We partner with organizations to
-								provide strategic guidance and innovative tools for
-								measurable business results.
+								is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software.
+								We will learn to cultivate the best in ourselves, and in eachother as we stride toward the top of each mountain.
+								Our knowledge is shared so that we can all grow greater than any one of us.
 							</p>
 							<p className="text-lg text-gray-600 leading-relaxed">
 								Every mountain represents a challenge waiting to be
@@ -73,13 +73,10 @@ function MissionSection() {
 								of reach.
 							</p>
 						</div>
-						<div className="lg:w-1/2 bg-gradient-to-br from-brand-teal/10 to-brand-blue/10 rounded-3xl p-12 text-center">
+						<div className="lg:w-1/2 bg-gradient-to-br from-brand-teal/10 to-brand-blue/10 p-12 text-center">
 							<blockquote className="text-2xl font-light text-gray-800 italic leading-relaxed">
 								"Let's climb your software mountain together."
 							</blockquote>
-							<p className="mt-4 text-brand-blue font-semibold">
-								— We Summit Mountains
-							</p>
 						</div>
 					</div>
 				</div>
