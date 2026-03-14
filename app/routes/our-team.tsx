@@ -1,5 +1,6 @@
 import type { Route } from "./+types/our-team";
 import { Link, useLoaderData } from "react-router";
+import { buildMeta, SITE_URL } from "~/lib/seo";
 
 interface TeamMember {
 	sf_id: string;
@@ -10,25 +11,42 @@ interface TeamMember {
 	about_us_sort_order: number;
 	trailblazer_url: string | null;
 	linkedin_url: string | null;
+	date_started_in_industry: string | null;
 	time_in_industry: number | null;
+	date_started_at_wsm: string | null;
+	years_at_wsm: number | null;
 	photo_r2_key: string | null;
 }
 
+const TITLE = "About Us | We Summit Mountains | Dallas Salesforce & AI Consultants";
+const DESCRIPTION =
+	"Meet the We Summit Mountains team — certified Salesforce professionals with 14+ years of combined experience. A Dallas-based consulting firm specializing in Salesforce, AI, and custom software.";
+
+const aboutPageSchema = {
+	"@context": "https://schema.org",
+	"@type": "AboutPage",
+	"@id": `${SITE_URL}/about-us`,
+	name: TITLE,
+	description: DESCRIPTION,
+	url: `${SITE_URL}/about-us`,
+	publisher: { "@id": `${SITE_URL}/#organization` },
+	breadcrumb: {
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+			{ "@type": "ListItem", position: 2, name: "About Us", item: `${SITE_URL}/about-us` },
+		],
+	},
+};
+
 export function meta({ }: Route.MetaArgs) {
-	return [
-		{ title: "Our Team | We Summit Mountains" },
-		{
-			name: "description",
-			content:
-				"Meet the team behind We Summit Mountains. Certified Salesforce professionals dedicated to helping you reach your technology summit.",
-		},
-	];
+	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/about-us" });
 }
 
 export async function loader({ context }: Route.LoaderArgs) {
 	const db = context.cloudflare.env.DB;
 	const { results } = await db.prepare(
-		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, time_in_industry, photo_r2_key FROM contacts ORDER BY about_us_sort_order ASC",
+		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key FROM contacts ORDER BY about_us_sort_order ASC",
 	).all<TeamMember>();
 
 	const team = results ?? [];
@@ -40,10 +58,14 @@ export async function loader({ context }: Route.LoaderArgs) {
 export default function OurTeam() {
 	return (
 		<>
+			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }} />
 			<OurTeamHero />
 			<TeamGrid />
 			<TransitionLayer2 />
 			<CertificationsSection />
+			<MissionSection />
+			<ValuesSection />
+			<StorySection />
 			<CTASection />
 		</>
 	);
@@ -192,6 +214,21 @@ function TeamGrid() {
 													<p className="text-wsm-glacier text-sm font-medium mt-1">
 														{member.title}
 													</p>
+												)}
+												{/* Career stats */}
+												{(member.years_at_wsm != null || member.time_in_industry != null) && (
+													<div className="flex gap-2 mt-2 flex-wrap">
+														{member.years_at_wsm != null && (
+															<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 rounded">
+																{Math.round(member.years_at_wsm)} yr{Math.round(member.years_at_wsm) !== 1 ? "s" : ""} at WSM
+															</span>
+														)}
+														{member.time_in_industry != null && (
+															<span className="text-xs font-semibold text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1 rounded">
+																{member.time_in_industry} yr{member.time_in_industry !== 1 ? "s" : ""} in industry
+															</span>
+														)}
+													</div>
 												)}
 												{/* Certifications */}
 												{member.certifications && (
@@ -343,24 +380,156 @@ function CertificationsSection() {
 	);
 }
 
+function MissionSection() {
+	return (
+		<section id="about-mission">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="flex flex-col lg:flex-row gap-16 items-center">
+						<div className="lg:w-1/2">
+							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+								Our Mission
+							</h2>
+							<p className="text-lg text-gray-600 leading-relaxed mb-6">
+								is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software.
+								We will learn to cultivate the best in ourselves, and in eachother as we stride toward the top of each mountain.
+								Our knowledge is shared so that we can all grow greater than any one of us.
+							</p>
+							<p className="text-lg text-gray-600 leading-relaxed">
+								Every mountain represents a challenge waiting to be
+								conquered. We believe that with the right team, the
+								right tools, and the right strategy, no peak is out
+								of reach.
+							</p>
+						</div>
+						<div className="lg:w-1/2 bg-gradient-to-br from-brand-teal/10 to-brand-blue/10 p-12 text-center">
+							<blockquote className="text-2xl font-light text-gray-800 italic leading-relaxed">
+								"Let's climb your software mountain together."
+							</blockquote>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}
+
+function ValuesSection() {
+	const values = [
+		{
+			title: "We All Climb Together",
+			description:
+				"Climbing is difficult, but we're not doing it alone! We all help each other when we can. This allows us to do much more as a group, and the effects are exponential.",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+				</svg>
+			),
+		},
+		{
+			title: "We Climb to Grow",
+			description:
+				"We work to to grow ourselves and the others around us. Growth is painful, but the reward is great. There is nothing as fulfilling as breaking through the walls that hold you back to accomplish what the previous version of yourself did not think was possible.",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+				</svg>
+			),
+		},
+		{
+			title: "We Keep Climbing",
+			description:
+				"We are not here to do the bare minimum. We are not here to take the easy path. We are here to take the right path to the top of every mountain we face together. Let's go.",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+				</svg>
+			),
+		},
+	];
+
+	return (
+		<section id="about-values" className="bg-gray-50">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="text-center max-w-2xl mx-auto mb-16">
+						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+							Our Core Values
+						</h2>
+						<p className="text-lg text-gray-600">
+							These principles guide everything we do and every
+							solution we build.
+						</p>
+					</div>
+					<div className="flex flex-col gap-8">
+						{values.map((value) => (
+							<div
+								key={value.title}
+								className="w-full bg-white p-8 rounded-2xl shadow-sm"
+							>
+								<div className="w-14 h-14 rounded-xl bg-brand-sky/10 text-brand-sky flex items-center justify-center mb-5">
+									{value.icon}
+								</div>
+								<h3 className="text-xl font-bold text-gray-900 mb-3">
+									{value.title}
+								</h3>
+								<p className="text-gray-600 leading-relaxed">
+									{value.description}
+								</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}
+
+function StorySection() {
+	return (
+		<section id="about-story">
+			<div className="py-20 lg:py-28">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto text-center">
+						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+							Our Story
+						</h2>
+						<p className="text-lg text-gray-600 leading-relaxed mb-6">
+							Founded in 2023
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}
+
 function CTASection() {
 	return (
-		<section id="team-cta">
+		<section id="about-cta" className="bg-gray-50">
 			<div className="py-20">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 					<h2 className="text-3xl font-bold text-gray-900 mb-4">
-						Want to Join We Summit?
+						Ready to Start Climbing?
 					</h2>
 					<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-						We're always looking for talented individuals who share our
-						passion for solving complex challenges.
+						Join the organizations that have partnered with us to reach
+						new heights.
 					</p>
-					<Link
-						to="/contact"
-						className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
-					>
-						Get In Touch
-					</Link>
+					<div className="flex flex-col sm:flex-row gap-4 justify-center">
+						<Link
+							to="/contact"
+							className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all"
+						>
+							Get In Touch
+						</Link>
+						<Link
+							to="/case-studies"
+							className="inline-flex items-center justify-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
+						>
+							View Case Studies
+						</Link>
+					</div>
 				</div>
 			</div>
 		</section>

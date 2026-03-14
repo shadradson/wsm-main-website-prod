@@ -893,11 +893,15 @@ img.close_rocks_img {
 	0% {
 		transform: translate(0, 0px);
 	}
-
-	50% {
-		transform: translate(0, 30px);
+	25% {
+		transform: translate(0, 20px);
 	}
-
+	50% {
+		transform: translate(0, 0px);
+	}
+	75% {
+		transform: translate(0, 40px);
+	}
 	100% {
 		transform: translate(0, -0px);
 	}
@@ -1058,4 +1062,26 @@ img.close_rocks_img {
 	animation: statsFadeIn ease-out both;
 	animation-timeline: view();
 	animation-range: entry 0% entry 100%;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>> Footer <<<<<<<<<<<<<<<<<<<<<<<<<*/
+#main-footer {
+	background: radial-gradient(circle at center, #6e909c, #336d8b);
+}
+#footer-m-bg {
+	position: relative;
+	height: 20vh;
+	bottom: 0;
+}
+.footer_mtn_image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    z-index: 1;
+}
+.glow-logo {
+	filter: drop-shadow(0 0 4px  #FFD6B7) drop-shadow(0 0 8px #f8dfcc) drop-shadow(0 0 12px  #fff6f0);
 }

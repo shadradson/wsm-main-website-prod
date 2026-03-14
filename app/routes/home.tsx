@@ -1,27 +1,96 @@
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
+import { buildMeta, SITE_URL, SITE_LOGO, OG_IMAGE } from "~/lib/seo";
+
+const TITLE = "We Summit Mountains | Salesforce & AI Consulting | Dallas, TX";
+const DESCRIPTION =
+	"Salesforce implementation, AI consulting & CTO services in Dallas, TX. We Summit Mountains turns complex technology challenges into your competitive advantage.";
 
 export function meta({ }: Route.MetaArgs) {
-	return [
-		{ title: "We Summit Mountains | AI & Salesforce Consulting" },
-		{
-			name: "description",
-			content:
-				"Tailored software development to drive business success. Salesforce implementation, Cloud CRM, AI consulting, and system integrations in Dallas, Texas.",
-		},
-	];
+	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/" });
 }
+
+const localBusinessSchema = {
+	"@context": "https://schema.org",
+	"@type": ["LocalBusiness", "ProfessionalService"],
+	"@id": `${SITE_URL}/#localbusiness`,
+	name: "We Summit Mountains",
+	description: DESCRIPTION,
+	url: SITE_URL,
+	logo: SITE_LOGO,
+	image: OG_IMAGE,
+	foundingDate: "2023",
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: "Dallas",
+		addressRegion: "TX",
+		addressCountry: "US",
+	},
+	areaServed: { "@type": "Country", name: "United States" },
+	sameAs: ["https://www.linkedin.com/company/we-summit-mountains"],
+	hasOfferCatalog: {
+		"@type": "OfferCatalog",
+		name: "Consulting Services",
+		itemListElement: [
+			{ "@type": "Offer", itemOffered: { "@type": "Service", name: "Salesforce Implementation" } },
+			{ "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Consulting" } },
+			{ "@type": "Offer", itemOffered: { "@type": "Service", name: "CTO Fractional Services" } },
+			{ "@type": "Offer", itemOffered: { "@type": "Service", name: "Cloud CRM Solutions" } },
+			{ "@type": "Offer", itemOffered: { "@type": "Service", name: "System Integrations" } },
+		],
+	},
+};
+
+const homeFaqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: [
+		{
+			"@type": "Question",
+			name: "What services does We Summit Mountains offer?",
+			acceptedAnswer: {
+				"@type": "Answer",
+				text: "We Summit Mountains offers Salesforce implementation, AI consulting, CTO fractional services, cloud CRM solutions, system integrations, and custom software development for businesses across the United States.",
+			},
+		},
+		{
+			"@type": "Question",
+			name: "Where is We Summit Mountains located?",
+			acceptedAnswer: {
+				"@type": "Answer",
+				text: "We Summit Mountains is based in Dallas, Texas and serves clients across the United States.",
+			},
+		},
+		{
+			"@type": "Question",
+			name: "How experienced is the We Summit Mountains team?",
+			acceptedAnswer: {
+				"@type": "Answer",
+				text: "Our team includes certified Salesforce professionals with 14+ years of combined experience in the Salesforce ecosystem. Every developer is Salesforce Certified, and our Solution Architects have deep expertise in enterprise implementations.",
+			},
+		},
+		{
+			"@type": "Question",
+			name: "When was We Summit Mountains founded?",
+			acceptedAnswer: {
+				"@type": "Answer",
+				text: "We Summit Mountains was founded in 2023. Our team has been working in the Salesforce ecosystem for over 14 combined years and serves companies across the United States.",
+			},
+		},
+	],
+};
 
 export default function Home() {
 	return (
 		<>
+			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }} />
 			<HeroSection />
 			<TransitionLayer1 />
 			<ServicesOverview />
 			<TransitionLayer2 />
 			<WhyChooseUs />
 			<StatsSection />
-			<CTASection />
 		</>
 	);
 }
@@ -308,9 +377,9 @@ function StatsSection() {
 
 	return (
 		<section id="home-stats" className="bg-summit-dark">
-			<div className="py-16">
+			<div className="py-32">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-wrap gap-8">
+					<div className="flex flex-wrap gap-16">
 						{stats.map((stat) => (
 							<div key={stat.label} className="flex-1 min-w-[25%] w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
 								<p className="text-4xl sm:text-5xl font-bold text-brand-sky mb-2">
@@ -321,45 +390,6 @@ function StatsSection() {
 								</p>
 							</div>
 						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function CTASection() {
-	return (
-		<section id="home-cta">
-			<div className="py-20 lg:py-28 bg-summit-dark">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div id="home-cta-card" className="relative bg-gradient-to-br from-brand-peach to-summit-dark p-12 lg:p-16 text-center overflow-hidden">
-						<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
-						<div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-blue/10  blur-3xl" />
-
-						<div className="relative">
-							<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-								Ready to Reach Your Summit?
-							</h2>
-							<p className="text-lg text-gray-300 max-w-xl mx-auto mb-8">
-								Let's discuss how we can transform your technology
-								challenges into competitive advantages.
-							</p>
-							<div className="flex flex-col sm:flex-row gap-4 justify-center">
-								<Link
-									to="/contact"
-									className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
-								>
-									Get In Touch
-								</Link>
-								<Link
-									to="/case-studies"
-									className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-semibold hover:bg-white/10 transition-all"
-								>
-									View Case Studies
-								</Link>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

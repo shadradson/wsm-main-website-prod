@@ -8,12 +8,15 @@ import {
 export default [
 	layout("routes/layout.tsx", [
 		index("routes/home.tsx"),
-		route("about-us", "routes/about-us.tsx"),
+		route("about-us", "routes/our-team.tsx"),
 		route("expertise", "routes/expertise.tsx"),
 		route("case-studies", "routes/case-studies.tsx"),
-		route("our-team", "routes/our-team.tsx"),
+		route("article/:id", "routes/article.$id.tsx"),
 		route("contact", "routes/contact.tsx"),
+		route("mountain-rescue", "routes/mountain-rescue.tsx"),
 	]),
+	route("api/og", "routes/api.og.tsx"),
+	route("api/lead", "routes/api.lead.ts"),
 	route("api/sync", "routes/api.sync.ts"),
 	route("api/assets/*", "routes/api.assets.$.ts"),
 	route("api/debug", "routes/api.debug.ts"),

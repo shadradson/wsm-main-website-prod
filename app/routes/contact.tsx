@@ -1,21 +1,38 @@
 import type { Route } from "./+types/contact";
 import { Link } from "react-router";
+import { useLeadForm } from "~/lib/useLeadForm";
 import ParticleDots from "~/components/ParticleDots";
+import { buildMeta, SITE_URL } from "~/lib/seo";
+
+const TITLE = "Contact We Summit Mountains | Free Consultation | Dallas, TX";
+const DESCRIPTION =
+	"Get in touch with We Summit Mountains for a free consultation. Salesforce implementation, AI consulting & custom software experts based in Dallas, Texas.";
 
 export function meta({}: Route.MetaArgs) {
-	return [
-		{ title: "Contact | We Summit Mountains" },
-		{
-			name: "description",
-			content:
-				"Get in touch with We Summit Mountains. Let's discuss your Salesforce, AI, and software development needs.",
-		},
-	];
+	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/contact" });
 }
+
+const contactPageSchema = {
+	"@context": "https://schema.org",
+	"@type": "ContactPage",
+	"@id": `${SITE_URL}/contact`,
+	name: TITLE,
+	description: DESCRIPTION,
+	url: `${SITE_URL}/contact`,
+	publisher: { "@id": `${SITE_URL}/#organization` },
+	breadcrumb: {
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+			{ "@type": "ListItem", position: 2, name: "Contact", item: `${SITE_URL}/contact` },
+		],
+	},
+};
 
 export default function Contact() {
 	return (
 		<>
+			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }} />
 			<PageHero />
 			<ContactContent />
 		</>
@@ -33,7 +50,6 @@ function PageHero() {
 					repelStrength={0.08}
 					linkDistance={80}
 					svgLinkDistance={80}
-					svgPath="M2 4h20v16H2V4zm0 0l10 8 10-8"
 					svgScale={12}
 					svgOffsetX={0}
 					svgOffsetY={20}
@@ -64,6 +80,22 @@ function PageHero() {
 }
 
 function ContactContent() {
+	const { formState, errorMsg, submitLead } = useLeadForm();
+
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		const fd = new FormData(e.currentTarget);
+		submitLead({
+			firstName: fd.get("firstName"),
+			lastName: fd.get("lastName"),
+			email: fd.get("email"),
+			company: fd.get("company"),
+			message: fd.get("message"),
+			service: fd.get("service"),
+			recordTypeId: "012Hs0000007XzWIAU",
+		});
+	}
+
 	return (
 		<section id="contact-content">
 			<div className="py-20 lg:py-28">
@@ -73,7 +105,19 @@ function ContactContent() {
 							<h2 className="text-2xl font-bold text-gray-900 mb-6">
 								Send Us a Message
 							</h2>
-							<form className="space-y-6">
+
+							{formState === "success" ? (
+								<div className="text-center py-12">
+									<div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
+										<svg className="w-8 h-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+										</svg>
+									</div>
+									<h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+									<p className="text-gray-600">We'll get back to you within 1 business day.</p>
+								</div>
+							) : (
+							<form onSubmit={handleSubmit} className="space-y-6">
 								<div className="flex flex-col sm:flex-row gap-6">
 									<div className="sm:flex-1">
 										<label
@@ -185,13 +229,19 @@ function ContactContent() {
 									/>
 								</div>
 
+								{formState === "error" && (
+									<p className="text-red-600 text-sm">{errorMsg}</p>
+								)}
+
 								<button
 									type="submit"
-									className="w-full sm:w-auto px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
+									disabled={formState === "submitting"}
+									className="w-full sm:w-auto px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25 disabled:opacity-50 disabled:cursor-not-allowed"
 								>
-									Send Message
+									{formState === "submitting" ? "Sending..." : "Send Message"}
 								</button>
 							</form>
+							)}
 						</div>
 
 						<div id="contact-sidebar" className="lg:w-2/5">

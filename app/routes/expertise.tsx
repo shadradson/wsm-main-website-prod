@@ -2,21 +2,62 @@ import type { Route } from "./+types/expertise";
 import { Link } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
 import { MOUNTAIN_POINTS_PATH } from "~/lib/svgPaths";
+import { buildMeta, SITE_URL } from "~/lib/seo";
+
+const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
+const DESCRIPTION =
+	"Expert Salesforce implementation, AI consulting, cloud CRM, system integrations & custom software development. Free discovery call. Dallas, TX.";
 
 export function meta({}: Route.MetaArgs) {
-	return [
-		{ title: "Expertise | We Summit Mountains" },
-		{
-			name: "description",
-			content:
-				"Salesforce implementation, Cloud CRM, AI consulting, system integrations, and custom software development. Explore our full range of services.",
-		},
-	];
+	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/expertise" });
 }
+
+const servicesSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	"@id": `${SITE_URL}/expertise`,
+	name: TITLE,
+	description: DESCRIPTION,
+	url: `${SITE_URL}/expertise`,
+	publisher: { "@id": `${SITE_URL}/#organization` },
+	breadcrumb: {
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+			{ "@type": "ListItem", position: 2, name: "Expertise", item: `${SITE_URL}/expertise` },
+		],
+	},
+	mainEntity: {
+		"@type": "ItemList",
+		itemListElement: [
+			{
+				"@type": "ListItem", position: 1,
+				item: { "@type": "Service", name: "Salesforce Implementation & Optimization", provider: { "@id": `${SITE_URL}/#organization` }, description: "End-to-end Salesforce implementation, customization, and optimization for Sales Cloud, Service Cloud, and more." },
+			},
+			{
+				"@type": "ListItem", position: 2,
+				item: { "@type": "Service", name: "Cloud CRM Solutions", provider: { "@id": `${SITE_URL}/#organization` }, description: "Strategic cloud CRM architecture and migration to maximize user adoption and business impact." },
+			},
+			{
+				"@type": "ListItem", position: 3,
+				item: { "@type": "Service", name: "System Integrations", provider: { "@id": `${SITE_URL}/#organization` }, description: "Connect Salesforce with your existing tools, ERPs, and data platforms for a seamless data ecosystem." },
+			},
+			{
+				"@type": "ListItem", position: 4,
+				item: { "@type": "Service", name: "AI Consulting & Implementation", provider: { "@id": `${SITE_URL}/#organization` }, description: "Practical AI strategy and implementation including Agentforce, Einstein AI, and custom agentic AI solutions." },
+			},
+			{
+				"@type": "ListItem", position: 5,
+				item: { "@type": "Service", name: "Custom Software Development", provider: { "@id": `${SITE_URL}/#organization` }, description: "Bespoke software built to your business requirements — from internal tools to customer-facing platforms." },
+			},
+		],
+	},
+};
 
 export default function Expertise() {
 	return (
 		<>
+			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
 			<PageHero />
 			<ServicesDetail />
 			<TechStack />

@@ -2,6 +2,7 @@ import type { Route } from "./+types/case-studies";
 import { Link, useLoaderData } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
 import { WSM_LOGO_PATH } from "~/lib/svgPaths";
+import { buildMeta } from "~/lib/seo";
 
 interface Article {
 	sf_id: string;
@@ -23,15 +24,12 @@ interface Article {
 	admin_approval: number;
 }
 
+const TITLE = "Client Success Stories | Salesforce & AI Results | We Summit Mountains";
+const DESCRIPTION =
+	"See how We Summit Mountains delivers real results — Salesforce transformations, AI implementations, and system integrations across industries.";
+
 export function meta({}: Route.MetaArgs) {
-	return [
-		{ title: "Case Studies | We Summit Mountains" },
-		{
-			name: "description",
-			content:
-				"See how We Summit Mountains has helped organizations transform their technology. Real results from real partnerships.",
-		},
-	];
+	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/case-studies" });
 }
 
 export async function loader({ context }: Route.LoaderArgs) {
@@ -69,21 +67,21 @@ export default function CaseStudies() {
 
 function PageHero() {
 	return (
-		<section id="cases-hero" className="bg-gradient-to-br from-wsm-cliff to-wsm-glacier min-h-[50vh] relative overflow-hidden">
+		<section id="cases-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[50vh] relative overflow-hidden">
 			<ParticleDots
-					particleCount={600}
+					particleCount={400}
 					color="#ffffff22"
 					lineColor="#ffffff"
 					repelRadius={180}
 					repelStrength={0.08}
 					linkDistance={90}
-					svgLinkDistance={50}
+					svgLinkDistance={60}
 					svgPath={WSM_LOGO_PATH}
 					svgScale={5}
 					svgOffsetX={-200}
 					svgOffsetY={20}
 					svgPoints={200}
-					attractStrength={0.005}
+					attractStrength={0.001}
 					svgFit="none"
 					svgAlign="right"
 				/>
@@ -109,104 +107,109 @@ function PageHero() {
 }
 
 function ArticleCard({ article }: { article: Article }) {
+	const initials = `${article.name?.[0] ?? ""}${article.name?.split(" ")?.[1]?.[0] ?? ""}`;
 	return (
-		<div className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-			<div className="p-8 lg:p-10">
-				<div className="flex flex-wrap gap-2 mb-4">
-					{article.subcategory && (
-						<span className="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">
-							{article.subcategory}
-						</span>
+		<Link
+			to={`/article/${article.sf_id}`}
+			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
+		>
+			<div className="bg-wsm-dark group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
+				{article.splash_image_url ? (
+					<img
+						src={article.splash_image_url}
+						alt={article.name}
+						className="w-1/3 aspect-square object-contain flex-shrink-0 border-r-2 border-gray-600 p-8"
+					/>
+				) : (
+					<div className="w-1/3 aspect-square bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0 border-r-2 border-gray-600">
+						{initials}
+					</div>
+				)}
+				<div className="text-left p-4 w-2/3 flex flex-col">
+					<div className="flex flex-wrap gap-1 mb-2">
+						{article.subcategory && (
+							<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 rounded">
+								{article.subcategory}
+							</span>
+						)}
+						{article.vertical_product && (
+							<span className="text-xs font-medium text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1 rounded">
+								{article.vertical_product}
+							</span>
+						)}
+					</div>
+					<h3 className="text-lg font-bold text-white leading-snug">
+						{article.name}
+					</h3>
+					{article.subtitle && (
+						<p className="text-wsm-glacier text-sm font-medium mt-1">
+							{article.subtitle}
+						</p>
 					)}
-					{article.vertical_product && (
-						<span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-							{article.vertical_product}
-						</span>
+					{article.short_description && (
+						<p className="text-gray-400 text-sm leading-relaxed mt-2 line-clamp-3">
+							{article.short_description}
+						</p>
+					)}
+					{article.author_first_name && (
+						<p className="text-xs text-gray-500 mt-auto pt-3 border-t border-gray-800">
+							By {article.author_first_name} {article.author_last_name}
+							{article.author_title && ` — ${article.author_title}`}
+						</p>
 					)}
 				</div>
-
-				<h3 className="text-2xl font-bold text-gray-900 mb-2">
-					{article.name}
-				</h3>
-
-				{article.subtitle && (
-					<p className="text-brand-sky font-medium mb-4">
-						{article.subtitle}
-					</p>
-				)}
-
-				{article.short_description && (
-					<p className="text-gray-600 leading-relaxed mb-4">
-						{article.short_description}
-					</p>
-				)}
-
-				{article.author_first_name && (
-					<p className="text-sm text-gray-500">
-						By {article.author_first_name} {article.author_last_name}
-						{article.author_title && ` — ${article.author_title}`}
-					</p>
-				)}
 			</div>
-		</div>
+		</Link>
+	);
+}
+
+function ArticleGrid({ articles, id, title, description }: { articles: Article[]; id: string; title: string; description: string }) {
+	return (
+		<section id={id}>
+			<div className="py-20 lg:py-28 bg-wsm-dark pattern-bg-dots">
+				<div className="max-w-7xl mx-auto p-4 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed">
+					<div className="bg-wsm-dark p-4 border-2 border-solid border-[#ffffff22]">
+						<h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
+							{title}
+						</h2>
+						<p className="text-gray-400 mt-2">{description}</p>
+					</div>
+					{articles.length === 0 ? (
+						<p className="text-gray-400 italic p-6">No case studies yet.</p>
+					) : (
+						<div className="flex flex-wrap justify-center bg-[#ffffff44]">
+							{articles.map((article) => (
+								<ArticleCard key={article.sf_id} article={article} />
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+		</section>
 	);
 }
 
 function IndustrySection() {
 	const { industryArticles } = useLoaderData<typeof loader>();
-
 	return (
-		<section id="cases-industry">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-						Industry Knowledge
-					</h2>
-					<p className="text-lg text-gray-600 mb-12">
-						Deep expertise across the industries we serve.
-					</p>
-
-					{industryArticles.length === 0 ? (
-						<p className="text-gray-500 italic">No industry case studies yet.</p>
-					) : (
-						<div className="space-y-8">
-							{industryArticles.map((article) => (
-								<ArticleCard key={article.sf_id} article={article} />
-							))}
-						</div>
-					)}
-				</div>
-			</div>
-		</section>
+		<ArticleGrid
+			id="cases-industry"
+			title="Industry Knowledge"
+			description="Deep expertise across the industries we serve."
+			articles={industryArticles}
+		/>
 	);
 }
 
 function ProductSection() {
 	const { productArticles } = useLoaderData<typeof loader>();
-
 	return (
-		<section id="cases-products" className="bg-gray-50">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-						Software Proficiencies
-					</h2>
-					<p className="text-lg text-gray-600 mb-12">
-						Proven results with the platforms and tools we specialize in.
-					</p>
-
-					{productArticles.length === 0 ? (
-						<p className="text-gray-500 italic">No product case studies yet.</p>
-					) : (
-						<div className="space-y-8">
-							{productArticles.map((article) => (
-								<ArticleCard key={article.sf_id} article={article} />
-							))}
-						</div>
-					)}
-				</div>
-			</div>
-		</section>
+		<ArticleGrid
+			id="cases-products"
+			title="Software Proficiencies"
+			description="Proven results with the platforms and tools we specialize in."
+			articles={productArticles}
+		/>
 	);
 }
 
