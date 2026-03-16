@@ -41,10 +41,14 @@ html,
 body {
 	@apply bg-white text-gray-900;
 }
+section {
+	overflow: clip;
+}
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Pattern Background <<<<<<<<<<<<<<<<<<<<<<<<<*/
 .pattern-bg-dots, .pattern-bg-dots-sm, .pattern-bg-dots-light {
 	position: relative;
+	clip-path: inset(0);
 }
 .pattern-bg-dots::before, .pattern-bg-dots-sm::before, .pattern-bg-dots-light::before {
 	content: "";
@@ -59,7 +63,7 @@ body {
 }
 .pattern-bg-dots::before {
 	--pattern-fg: color-mix(in oklab, var(--color-white) 25%, transparent);
-	background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
+	background-image: radial-gradient(var(--pattern-fg) 1.25px, transparent 0);
 	background-size: 40px 40px;
 }
 .pattern-bg-dots-sm::before {
