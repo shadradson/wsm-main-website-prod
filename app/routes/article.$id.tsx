@@ -149,7 +149,7 @@ export default function ArticlePage() {
 							<img
 								src={article.splash_image_url}
 								alt={article.name}
-								className="w-32 h-32 object-contain flex-shrink-0 border border-white/10 hidden sm:block"
+								className="w-32 h-32 object-contain flex-shrink-0 hidden sm:block"
 							/>
 						)}
 					</div>
@@ -157,7 +157,8 @@ export default function ArticlePage() {
 			</div>
 
 			{/* Body */}
-			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-white to-gray200">
+			<div className="bg-gradient-to-b from-white to-gray-200">
+			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 				{hasHtml ? (
 					<div
 						className="prose prose-lg max-w-none"
@@ -174,6 +175,7 @@ export default function ArticlePage() {
 				)}
 			</div>
 
+			</div>
 			{/* Related Articles */}
 		{relatedArticles.length > 0 && (
 			<div>
@@ -248,27 +250,6 @@ export default function ArticlePage() {
 			</div>
 		)}
 
-		{/* Footer CTA */}
-			<div className="bg-gray-50 border-t border-gray-200">
-				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-					<h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to achieve similar results?</h2>
-					<p className="text-gray-600 mb-8">Let's talk about your challenges and build a path to your summit.</p>
-					<div className="flex flex-col sm:flex-row gap-4 justify-center">
-						<Link
-							to="/contact"
-							className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all"
-						>
-							Start Your Project
-						</Link>
-						<Link
-							to="/case-studies"
-							className="inline-flex items-center justify-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
-						>
-							More Case Studies
-						</Link>
-					</div>
-				</div>
-			</div>
 		</div>
 	);
 }

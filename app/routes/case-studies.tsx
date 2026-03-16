@@ -60,28 +60,27 @@ export default function CaseStudies() {
 			<IndustrySection />
 			<ProductSection />
 			<ResultsSection />
-			<CTASection />
 		</>
 	);
 }
 
 function PageHero() {
 	return (
-		<section id="cases-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[50vh] relative overflow-hidden">
+		<section id="cases-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[66vh] relative overflow-hidden">
 			<ParticleDots
-					particleCount={400}
+					particleCount={600}
 					color="#ffffff22"
 					lineColor="#ffffff"
 					repelRadius={180}
 					repelStrength={0.08}
 					linkDistance={90}
-					svgLinkDistance={60}
+					svgLinkDistance={30}
 					svgPath={WSM_LOGO_PATH}
 					svgScale={5}
 					svgOffsetX={-200}
-					svgOffsetY={20}
-					svgPoints={200}
-					attractStrength={0.001}
+					svgOffsetY={60}
+					svgPoints={300}
+					attractStrength={0.0005}
 					svgFit="none"
 					svgAlign="right"
 				/>
@@ -240,30 +239,6 @@ function ResultsSection() {
 							</div>
 						))}
 					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function CTASection() {
-	return (
-		<section id="cases-cta">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl font-bold text-gray-900 mb-4">
-						Your Success Story Starts Here
-					</h2>
-					<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-						Ready to become our next case study? Let's discuss your
-						challenges and build a solution together.
-					</p>
-					<Link
-						to="/contact"
-						className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
-					>
-						Start Your Project
-					</Link>
 				</div>
 			</div>
 		</section>

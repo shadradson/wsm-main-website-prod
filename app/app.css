@@ -43,32 +43,34 @@ body {
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Pattern Background <<<<<<<<<<<<<<<<<<<<<<<<<*/
-.pattern-bg-dots {
+.pattern-bg-dots, .pattern-bg-dots-sm, .pattern-bg-dots-light {
 	position: relative;
 }
-
-.pattern-bg-dots::before {
+.pattern-bg-dots::before, .pattern-bg-dots-sm::before, .pattern-bg-dots-light::before {
 	content: "";
-	position: absolute;
+	position: fixed;
 	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+}
+.pattern-bg-dots > *, .pattern-bg-dots-sm > *, .pattern-bg-dots-light > * {
+	position: relative;
+	z-index: 1;
+}
+.pattern-bg-dots::before {
 	--pattern-fg: color-mix(in oklab, var(--color-white) 25%, transparent);
 	background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
 	background-size: 40px 40px;
-	pointer-events: none;
 }
-
-.pattern-bg-dots-sm {
-	position: relative;
-}
-
 .pattern-bg-dots-sm::before {
-	content: "";
-	position: absolute;
-	inset: 0;
 	--pattern-fg: color-mix(in oklab, var(--color-wsm-dark) 25%, transparent);
 	background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
 	background-size: 10px 10px;
-	pointer-events: none;
+}
+.pattern-bg-dots-light::before {
+	--pattern-fg: color-mix(in oklab, var(--color-wsm-dark) 25%, transparent);
+	background-image: radial-gradient(var(--pattern-fg) 1.25px, transparent 0);
+	background-size: 40px 40px;
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Experience <<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -238,11 +240,10 @@ body {
 }
 
 img.clouds_image {
-	filter: blur(10px) saturate(0.15) contrast(1.5);
-	opacity: 0.4;
-	transform: scaleX(-1);
+	opacity: 0.3;
 	min-width: 1200px;
 	width: 100vw;
+	transform: translateX(1vw);
 }
 
 .splash1_gradient_sky {
@@ -279,7 +280,7 @@ img.logo_img {
 
 img.mountains_img {
 	width: 100vw;
-	filter: brightness(1.5) blur(0.5px);
+	filter: brightness(1.5) ;
 	min-width: 768px;
 	transform: translateY(20vw);
 }
@@ -379,20 +380,20 @@ img.mountains_img {
 
 /* Layer 2: Mountains mid (background) */
 @keyframes our_team_paralayer2 {
-	0% { transform: translateY(0vh); filter: blur(0px); }
-	100% { transform: translateY(140vh); filter: blur(10px); }
+	0% { transform: translateY(0vh); }
+	100% { transform: translateY(140vh); }
 }
 
 /* Layer 3: Mountains bot-left */
 @keyframes our_team_paralayer3 {
-	0% { transform: translateY(0vh); filter: blur(0px); }
-	100% { transform: translateY(120vh); filter: blur(9px); }
+	0% { transform: translateY(0vh); }
+	100% { transform: translateY(120vh); }
 }
 
 /* Layer 4: Mountains bot-right */
 @keyframes our_team_paralayer4 {
-	0% { transform: translateY(0vh); filter: blur(0px); }
-	100% { transform: translateY(100vh); filter: blur(8px); }
+	0% { transform: translateY(0vh); }
+	100% { transform: translateY(100vh); }
 }
 
 /* Layer 5: WSM Logo */
@@ -403,38 +404,34 @@ img.mountains_img {
 
 /* Layer 6: Hillside */
 @keyframes our_team_paralayer6 {
-	0% { transform: translateY(0vh); filter: blur(3px); }
-	100% { transform: translateY(80vh); filter: blur(3px); }
+	0% { transform: translateY(0vh); }
+	100% { transform: translateY(80vh); }
 }
 
 /* Layer 7: Extra trees */
 @keyframes our_team_paralayer7 {
-	0% { transform: translateY(20vh); filter: blur(4px); }
-	100% { transform: translateY(40vh); filter: blur(2px); }
+	0% { transform: translateY(20vh); }
+	100% { transform: translateY(40vh); }
 }
 
 /* Layer 8: Close trees */
 @keyframes our_team_paralayer8 {
-	0% { transform: translateY(20vh); filter: blur(8px); }
-	20% { transform: translateY(10vh); filter: blur(8px); }
-	40% { transform: translateY(1vh); filter: blur(1px); }
-	100% { transform: translateY(1vh); filter: blur(1px); }
+	0% { transform: translateY(20vh); }
+	20% { transform: translateY(10vh); }
+	40% { transform: translateY(1vh); }
+	100% { transform: translateY(1vh); }
 }
 
 /* Layer 9: Close rocks (foreground - fastest) */
 @keyframes our_team_paralayer9 {
-	0% { transform: translateY(0vh); filter: blur(10px); }
-	20% { transform: translateY(0vh); filter: blur(10px); }
-	40% { transform: translateY(0vh); filter: blur(0px); }
-	100% { transform: translateY(0vh); filter: blur(0px); }
+	0% { transform: translateY(0vh); }
+	100% { transform: translateY(0vh); }
 }
 
 /* Layer 10: Text overlay (same animation as layer 9, one z-index higher) */
 @keyframes our_team_paralayer10 {
-	0% { transform: translateY(0vh); filter: blur(10px); }
-	20% { transform: translateY(0vh); filter: blur(10px); }
-	40% { transform: translateY(0vh); filter: blur(0px); }
-	100% { transform: translateY(0vh); filter: blur(0px); }
+	0% { transform: translateY(0vh); }
+	100% { transform: translateY(0vh); }
 }
 
 .our_team_para_layer {
@@ -900,7 +897,7 @@ img.close_rocks_img {
 		transform: translate(0, 0px);
 	}
 	75% {
-		transform: translate(0, 40px);
+		transform: translate(0, 20px);
 	}
 	100% {
 		transform: translate(0, -0px);
@@ -921,7 +918,7 @@ img.close_rocks_img {
 
 .floating {
 	animation-name: floating;
-	animation-duration: 2s;
+	animation-duration: 8s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease-in-out;
 }
@@ -1084,4 +1081,83 @@ img.close_rocks_img {
 }
 .glow-logo {
 	filter: drop-shadow(0 0 4px  #FFD6B7) drop-shadow(0 0 8px #f8dfcc) drop-shadow(0 0 12px  #fff6f0);
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>> Footer Parallax <<<<<<<<<<<<<<<<<<<<<<<<<*/
+@keyframes footer_paralayer_mountain {
+	0% { transform: translateY(-65vh); }
+	100% { transform: translateY(25vh); }
+}
+@keyframes footer_paralayer_trees {
+	0% { transform: translateY(-20vh); }
+	100% { transform: translateY(20vh); }
+}
+
+.footer_parallax_layer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	pointer-events: none;
+}
+
+.footer_mountains_anim {
+	animation: footer_paralayer_mountain linear;
+	animation-timeline: view();
+	animation-range-start: -50vh;
+	animation-range-end: 150vh;
+	z-index: 1;
+	height: 100%;
+}
+
+img.footer_mountains_img {
+	position: absolute;
+	bottom: calc(180px - 20vw);
+	left: 0;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.footer_parallax_layer.footer_trees {
+	animation: footer_paralayer_trees linear;
+	animation-timeline: view();
+	animation-range-start: -50vh;
+	animation-range-end: 150vh;
+	z-index: 3;
+}
+
+img.footer_extra_trees_img {
+	width: 60vw;
+	min-width: 600px;
+	margin-left: auto;
+	display: block;
+}
+
+.footer_parallax_layer.footer_hillside {
+	animation: footer_paralayer_trees linear;
+	animation-timeline: view();
+	animation-range-start: -50vh;
+	animation-range-end: 150vh;
+	z-index: 4;
+}
+
+img.footer_hillside_img {
+	width: 60vw;
+	min-width: 500px;
+}
+
+.footer_ground_box {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 20vh;
+	background-color: #172E44;
+	z-index: 2;
+}
+
+.footer_bottom_box {
+	background-color: transparent;
+	width: 100%;
 }

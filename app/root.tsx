@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { organizationSchema, websiteSchema } from "~/lib/seo";
+import gabatoUrl from "~/fonts/Gabato.ttf?url";
 
 export const links: Route.LinksFunction = () => [
 	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,6 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
+				<style>{`@font-face { font-family: 'Gabato'; src: url('${gabatoUrl}') format('truetype'); font-weight: normal; font-style: normal; }`}</style>
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

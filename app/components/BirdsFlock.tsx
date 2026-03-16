@@ -19,6 +19,7 @@ interface BirdsFlockProps {
 	cohesionDistance?: number;
 	birdColor?: string;
 	birdScale?: number;
+	birdWiggleRandomMultiplier?: number;
 }
 
 export default function BirdsFlock({
@@ -30,6 +31,7 @@ export default function BirdsFlock({
 	cohesionDistance = 20,
 	birdColor = "#B1E2F5",
 	birdScale = 0.06,
+	birdWiggleRandomMultiplier = 10, 
 }: BirdsFlockProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [isClient, setIsClient] = useState(false);
@@ -136,9 +138,9 @@ export default function BirdsFlock({
 				positionArray[i * 3 + 1] = Math.random() * bounds - BOUNDS_HALF;
 				positionArray[i * 3 + 2] = Math.random() * bounds - BOUNDS_HALF;
 
-				velocityArray[i * 3 + 0] = (Math.random() - 0.5) * 10;
-				velocityArray[i * 3 + 1] = (Math.random() - 0.5) * 10;
-				velocityArray[i * 3 + 2] = (Math.random() - 0.5) * 10;
+				velocityArray[i * 3 + 0] = (Math.random() - 0.5) * birdWiggleRandomMultiplier;
+				velocityArray[i * 3 + 1] = (Math.random() - 0.5) * birdWiggleRandomMultiplier;
+				velocityArray[i * 3 + 2] = (Math.random() - 0.5) * birdWiggleRandomMultiplier;
 
 				phaseArray[i] = 1;
 			}
@@ -171,12 +173,13 @@ export default function BirdsFlock({
 				for (const val of args) vertices[v++] = val;
 			};
 			const wingsSpan = 20;
+			const bodyLength = -20;
 			// Body
-			push(0, 0, -20, 0, -8, 10, 0, 0, 30);
+			push(0, 0, -20, 0, -8, 10, 0, 0, 20);
 			// Left wing
-			push(0, 0, -15, -wingsSpan, 0, 5, 0, 0, 15);
+			push(0, 0, -10, -wingsSpan, 0, 5, 0, 0, 10);
 			// Right wing
-			push(0, 0, 15, wingsSpan, 0, 5, 0, 0, -15);
+			push(0, 0, 10, wingsSpan, 0, 5, 0, 0, -10);
 
 			birdGeo.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
 			birdGeo.scale(birdScale, birdScale, birdScale);
@@ -399,6 +402,6 @@ export default function BirdsFlock({
 	if (!isClient) return null;
 
 	return (
-		<div ref={containerRef} className="absolute inset-0 z-[1] pointer-events-none" />
+		<div ref={containerRef} className="absolute inset-0 z-[5] pointer-events-none" />
 	);
 }

@@ -107,7 +107,7 @@ function HeroSection() {
 			<div className="paralayer botlay lay2">
 				<div className="splash1_clouds">
 					<img
-						src="/images/clouds.svg"
+						src="/images/clouds_blurred.png"
 						alt=""
 						className="clouds_image"
 					/>
@@ -175,8 +175,7 @@ function ServicesOverview() {
 	const services = [
 		{
 			title: "AI Consulting",
-			description:
-				"Leverage the power of artificial intelligence to drive smarter decisions. From strategy to deployment, we make AI work for your business.",
+			description: "Leverage the power of artificial intelligence to drive smarter decisions. From strategy to deployment, we make AI work for your business.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
@@ -185,8 +184,7 @@ function ServicesOverview() {
 		},
 		{
 			title: "CTO Fractional Services",
-			description:
-				"Get executive-level technology leadership without the full-time cost. We provide strategic CTO guidance to align your tech vision with business goals.",
+			description: "Get executive-level technology leadership without the full-time cost. We provide strategic CTO guidance to align your tech vision with business goals.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -195,8 +193,7 @@ function ServicesOverview() {
 		},
 		{
 			title: "Salesforce Implementation",
-			description:
-				"End-to-end Salesforce solutions tailored to your business processes. From Sales Cloud to Service Cloud, we build systems that scale.",
+			description: "End-to-end Salesforce solutions tailored to your business processes. From Sales Cloud to Service Cloud, we build systems that scale.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -205,8 +202,7 @@ function ServicesOverview() {
 		},
 		{
 			title: "System Integrations",
-			description:
-				"Seamlessly connect your business tools and platforms. We build robust integrations that eliminate data silos and automate workflows.",
+			description: "Seamlessly connect your business tools and platforms. We build robust integrations that eliminate data silos and automate workflows.",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.54a4.5 4.5 0 00-1.242-7.244l4.5-4.5a4.5 4.5 0 016.364 6.364l-1.757 1.757" />
@@ -216,7 +212,7 @@ function ServicesOverview() {
 	];
 
 	return (
-		<section id="home-services" className="bg-gradient-to-b from-wsm-dark to-wsm-cliff pattern-bg-dots">
+		<section id="home-services" className="bg-gradient-to-b from-[#111] to-wsm-cliff pattern-bg-dots">
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="text-center max-w-2xl mx-auto mb-16">
@@ -268,7 +264,6 @@ function ServicesOverview() {
 		</section>
 	);
 }
-
 function TransitionLayer2() {
 	return (
 		<div>
@@ -304,6 +299,7 @@ function WhyChooseUs() {
 			haslink: true,
 			linkTxt: "OUR SUCCESS STORIES",
 			linkUrl: "/case-studies",
+			tag: "01 - EXP",
 		},
 		{
 			title: "WE ARE CERTIFIED",
@@ -311,6 +307,7 @@ function WhyChooseUs() {
 			haslink: true,
 			linkTxt: "OUR CERTIFICATIONS",
 			linkUrl: "/certifications",
+			tag: "02 - CERT",
 		},
 		{
 			title: "WE ARE PARTNERS",
@@ -318,54 +315,49 @@ function WhyChooseUs() {
 			haslink: true,
 			linkTxt: "MEET YOUR TEAM",
 			linkUrl: "/about-us",
+			tag: "03 - PART",
 		},
 	];
 
 	return (
-
-		<section id="home-why-us" className="bg-gray-50">
-
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-col lg:flex-row gap-16 items-center">
-						<div className="lg:w-1/4">
-							<p className="text-brand-blue font-medium text-sm uppercase tracking-widest mb-3">
-								WHY WE ARE RIGHT FOR YOU
-							</p>
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-								We Foster Growth By Facing Higher Mountains Each Day
-							</h2>
-							<p className="text-lg text-gray-600 leading-relaxed mb-8">
-							</p>
-						</div>
-
-						<div className="lg:w-3/4 space-y-6 flex flex-col">
-							{reasons.map((reason, i) => (
-								<div key={reason.title} className="flex flex-col gap-4 p-6 bg-white shadow-sm">
-									<div>
-										<h3 className="font-bold text-gray-900 mb-1">
+		<section id="home-why-us">
+			<div className="py-20 lg:py-28 pattern-bg-dots-light">
+				<div className="">
+					<div className="flex flex-col gap-24">
+						{reasons.map((reason, i) => (
+							<div
+								key={reason.title}
+								className={`relative flex flex-col lg:flex-row gap-12 items-start border-y-2 border-y-solid border-gray-200 ${i % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
+							>
+								<div className="relative max-w-7xl bg-white mx-auto flex flex-col lg:flex-row gap-12 items-start border-x-2 border-x-solid border-gray-200">
+								<div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "2rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
+									{reason.tag}
+								</div>
+									<div className="lg:w-1/2 flex flex-col gap-4 h-[-webkit-fill-available] p-16 border-x-solid border-x-2 border-gray-200">
+										<h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
 											{reason.title}
-										</h3>
-										<p className="text-gray-600 text-sm leading-relaxed">
+										</h2>
+										<p className="text-gray-600 leading-relaxed mb-6">
 											{reason.description}
 										</p>
+										{reason.haslink && (
+											<Link to={reason.linkUrl} className="inline-flex self-start items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors">
+												{reason.linkTxt}
+											</Link>
+										)}
 									</div>
-									{reason.haslink && (
-									<div>
-										<Link to={reason.linkUrl} className="inline-flex items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors">{reason.linkTxt}</Link>
+									<div className="lg:w-1/2 p-16 flex items-center justify-center">
+										<div className="w-full border-2 border-solid border-[#00000011] bg-[image:repeating-linear-gradient(315deg,_#00000011,_#00000011_12px,_transparent_0,_transparent_50%)] bg-[size:24px_24px] bg-fixed min-h-[200px]"></div>
 									</div>
-									)}
-
 								</div>
-							))}
-						</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
 		</section>
 	);
 }
-
 function StatsSection() {
 	const stats = [
 		{ value: "2023", label: "Founded" },

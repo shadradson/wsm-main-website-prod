@@ -50,7 +50,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 	).all<TeamMember>();
 
 	const team = results ?? [];
-	const totalYearsExperience = team.reduce((sum, m) => sum + (m.time_in_industry ?? 0), 0);
+	const totalYearsExperience = team.reduce((sum, m) => sum + (m.time_in_industry ?? 0), 0).toFixed(2);
 
 	return { team, totalYearsExperience };
 }
@@ -66,7 +66,6 @@ export default function OurTeam() {
 			<MissionSection />
 			<ValuesSection />
 			<StorySection />
-			<CTASection />
 		</>
 	);
 }
@@ -75,25 +74,25 @@ function OurTeamHero() {
 	return (
 		<div className="parallax_container ">
 			<div className="para_layers_all bg-[#111412]" id="parallax">
-				<div className="our_team_para_layer layer1" data-speed="-1" data-blur="0" data-baseblur="0" style={{ filter: "blur(7px)" }}>
+				<div className="our_team_para_layer layer1" data-speed="-1" data-blur="0" data-baseblur="0">
 					<div className="clouds slide">
 						<img src="/images/clouds.svg" className="clouds_img" />
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer2" data-speed="-1" data-blur="4" data-baseblur="0" style={{ filter: "blur(0px)" }}>
+				<div className="our_team_para_layer layer2" data-speed="-1" data-blur="4" data-baseblur="0">
 					<div className="mountains_mid slide">
 						<img src="/images/MountaisMid.svg" className="mountains_mid_img" />
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer3" data-speed="-0.9" data-blur="3" data-baseblur="1" style={{ filter: "blur(1px)" }}>
+				<div className="our_team_para_layer layer3" data-speed="-0.9" data-blur="3" data-baseblur="1">
 					<div className="mountains_botleft slide">
 						<img src="/images/mountains_botleft.svg" className="mountains_botleft_img" />
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer4" data-speed="-0.6" data-blur="2" data-baseblur="2" style={{ filter: "blur(2px)" }}>
+				<div className="our_team_para_layer layer4" data-speed="-0.6" data-blur="2" data-baseblur="2">
 					<div className="mountains_botright slide">
 						<img src="/images/mountains_botright.svg" className="mountains_botright_img" />
 					</div>
@@ -106,7 +105,7 @@ function OurTeamHero() {
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer6" id="keyart-0" data-speed="-0.5" data-blur="1" data-baseblur="3" style={{ filter: "blur(3px)" }}>
+				<div className="our_team_para_layer layer6" id="keyart-0" data-speed="-0.5" data-blur="1" data-baseblur="3">
 					<div className="hillside slide">
 						<img src="/images/hillside.svg" className="hillside_img" />
 					</div>
@@ -128,19 +127,19 @@ function OurTeamHero() {
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer7" id="keyart-0" data-speed="-0.4" data-blur="-5" data-baseblur="5" style={{ filter: "blur(5px)" }}>
+				<div className="our_team_para_layer layer7" id="keyart-0" data-speed="-0.4" data-blur="-5" data-baseblur="5">
 					<div className="extra_trees slide">
 						<img src="/images/extra_trees.svg" className="extra_trees_img" />
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer8" data-speed="0" data-blur="-6" data-baseblur="6" style={{ filter: "blur(6px)" }}>
+				<div className="our_team_para_layer layer8" data-speed="0" data-blur="-6" data-baseblur="6">
 					<div className="close_trees slide">
 						<img src="/images/trees_close.svg" className="close_trees_img" />
 					</div>
 				</div>
 
-				<div className="our_team_para_layer layer9" data-speed="0" data-blur="-7" data-baseblur="7" style={{ filter: "blur(7px)" }}>
+				<div className="our_team_para_layer layer9" data-speed="0" data-blur="-7" data-baseblur="7">
 					<div className="close_rocks slide">
 						<img src="/images/CloseRocksSVG.svg" className="close_rocks_img" />
 					</div>
@@ -283,10 +282,10 @@ function TeamGrid() {
 						<div className="flex flex-wrap gap-8 justify-center">
 							{Stats.map((stat) => (
 								<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center stats-fade-in">
-									<p className="text-5xl sm:text-5xl font-bold text-white mb-2">
+									<p className="text-8xl sm:text-6xl font-bold text-white mb-2">
 										{stat.data}
 									</p>
-									<p className="text-gray-400 text-sm uppercase tracking-wider">
+									<p className="text-white text-sm uppercase tracking-wider">
 										{stat.label}
 									</p>
 								</div>
@@ -504,34 +503,3 @@ function StorySection() {
 	);
 }
 
-function CTASection() {
-	return (
-		<section id="about-cta" className="bg-gray-50">
-			<div className="py-20">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl font-bold text-gray-900 mb-4">
-						Ready to Start Climbing?
-					</h2>
-					<p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-						Join the organizations that have partnered with us to reach
-						new heights.
-					</p>
-					<div className="flex flex-col sm:flex-row gap-4 justify-center">
-						<Link
-							to="/contact"
-							className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all"
-						>
-							Get In Touch
-						</Link>
-						<Link
-							to="/case-studies"
-							className="inline-flex items-center justify-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
-						>
-							View Case Studies
-						</Link>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}

@@ -8,7 +8,7 @@ const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
 const DESCRIPTION =
 	"Expert Salesforce implementation, AI consulting, cloud CRM, system integrations & custom software development. Free discovery call. Dallas, TX.";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
 	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/expertise" });
 }
 
@@ -62,7 +62,6 @@ export default function Expertise() {
 			<ServicesDetail />
 			<TechStack />
 			<ProcessSection />
-			<CTASection />
 		</>
 	);
 }
@@ -71,22 +70,22 @@ function PageHero() {
 	return (
 		<section id="expertise-hero" className="bg-gradient-to-tl from-summit-dark to-wsm-cliff min-h-[50vh] relative overflow-hidden">
 			<ParticleDots
-					particleCount={600}
-					color="#ffffff33"
-					lineColor="#ffffff44"
-					repelRadius={180}
-					repelStrength={0.1}
-					linkDistance={100}
-					svgLinkDistance={100}
-					svgPath={MOUNTAIN_POINTS_PATH}
-					svgScale={1}
-					svgOffsetX={300}
-					svgOffsetY={30}
-					svgPoints={300}
-					attractStrength={0.015}
-					svgFit="height"
-					svgAlign="right"
-				/>
+				particleCount={600}
+				color="#ffffff33"
+				lineColor="#ffffff44"
+				repelRadius={180}
+				repelStrength={0.1}
+				linkDistance={100}
+				svgLinkDistance={100}
+				svgPath={MOUNTAIN_POINTS_PATH}
+				svgScale={1}
+				svgOffsetX={300}
+				svgOffsetY={30}
+				svgPoints={300}
+				attractStrength={0.015}
+				svgFit="height"
+				svgAlign="right"
+			/>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
@@ -112,30 +111,36 @@ function PageHero() {
 function ServicesDetail() {
 	const services = [
 		{
+			title: "AI Consulting & Implementation",
+			description:
+				"Artificial intelligence is transforming how businesses operate. We help you develop an AI strategy, identify high-impact use cases, and implement solutions that deliver real, measurable value — not just hype.",
+			features: [
+				"Agentforce",
+				"Agentic Automation",
+				"Predictive Analytics",
+				"Process Automation with AI",
+				"Next Gen Chatbots",
+				"AI-Powered Customer Insights",
+			],
+			button_label: "LET'S SUMMIT AI",
+			tag: "01 - AI",
+		},
+		{
 			title: "Salesforce Implementation & Optimization",
 			description:
 				"We design, build, and optimize Salesforce solutions that align perfectly with your business processes. Whether you're starting fresh or optimizing an existing org, our certified consultants deliver systems that drive adoption and results.",
 			features: [
+				"Agentforce Integration",
 				"Sales Cloud & Service Cloud",
 				"Experience Cloud & Communities",
-				"Custom Objects & Automation (Flows)",
-				"AppExchange Integration",
-				"Data Migration & Cleanup",
+				"Business Process Implementation",
+				"Mulesoft",
+				"API Automation",
 				"User Training & Adoption",
+				"Continuous Growth",
 			],
-		},
-		{
-			title: "Cloud CRM Solutions",
-			description:
-				"Your customer relationships deserve a platform that grows with you. We architect cloud-native CRM solutions that unify your teams, streamline operations, and give you a 360-degree view of every customer interaction.",
-			features: [
-				"CRM Strategy & Roadmapping",
-				"Multi-Cloud Architecture",
-				"Customer Journey Mapping",
-				"Analytics & Reporting Dashboards",
-				"Mobile-First Design",
-				"Ongoing Managed Services",
-			],
+			button_label: "FULL SEND SALESFORCE",
+			tag: "02 - SF",
 		},
 		{
 			title: "System Integrations",
@@ -149,85 +154,72 @@ function ServicesDetail() {
 				"Third-Party App Connections",
 				"Integration Testing & Monitoring",
 			],
+			button_label: "OVERCOME INTEGRATIONS",
+			tag: "03 - API",
 		},
 		{
-			title: "AI Consulting & Implementation",
+			title: "Fractional CTO Services",
 			description:
-				"Artificial intelligence is transforming how businesses operate. We help you develop an AI strategy, identify high-impact use cases, and implement solutions that deliver real, measurable value — not just hype.",
+				"When you need executive help with your entire stack. Let us set a path, define future success, and execute the plan",
 			features: [
-				"AI Readiness Assessment",
-				"Salesforce Einstein & Agentforce",
-				"Predictive Analytics",
-				"Process Automation with AI",
-				"Natural Language Processing",
-				"AI-Powered Customer Insights",
+				"KPIs",
+				"Reporting",
+				"Business Process Optimization",
+				"Optimization",
+				"Business Unit Unification",
+				"Multi-Department Automation",
+				"Role Optimization",
 			],
-		},
-		{
-			title: "Custom Software Development",
-			description:
-				"When off-the-shelf doesn't cut it, we build custom. Our development team creates tailored applications that solve your unique business problems with clean, maintainable, and scalable code.",
-			features: [
-				"Web Application Development",
-				"Lightning Web Components (LWC)",
-				"Apex & Visualforce Development",
-				"REST & SOAP API Development",
-				"Automated Testing & CI/CD",
-				"Performance Optimization",
-			],
+			button_label: "LET'S CLIMB TOGETHER",
+			tag: "04 - ALL",
 		},
 	];
 
 	return (
 		<section id="expertise-services">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="space-y-20">
+			<div className="py-20 lg:py-28 pattern-bg-dots-light">
+				<div className="">
+					<div className="flex flex-col gap-24">
 						{services.map((service, i) => (
 							<div
 								key={service.title}
-								className={`flex flex-col lg:flex-row gap-12 items-start ${
-									i % 2 !== 0 ? "lg:flex-row-reverse" : ""
-								}`}
+								className={`relative flex flex-col lg:flex-row gap-12 items-start border-y-2 border-y-solid border-gray-200  ${i % 2 !== 0 ? "lg:flex-row-reverse " : ""
+									}`}
 							>
-								<div className="lg:w-1/2">
-									<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-										{service.title}
-									</h2>
-									<p className="text-gray-600 leading-relaxed mb-6">
-										{service.description}
-									</p>
-									<Link
-										to="/contact"
-										className="inline-flex items-center text-brand-blue font-semibold hover:text-brand-blue-dark transition-colors"
+								<div className="relative max-w-7xl bg-white mx-auto flex flex-col lg:flex-row gap-12 items-start border-x-2 border-x-solid border-gray-200">
+									<div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "2rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
+										{service.tag}
+									</div>
+									<div className="lg:w-1/2 flex flex-col gap-4 h-[-webkit-fill-available] p-16 border-x-solid border-x-2 border-gray-200">
+										<h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+											{service.title}
+										</h2>
+										<p className="text-gray-600 leading-relaxed mb-6">
+											{service.description}
+										</p>
+										<Link
+											to="/contact"
+											className="inline-flex self-start items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors"
+										>
+											{service.button_label}
+										</Link>
+
+									</div>
+									<div
+										className="lg:w-1/2 p-16"
 									>
-										Discuss this service
-										<svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-										</svg>
-									</Link>
-								</div>
-								<div
-									className="lg:w-1/2 bg-gray-50 rounded-2xl p-8"
-								>
-									<h3 className="font-semibold text-gray-900 mb-4">
-										What's included:
-									</h3>
-									<ul className="space-y-3">
-										{service.features.map((feature) => (
-											<li
-												key={feature}
-												className="flex items-start gap-3"
-											>
-												<svg className="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-												</svg>
-												<span className="text-gray-700">
-													{feature}
-												</span>
-											</li>
-										))}
-									</ul>
+										<ul className="flex flex-row flex-wrap gap-2">
+											{service.features.map((feature) => (
+												<li className="text-white p-2 bg-gray-600"
+													key={feature}
+												>
+													<span className="text-white font-[700]">
+														{feature}
+													</span>
+												</li>
+											))}
+										</ul>
+									</div>
 								</div>
 							</div>
 						))}
@@ -344,26 +336,3 @@ function ProcessSection() {
 	);
 }
 
-function CTASection() {
-	return (
-		<section id="expertise-cta" className="bg-summit-dark">
-			<div className="py-20">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl font-bold text-white mb-4">
-						Have a Project in Mind?
-					</h2>
-					<p className="text-lg text-gray-300 max-w-xl mx-auto mb-8">
-						Let's discuss how our expertise can help you achieve your
-						goals.
-					</p>
-					<Link
-						to="/contact"
-						className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
-					>
-						Schedule a Consultation
-					</Link>
-				</div>
-			</div>
-		</section>
-	);
-}
