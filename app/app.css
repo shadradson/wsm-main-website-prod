@@ -1164,4 +1164,6 @@ img.footer_hillside_img {
 .footer_bottom_box {
 	background-color: transparent;
 	width: 100%;
+	position: absolute;
+	bottom: 0;
 }

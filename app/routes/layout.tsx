@@ -38,6 +38,7 @@ function Header() {
 		{ to: "/about-us", label: "About Us" },
 		{ to: "/expertise", label: "Expertise" },
 		{ to: "/case-studies", label: "Case Studies" },
+		{ to: "/success-stories", label: "Success Stories" },
 	];
 
 	function handleGetClimbing() {
@@ -49,7 +50,58 @@ function Header() {
 		window.dispatchEvent(new CustomEvent("openFooterForm"));
 	}
 
+	const showEarlyHamburger = (isHome || isOurTeam) && !navVisible;
+
 	return (
+		<>
+		{/* Floating hamburger shown before nav appears on home/about-us */}
+		{showEarlyHamburger && (
+			<div className="fixed top-0 right-0 z-50 lg:hidden">
+				<button
+					className="text-white p-3 m-1"
+					onClick={() => setMobileOpen(!mobileOpen)}
+					aria-label="Toggle menu"
+				>
+					{mobileOpen ? (
+						<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					) : (
+						<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+						</svg>
+					)}
+				</button>
+				{mobileOpen && (
+					<div className="bg-black border-t border-white/10">
+						<div className="px-4 py-4 space-y-1">
+							{navLinks.map((link) => (
+								<NavLink
+									key={link.to}
+									to={link.to}
+									end={link.to === "/"}
+									onClick={() => setMobileOpen(false)}
+									className={({ isActive }) =>
+										`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+											? "text-brand-sky bg-white/10"
+											: "text-gray-300 hover:text-white hover:bg-white/5"
+										}`
+									}
+								>
+									{link.label}
+								</NavLink>
+							))}
+							<button
+								onClick={handleGetClimbing}
+								className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+							>
+								Get Climbing
+							</button>
+						</div>
+					</div>
+				)}
+			</div>
+		)}
 		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${scrolled ? "bg-black border-b border-white/10" : "bg-black border-b border-white/10"}`}>
 			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div id="header-row" className="relative flex items-center h-12 lg:h-16">
@@ -143,6 +195,7 @@ function Header() {
 				</div>
 			)}
 		</header>
+		</>
 	);
 }
 
@@ -162,7 +215,7 @@ function Footer() {
 	}, []);
 
 	return (
-		<footer id="main-footer" className="text-gray-400 flex flex-col items-center w-full relative overflow-clip">
+		<footer id="main-footer" className="text-gray-400 flex min-h-[100vh] flex-col items-center w-full relative overflow-clip">
 
 			{/* Footer parallax layers */}
 			
@@ -177,12 +230,12 @@ function Footer() {
 				<img src="/images/footer_hillside.svg" alt="" className="footer_hillside_img" />
 			</div>
 
-			<BirdsFlock birdColor="#eeBDA0" birdCount={120} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.2} birdWiggleRandomMultiplier={100} />
+			<BirdsFlock birdColor="#eeBDA0" birdCount={300} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.2} birdWiggleRandomMultiplier={100} />
 
 			<div id="footer-content" className="relative z-10">
 
 				{ctaConfig.showCta && (
-					<div className="py-20 lg:py-28">
+					<div className="py-10 lg:py-20">
 						<div className="max-w-7xl mx-auto px-4 pb-30 sm:px-6 lg:px-8">
 							<div id="home-cta-card" className="relative p-12 lg:p-16 text-center overflow-hidden">
 								<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
@@ -192,7 +245,7 @@ function Footer() {
 									<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
 										Ready to Reach Your Summit?
 									</h2>
-									<p className="text-lg text-gray-300 max-w-xl mx-auto mb-8">
+									<p className="text-lg text-white max-w-xl mx-auto mb-8">
 										Let's discuss how we can transform your technology
 										challenges into competitive advantages.
 									</p>
@@ -204,12 +257,6 @@ function Footer() {
 										>
 											{ctaConfig.buttonText}
 										</button>
-										<Link
-											to="/case-studies"
-											className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-semibold hover:bg-white/10 transition-all"
-										>
-											View Case Studies
-										</Link>
 									</div>
 
 									<div
@@ -231,7 +278,7 @@ function Footer() {
 
 			</div>
 
-			<div className="footer_bottom_box flex flex-col sm:flex-row justify-between items-start px-6 sm:px-12 py-8 gap-8 relative z-10">
+			<div className="footer_bottom_box pattern-bg-dots bg-gradient-to-b from-[#03172C00] to-[#021626ff] flex flex-col sm:flex-row justify-between items-center px-6 sm:px-12 py-8 gap-8 relative z-10">
 				{/* Col 1: Logo & location */}
 				<div className="flex flex-col gap-3 flex-1">
 					<Link to="/">

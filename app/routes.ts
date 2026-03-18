@@ -11,6 +11,7 @@ export default [
 		route("about-us", "routes/our-team.tsx"),
 		route("expertise", "routes/expertise.tsx"),
 		route("case-studies", "routes/case-studies.tsx"),
+		route("success-stories", "routes/success-stories.tsx"),
 		route("article/:id", "routes/article.$id.tsx"),
 		route("contact", "routes/contact.tsx"),
 		route("mountain-rescue", "routes/mountain-rescue.tsx"),

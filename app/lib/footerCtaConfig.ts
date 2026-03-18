@@ -13,6 +13,7 @@ const configs: Record<string, FooterCtaConfig> = {
 	"/about-us": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: true },
 	"/expertise": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: true },
 	"/case-studies": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: true },
+	"/success-stories": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: true },
 	"/our-team": { buttonText: "Interested in Working With Us?", recordTypeId: RECORD_TYPE_EMPLOYEE, showCta: true },
 	"/contact": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: false },
 	"/mountain-rescue": { buttonText: "Request Mountain Rescue", recordTypeId: RECORD_TYPE_RESCUE, showCta: true },
