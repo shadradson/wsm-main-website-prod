@@ -67,7 +67,8 @@ export default function CaseStudies() {
 function PageHero() {
 	return (
 		<section id="cases-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[66vh] relative overflow-hidden">
-			<ParticleDots
+			<div className="hidden md:block">
+				<ParticleDots
 					particleCount={600}
 					color="#ffffff22"
 					lineColor="#ffffff"
@@ -84,6 +85,7 @@ function PageHero() {
 					svgFit="none"
 					svgAlign="right"
 				/>
+			</div>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">

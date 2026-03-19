@@ -69,23 +69,25 @@ export default function Expertise() {
 function PageHero() {
 	return (
 		<section id="expertise-hero" className="bg-gradient-to-tl from-summit-dark to-wsm-cliff min-h-[50vh] relative overflow-hidden">
-			<ParticleDots
-				particleCount={600}
-				color="#ffffff33"
-				lineColor="#ffffff44"
-				repelRadius={180}
-				repelStrength={0.1}
-				linkDistance={100}
-				svgLinkDistance={100}
-				svgPath={MOUNTAIN_POINTS_PATH}
-				svgScale={1}
-				svgOffsetX={300}
-				svgOffsetY={30}
-				svgPoints={300}
-				attractStrength={0.015}
-				svgFit="height"
-				svgAlign="right"
-			/>
+			<div className="hidden md:block">
+				<ParticleDots
+					particleCount={600}
+					color="#ffffff33"
+					lineColor="#ffffff44"
+					repelRadius={180}
+					repelStrength={0.1}
+					linkDistance={100}
+					svgLinkDistance={100}
+					svgPath={MOUNTAIN_POINTS_PATH}
+					svgScale={1}
+					svgOffsetX={300}
+					svgOffsetY={30}
+					svgPoints={300}
+					attractStrength={0.015}
+					svgFit="height"
+					svgAlign="right"
+				/>
+			</div>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
@@ -123,6 +125,7 @@ function ServicesDetail() {
 				"AI-Powered Customer Insights",
 			],
 			button_label: "LET'S SUMMIT AI",
+			href: "/ai-consulting",
 			tag: "01 - AI",
 		},
 		{
@@ -140,6 +143,7 @@ function ServicesDetail() {
 				"Continuous Growth",
 			],
 			button_label: "FULL SEND SALESFORCE",
+			href: "/mountain-guide-services",
 			tag: "02 - SF",
 		},
 		{
@@ -155,6 +159,7 @@ function ServicesDetail() {
 				"Integration Testing & Monitoring",
 			],
 			button_label: "OVERCOME INTEGRATIONS",
+			href: "/system-integration-services",
 			tag: "03 - API",
 		},
 		{
@@ -171,6 +176,7 @@ function ServicesDetail() {
 				"Role Optimization",
 			],
 			button_label: "LET'S CLIMB TOGETHER",
+			href: "/fractional-cto-services",
 			tag: "04 - ALL",
 		},
 	];
@@ -198,7 +204,7 @@ function ServicesDetail() {
 											{service.description}
 										</p>
 										<Link
-											to="/contact"
+											to={service.href}
 											className="inline-flex self-start items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors"
 										>
 											{service.button_label}

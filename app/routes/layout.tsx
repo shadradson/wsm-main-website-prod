@@ -222,7 +222,7 @@ function Footer() {
 			<div className="footer_parallax_layer footer_mountains_anim">
 				<img src="/images/Rendered_Bright_Mountains.png" alt="" className="footer_mountains_img" />
 			</div>
-			<div className="footer_ground_box"></div>
+			{/*<div className="footer_ground_box"></div>*/}
 			<div className="footer_parallax_layer footer_trees">
 				<img src="/images/footer_extra_trees.svg" alt="" className="footer_extra_trees_img" />
 			</div>
@@ -230,7 +230,7 @@ function Footer() {
 				<img src="/images/footer_hillside.svg" alt="" className="footer_hillside_img" />
 			</div>
 
-			<BirdsFlock birdColor="#eeBDA0" birdCount={300} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.2} birdWiggleRandomMultiplier={100} />
+			<BirdsFlock birdColor="#eeBDA0" birdCount={300} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.1} birdWiggleRandomMultiplier={100} />
 
 			<div id="footer-content" className="relative z-10">
 
@@ -243,11 +243,10 @@ function Footer() {
 
 								<div className="relative">
 									<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-										Ready to Reach Your Summit?
+										{ctaConfig.title}
 									</h2>
 									<p className="text-lg text-white max-w-xl mx-auto mb-8">
-										Let's discuss how we can transform your technology
-										challenges into competitive advantages.
+										{ctaConfig.subtitle}
 									</p>
 									<div className="flex flex-col sm:flex-row gap-4 justify-center">
 										<button
@@ -278,9 +277,9 @@ function Footer() {
 
 			</div>
 
-			<div className="footer_bottom_box pattern-bg-dots bg-gradient-to-b from-[#03172C00] to-[#021626ff] flex flex-col sm:flex-row justify-between items-center px-6 sm:px-12 py-8 gap-8 relative z-10">
+			<div className="footer_bottom_box pattern-bg-dots bg-gradient-to-b from-[#03172C00] to-[#021626ff] flex flex-col justify-between sm:flex-row justify-between items-center px-6 sm:px-12 py-8 gap-8 relative z-10">
 				{/* Col 1: Logo & location */}
-				<div className="flex flex-col gap-3 flex-1">
+				<div className="flex flex-col gap-3 ">
 					<Link to="/">
 						<img
 							id="footer-logo"
@@ -289,14 +288,9 @@ function Footer() {
 							className="w-[200px]"
 						/>
 					</Link>
-					<p className="text-sm text-gray-400">Dallas, Texas</p>
-					<p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} We Summit Mountains</p>
-				</div>
-
-				{/* Col 2: Social icons */}
-				<div className="flex flex-col items-center gap-3 flex-1">
-					<p className="text-sm text-gray-400 font-[700]">Follow Us</p>
-					<div className="flex gap-4">
+					<p className="text-xs text-center text-white">&copy; {new Date().getFullYear()} We Summit Mountains</p>
+					<p className="text-xs text-center text-white">Dallas, Texas</p>
+					<div className="flex justify-center gap-4">
 						<a href="https://www.linkedin.com/company/we-summit-mountains" target="_blank" rel="noreferrer" className="text-white hover:text-wsm-mountain transition-colors" aria-label="LinkedIn">
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
 						</a>
@@ -310,11 +304,12 @@ function Footer() {
 				</div>
 
 				{/* Col 3: Links */}
-				<div className="flex flex-col gap-2 text-sm sm:text-right flex-1">
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">Salesforce Implementation</Link>
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">Cloud CRM Solutions</Link>
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">System Integrations</Link>
+				<div className="flex flex-col gap-2 text-sm sm:text-right">
 					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">AI Consulting</Link>
+					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">Salesforce Implementation</Link>
+					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">CTO Services</Link>
+					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">System Integrations</Link>
+					
 				</div>
 			</div>
 

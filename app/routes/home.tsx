@@ -176,6 +176,7 @@ function ServicesOverview() {
 		{
 			title: "AI Consulting",
 			description: "Leverage the power of artificial intelligence to drive smarter decisions. From strategy to deployment, we make AI work for your business.",
+			href: "/ai-consulting",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
@@ -185,6 +186,7 @@ function ServicesOverview() {
 		{
 			title: "CTO Fractional Services",
 			description: "Get executive-level technology leadership without the full-time cost. We provide strategic CTO guidance to align your tech vision with business goals.",
+			href: "/fractional-cto-services",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -194,6 +196,7 @@ function ServicesOverview() {
 		{
 			title: "Salesforce Implementation",
 			description: "End-to-end Salesforce solutions tailored to your business processes. From Sales Cloud to Service Cloud, we build systems that scale.",
+			href: "/mountain-guide-services",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -203,6 +206,7 @@ function ServicesOverview() {
 		{
 			title: "System Integrations",
 			description: "Seamlessly connect your business tools and platforms. We build robust integrations that eliminate data silos and automate workflows.",
+			href: "/system-integration-services",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.54a4.5 4.5 0 00-1.242-7.244l4.5-4.5a4.5 4.5 0 016.364 6.364l-1.757 1.757" />
@@ -231,9 +235,10 @@ function ServicesOverview() {
 
 					<div className="flex flex-wrap gap-5 md:gap-10">
 						{services.map((service) => (
-							<div
+							<Link
 								key={service.title}
-								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden cursor-pointer"
+								to={service.href}
+								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
 							>
 								<div className="w-14 h-14 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
 									{service.icon}
@@ -244,7 +249,7 @@ function ServicesOverview() {
 								<p className="text-gray-300 leading-relaxed">
 									{service.description}
 								</p>
-							</div>
+							</Link>
 						))}
 					</div>
 

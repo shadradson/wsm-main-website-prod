@@ -76,23 +76,25 @@ export default function SuccessStories() {
 function PageHero() {
 	return (
 		<section id="stories-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[66vh] relative overflow-hidden">
-			<ParticleDots
-				particleCount={600}
-				color="#ffffff22"
-				lineColor="#ffffff"
-				repelRadius={180}
-				repelStrength={0.08}
-				linkDistance={90}
-				svgLinkDistance={30}
-				svgPath={WSM_LOGO_PATH}
-				svgScale={5}
-				svgOffsetX={-200}
-				svgOffsetY={60}
-				svgPoints={300}
-				attractStrength={0.0005}
-				svgFit="none"
-				svgAlign="right"
-			/>
+			<div className="hidden md:block">
+				<ParticleDots
+					particleCount={600}
+					color="#ffffff22"
+					lineColor="#ffffff"
+					repelRadius={180}
+					repelStrength={0.08}
+					linkDistance={90}
+					svgLinkDistance={30}
+					svgPath={WSM_LOGO_PATH}
+					svgScale={5}
+					svgOffsetX={-200}
+					svgOffsetY={60}
+					svgPoints={300}
+					attractStrength={0.0005}
+					svgFit="none"
+					svgAlign="right"
+				/>
+			</div>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">

@@ -46,7 +46,7 @@ section {
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Pattern Background <<<<<<<<<<<<<<<<<<<<<<<<<*/
-.pattern-bg-dots, .pattern-bg-dots-sm, .pattern-bg-dots-light {
+.pattern-bg-dots, .pattern-bg-dots-sm, .pattern-bg-dots-light, .pattern-bg-dots-nofix {
 	position: relative;
 	clip-path: inset(0);
 }
@@ -57,11 +57,20 @@ section {
 	pointer-events: none;
 	z-index: 0;
 }
+.pattern-bg-dots-nofix::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 0;
+}
+
 .pattern-bg-dots > *, .pattern-bg-dots-sm > *, .pattern-bg-dots-light > * {
 	position: relative;
 	z-index: 1;
 }
-.pattern-bg-dots::before {
+.pattern-bg-dots::before, .pattern-bg-dots-nofix::before {
 	--pattern-fg: color-mix(in oklab, var(--color-white) 25%, transparent);
 	background-image: radial-gradient(var(--pattern-fg) 1.25px, transparent 0);
 	background-size: 40px 40px;
@@ -1038,13 +1047,30 @@ img.close_rocks_img {
 
 ::-webkit-scrollbar-thumb {
 	background-color: #EEEEEEFF;
-	border-radius: 0;
 	background-clip: content-box;
 	width: 100%;
 }
 
 ::-webkit-scrollbar-thumb:hover {
 	background-color: #FFFFFFFF;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>> WSM Tags <<<<<<<<<<<<<<<<<<<<<<<<<*/
+
+@keyframes tagopacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.wsm-tag {
+	animation: tagopacity ease-out both;
+	animation-timeline: view();
+	animation-range-start: 20vh;
+	animation-range-end: 40vh;
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Stats Fade-In Animation <<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -1089,12 +1115,16 @@ img.close_rocks_img {
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Footer Parallax <<<<<<<<<<<<<<<<<<<<<<<<<*/
 @keyframes footer_paralayer_mountain {
-	0% { transform: translateY(-65vh); }
+	0% { transform: translateY(-100vh); }
 	100% { transform: translateY(25vh); }
 }
+@keyframes footer_paralayer_mountain_mobile {
+	0% { transform: translateY(-80vh); }
+	100% { transform: translateY(35vh); }
+}
 @keyframes footer_paralayer_trees {
-	0% { transform: translateY(-20vh); }
-	100% { transform: translateY(20vh); }
+	0% { transform: translateY(40vh); }
+	100% { transform: translateY(0vh); }
 }
 
 .footer_parallax_layer {
@@ -1105,22 +1135,37 @@ img.close_rocks_img {
 	pointer-events: none;
 }
 
-.footer_mountains_anim {
+@media screen and (max-width: 768px) {
+	.footer_mountains_anim {
+	animation: footer_paralayer_mountain_mobile linear;
+	animation-timeline: view();
+	animation-range-start: -50vh;
+	animation-range-end: 150vh;
+	z-index: 1;
+	height: 100%;
+}	
+}
+
+@media screen and (min-width: 768px) {
+	.footer_mountains_anim {
 	animation: footer_paralayer_mountain linear;
 	animation-timeline: view();
 	animation-range-start: -50vh;
 	animation-range-end: 150vh;
 	z-index: 1;
 	height: 100%;
+}	
 }
 
 img.footer_mountains_img {
 	position: absolute;
 	bottom: calc(180px - 20vw);
-	left: 0;
+	left: 50%;
+	transform: translateX(-50%);
 	width: 100%;
 	height: auto;
 	object-fit: cover;
+	min-width: 900px;
 }
 
 .footer_parallax_layer.footer_trees {
@@ -1132,8 +1177,8 @@ img.footer_mountains_img {
 }
 
 img.footer_extra_trees_img {
-	width: 60vw;
-	min-width: 600px;
+	width: 40vw;
+	min-width: 800px;
 	margin-left: auto;
 	display: block;
 }
@@ -1142,13 +1187,13 @@ img.footer_extra_trees_img {
 	animation: footer_paralayer_trees linear;
 	animation-timeline: view();
 	animation-range-start: -50vh;
-	animation-range-end: 150vh;
+	animation-range-end: 100vh;
 	z-index: 4;
 }
 
 img.footer_hillside_img {
-	width: 60vw;
-	min-width: 500px;
+	width: 40vw;
+	min-width: 800px;
 }
 
 .footer_ground_box {
@@ -1166,4 +1211,10 @@ img.footer_hillside_img {
 	width: 100%;
 	position: absolute;
 	bottom: 0;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>> SVG Backgrounds <<<<<<<<<<<<<<<<<<<<<<<<<*/
+.bg_trans_plus_white_pattern {
+	background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
