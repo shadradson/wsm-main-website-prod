@@ -545,25 +545,25 @@ img.mountains_img {
 
 /* Flying Birds0.svg, Flying Birds1.svg, Flying Birds2.svg */
 @keyframes our_team_birds1 {
-	0% { transform: translate(90vw, 100vh);filter: blur(2px); }
-	100% { transform: translate(-120vw, -60vh);filter: blur(0px);}
+	0% { transform: translate(90vw, 30vh); }
+	100% { transform: translate(-20vw, 30vh);}
 }
 
 @keyframes our_team_birds2 {
-	0% { transform: translate(90vw, 100vh);filter: blur(2px);}
-	100% { transform: translate(-110vw, -50vh);filter: blur(0px); }
+	0% { transform: translate(70vw, 40vh);}
+	100% { transform: translate(-20vw, 40vh);}
 }
 
 @keyframes our_team_birds3 {
-	0% { transform: translate(100vw, 100vh);filter: blur(2px); }
-	100% { transform: translate(-100vw, -70vh);filter: blur(0px); }
+	0% { transform: translate(100vw, 35vh);}
+	100% { transform: translate(0vw, 35vh);}
 }
 
 .birds.birds1-anim {
 	animation: our_team_birds1 linear;
 	animation-timeline: view();
-	animation-range-start: 40vh;
-	animation-range-end: 200vh;
+	animation-range-start: 0vh;
+	animation-range-end: 250vh;
 	transform: scale(-1);
 	z-index: 6;
 }
@@ -571,8 +571,8 @@ img.mountains_img {
 .birds.birds2-anim {
 	animation: our_team_birds2 linear;
 	animation-timeline: view();
-	animation-range-start: 40vh;
-	animation-range-end: 200vh;
+	animation-range-start: 0vh;
+	animation-range-end: 250vh;
 	transform: scaleX(-1);
 	z-index: 6;
 }
@@ -580,8 +580,8 @@ img.mountains_img {
 .birds.birds3-anim {
 	animation: our_team_birds3 linear;
 	animation-timeline: view();
-	animation-range-start: 40vh;
-	animation-range-end: 200vh;
+	animation-range-start: 0vh;
+	animation-range-end: 250vh;
 	transform: scale(-1);
 	z-index: 6;
 }

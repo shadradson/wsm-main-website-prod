@@ -101,7 +101,7 @@ function OurTeamHero() {
 				<div className="our_team_para_layer layer5 mix_blend_ex" id="keyart-0" data-speed="-0.8" data-blur="0" data-baseblur="0">
 					<div className="wsm slide">
 						<img src="/images/WSM_LOGO_V2_Norm_Wht.svg" className="wsm_img" />
-						<h1 className="absolute top-[calc(75vh-10vw)] text-5xl font-bold text-white">OUR TEAM</h1>
+						<h1 className="absolute top-[calc(75vh-7vw)] text-5xl font-bold text-white">OUR TEAM</h1>
 					</div>
 				</div>
 

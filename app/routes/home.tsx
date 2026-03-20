@@ -299,23 +299,23 @@ function TransitionLayer2() {
 function WhyChooseUs() {
 	const reasons = [
 		{
-			title: "WE ARE EXPERIENCED",
+			title: "EXPERIENCED",
 			description: "We have extensive experience driving immense growth for companies through technological transformation. We have worked with companies while they grow 10x. We understand the balance between long term vision and short term productivity. This allows us to tailor the iterative process to get you running fast, while keeping on track with the long term needs from your software. Our method involves rapid adoption to get you growing as quickly as possible, and we continue to iterate.",
 			haslink: true,
-			linkTxt: "OUR SUCCESS STORIES",
-			linkUrl: "/case-studies",
+			linkTxt: "SEE OUR SUCCESS STORIES",
+			linkUrl: "/success-stories",
 			tag: "01 - EXP",
 		},
 		{
-			title: "WE ARE CERTIFIED",
+			title: "CERTIFIED",
 			description: "Each of our developers is Salesforce Certified, with different specialties. Our 2 Solution Architects have been in the Salesforce ecosystem for over 14 years combined. We have seen many problems, and overcome them all to get here. Our entire team is United States based, and always will be. We know Salesforce, Agentic AI tools, and Cloud Solutions like the back of our hand.",
 			haslink: true,
-			linkTxt: "OUR CERTIFICATIONS",
-			linkUrl: "/certifications",
+			linkTxt: "VIEW OUR CERTIFICATIONS",
+			linkUrl: "/about-us#team-certifications",
 			tag: "02 - CERT",
 		},
 		{
-			title: "WE ARE PARTNERS",
+			title: "YOUR PARTNERS",
 			description: "Every engagement is focused on delivering tangible business outcomes that you can measure and build upon.",
 			haslink: true,
 			linkTxt: "MEET YOUR TEAM",
@@ -339,12 +339,15 @@ function WhyChooseUs() {
 									{reason.tag}
 								</div>
 									<div className="lg:w-1/2 flex flex-col gap-4 h-[-webkit-fill-available] p-16 border-x-solid border-x-2 border-gray-200">
-										<h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+										<h2 className="text-6xl sm:text-6xl font-[900] text-gray-900 bg-gradient-to-r from-[#a365c1] to-[#0b596d] inline-block text-transparent bg-clip-text">
+											WE ARE
+										</h2>
+										<h2 className="text-6xl sm:text-6xl font-[900] text-gray-900">
 											{reason.title}
 										</h2>
-										<p className="text-gray-600 leading-relaxed mb-6">
-											{reason.description}
-										</p>
+										<div className="w-full border-2 border-solid border-[#00000011] bg-[image:repeating-linear-gradient(315deg,_#00000011,_#00000011_12px,_transparent_0,_transparent_50%)] bg-[size:24px_24px] bg-fixed min-h-[40px]">
+
+										</div>
 										{reason.haslink && (
 											<Link to={reason.linkUrl} className="inline-flex self-start items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors">
 												{reason.linkTxt}
@@ -352,7 +355,9 @@ function WhyChooseUs() {
 										)}
 									</div>
 									<div className="lg:w-1/2 p-16 flex items-center justify-center">
-										<div className="w-full border-2 border-solid border-[#00000011] bg-[image:repeating-linear-gradient(315deg,_#00000011,_#00000011_12px,_transparent_0,_transparent_50%)] bg-[size:24px_24px] bg-fixed min-h-[200px]"></div>
+									<p className="text-gray-800 text-[1.15rem]  leading-relaxed">
+											{reason.description}
+										</p>
 									</div>
 								</div>
 							</div>
