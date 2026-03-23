@@ -239,7 +239,7 @@ function Footer() {
 			<div id="footer-content" className="relative z-10">
 
 				{ctaConfig.showCta && (
-					<div className="sm:py-4 lg:py-20">
+					<div id="home-cta-card" className="sm:py-4 lg:py-20">
 						<div className="max-w-7xl mx-auto md:px-8 pb-30 sm:px-2 lg:px-8">
 							<div className="relative p-4 sm:p-6 md:p-12 lg:p-16 text-center overflow-hidden">
 								<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
