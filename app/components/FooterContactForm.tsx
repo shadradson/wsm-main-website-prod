@@ -1,5 +1,5 @@
 import { useLeadForm } from "~/lib/useLeadForm";
-import "./FooterContactForm.module.css";
+import styles from "./FooterContactForm.module.css";
 
 interface FooterContactFormProps {
 	recordTypeId: string;
