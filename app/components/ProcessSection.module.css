@@ -1,0 +1,66 @@
+/* ── Dark theme ── */
+.dark {
+    background: linear-gradient(to top left, #021626, #1a3a4a);
+    & :global(.proc-title) { color: white; }
+    & :global(.proc-subtitle) { color: #d1d5db; }
+    & :global(.proc-step-title) { color: #e5e7eb; }
+    & :global(.proc-step-subtitle) { color: #e5e7eb; }
+    & :global(.proc-step-desc) { color: #d1d5db; }
+    & :global(.proc-border) { border-color: #ccc; }
+    & :global(.proc-outline) { outline-color: #ccc; }
+    & :global(.proc-corner) { stroke: #ccc; }
+    & :global(.proc-step-bg) { background: rgba(0, 0, 0, 0.47); }
+    & :global(.proc-footer-title) { color: white; }
+    & :global(.proc-footer-text) { color: #d1d5db; }
+    & :global(.wsm-tag) { color: #6da6a9; }
+}
+
+/* ── Light theme ── */
+.light {
+    background: #f9fafb;
+    & :global(.proc-title) { color: #111827; }
+    & :global(.proc-subtitle) { color: #4b5563; }
+    & :global(.proc-step-title) { color: #111827; }
+    & :global(.proc-step-subtitle) { color: #374151; }
+    & :global(.proc-step-desc) { color: #4b5563; }
+    & :global(.proc-border) { border-color: #e5e7eb; }
+    & :global(.proc-outline) { outline-color: #e5e7eb; }
+    & :global(.proc-corner) { stroke: #e5e7eb; }
+    & :global(.proc-step-bg) { background: rgba(0, 0, 0, 0.03); }
+    & :global(.proc-footer-title) { color: #111827; }
+    & :global(.proc-footer-text) { color: #4b5563; }
+    & :global(.wsm-tag) { color: #036588; }
+}
+
+/* ── Blue theme ── */
+.blue {
+    background: #036588;
+    & :global(.proc-title) { color: white; }
+    & :global(.proc-subtitle) { color: #B1E2F5; }
+    & :global(.proc-step-title) { color: white; }
+    & :global(.proc-step-subtitle) { color: #B1E2F5; }
+    & :global(.proc-step-desc) { color: #B1E2F5; }
+    & :global(.proc-border) { border-color: rgba(255, 255, 255, 0.27); }
+    & :global(.proc-outline) { outline-color: rgba(255, 255, 255, 0.27); }
+    & :global(.proc-corner) { stroke: rgba(255, 255, 255, 0.27); }
+    & :global(.proc-step-bg) { background: rgba(0, 0, 0, 0.2); }
+    & :global(.proc-footer-title) { color: white; }
+    & :global(.proc-footer-text) { color: #B1E2F5; }
+    & :global(.wsm-tag) { color: #FCDEBE; }
+}
+
+/* ── Step number badge ── */
+:global(.proc-step-badge) {
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(to bottom right, #53C4EE, #6da6a9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+}

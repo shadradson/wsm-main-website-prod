@@ -57,8 +57,9 @@ function Header() {
 		{/* Floating hamburger shown before nav appears on home/about-us */}
 		{showEarlyHamburger && (
 			<>
+			<div className="fixed top-0 right-0 bg-black z-9999999999999">
 				<button
-					className="fixed top-0 right-0 text-white bg-black/50 rounded-lg p-3 m-2"
+					className="text-white bg-black/50 rounded-lg p-3 m-2"
 					style={{ zIndex: 99999999 }}
 					onClick={() => setMobileOpen(!mobileOpen)}
 					aria-label="Toggle menu"
@@ -73,6 +74,8 @@ function Header() {
 						</svg>
 					)}
 				</button>
+			</div>
+				
 				{mobileOpen && (
 					<div className="fixed top-14 left-0 right-0 bg-black border-t border-white/10" style={{ zIndex: 99999998 }}>
 						<div className="px-4 py-4 space-y-1">

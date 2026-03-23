@@ -5,6 +5,7 @@ import { buildMeta, SITE_URL } from "~/lib/seo";
 import { div } from "three/tsl";
 import Transition from "~/components/Transition";
 import SplashSection from "~/components/SplashSection";
+import ProcessSection from "~/components/ProcessSection";
 
 const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
 const DESCRIPTION =
@@ -112,7 +113,48 @@ export default function Expertise() {
 					},
 				]}
 			/>
-			<ProcessSection />
+			<Transition
+							type="text"
+							text="PROCESS"
+							textpos="bot"
+							textcolor="#112C3C"
+							bgtop="#F9FAFB"
+						/>
+
+			<ProcessSection
+				tag="PROCESS"
+				title="OUR PROCESS"
+				subtitle="Our proven approach to delivering excellent results."
+				footerTitle="DON'T WASTE TIME"
+				footerText="."
+				dots="true"
+				steps={[
+					{
+						step: "01",
+						title: "Learn",
+						subtitle: "Discovery / Strategy",
+						description: "We dive deep into your business, understanding your goals, challenges, and existing technology landscape. We discuss best practices and architect platforms built for long term growth.",
+					},
+					{
+						step: "02",
+						title: "Climb",
+						subtitle: "Build / Testing",
+						description: "We start climbing. Quick wins, demos, and testing together allow us to remain flexible and show immense value without long nerve wracking waiting periods.",
+					},
+					{
+						step: "03",
+						title: "Summit",
+						subtitle: "Deployment / Training",
+						description: "We are not just here to build software. We are here to make sure everyone is enabled in using it. We love training. Let's get your teams happy with the build, and excited to share feedback.",
+					},
+					{
+						step: "04",
+						title: "Keep Climbing",
+						subtitle: "Continuous Growth",
+						description: "The next mountain calls. Let's tackle the next problem, and then the next. Growth is never finished. Just keep climbing.",
+					},
+				]}
+			/>
 			<TechStack />
 		</>
 	);
@@ -144,8 +186,8 @@ function PageHero() {
 				/>
 
 			</div>
-			<div className="py-20 lg:py-28 relative z-10">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pointer-events-none">
+			<div className="py-20 lg:py-28 relative z-10 pointer-events-none">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 					<div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>EXPERTISE</div>
 					<div className="max-w-3xl">
 						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
@@ -164,110 +206,6 @@ function PageHero() {
 	);
 }
 
-
-function ProcessSection() {
-	const steps = [
-		{
-			step: "01",
-			title: "Learn",
-			subtitle: "Discovery / Strategy",
-			description:
-				"We dive deep into your business, understanding your goals, challenges, and existing technology landscape. We discuss best practices and architect platforms built for long term growth.",
-		},
-		{
-			step: "02",
-			title: "Climb",
-			subtitle: "Build / Testing",
-			description:
-				"We start climbing. Quick wins, demos, and testing together allow us to remain flexible and show immense value without long nerve wracking waiting periods.",
-		},
-		{
-			step: "03",
-			title: "Summit",
-			subtitle: "Deployment / Training",
-			description:
-				"We are not just here to build software. We are here to make sure everyone is enabled in using it. We love training. Let's get your teams happy with the build, and excited to share feedback.",
-		},
-		{
-			step: "04",
-			title: "Keep Climbing",
-			subtitle: "Continuous Growth",
-			description:
-				"The next mountain calls. Let's tackle the next problem, and then the next. Growth is never finished. Just keep climbing.",
-		},
-	];
-
-	return (
-		<section id="expertise-process" className="bg-gradient-to-tl from-summit-dark to-wsm-cliff ">
-
-			<div className="h-30 pattern-bg-dots-nofix"></div>
-			<div className="">
-				<div className="border-y-solid border-y-1 border-[#ccc]">
-					<div className="border-x-solid border-x-1 border-[#ccc] max-w-7xl mx-auto text-center outline-1 outline-solid outline-[#ccc] outline-offset-30 relative">
-						<div className="wsm-tag absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-							PROCESS
-						</div>
-						<div className="p-10 sm:p-8 lg:p-12">
-							<div className="p-2 sm:p-2 lg:p-2">
-								<h2 className="text-3xl sm:text-4xl font-bold text-white">OUR PROCESS</h2>
-								<p className="text-lg text-gray-300 max-w-2xl mx-auto">Our proven approach to delivering excellent results.</p>
-							</div>
-						</div>
-
-						<div className="flex flex-wrap justify-center">
-							{steps.map((item) => (
-								<div
-									key={item.title}
-									className="relative p-1 flex-1 min-w-[200px] min-h-[100px] items-center flex flex-col justify-center hover:bg-white/5 transition-colors"
-								>
-									{/* Top-left */}
-									<svg className="absolute top-0 -left-0.25 w-4 h-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-										<path stroke="#ccc" strokeWidth="2" d="M0 20V0h20" />
-									</svg>
-									{/* Top-right */}
-									<svg className="absolute top-0 right-0 w-4 h-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-										<path stroke="#ccc" strokeWidth="2" d="M20 20V0H0" />
-									</svg>
-									{/* Bottom-left */}
-									<svg className="absolute bottom-0 -left-0.25 w-4 h-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-										<path stroke="#ccc" strokeWidth="2" d="M0 0v20h20" />
-									</svg>
-									{/* Bottom-right */}
-									<svg className="absolute bottom-0 right-0 w-4 h-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-										<path stroke="#ccc" strokeWidth="2" d="M20 0v20H0" />
-									</svg>
-									<div className="bg-[#00000077] h-[100%] w-[100%] flex-col items-center justify-center p-4">
-										<div className="w-12 h-12 bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold mx-auto mb-5 absolute top-1 left-1">
-											{item.step}
-										</div>
-										<h3 className="text-lg font-bold text-gray-200">
-											{item.title}
-										</h3>
-										<h4 className="text-md font-[500] text-gray-200 mb-4">
-											{item.subtitle}
-										</h4>
-										<p className="text-gray-300 text-sm leading-relaxed">
-											{item.description}
-										</p>
-									</div>
-								</div>
-							))}
-						</div>
-
-						<div className="p-10 sm:p-8 lg:p-12">
-							<div className="p-2 sm:p-2 lg:p-2">
-								<h3 className="text-1xl sm:text-2xl font-bold text-white">DON'T WASTE TIME</h3>
-								<p className="text-lg text-gray-300 max-w-2xl mx-auto">.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="h-30 pattern-bg-dots"></div>
-		</section>
-
-	);
-}
 
 function TechStack() {
 	const technologies = [

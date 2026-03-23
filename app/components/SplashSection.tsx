@@ -79,7 +79,7 @@ export default function SplashSection({ cards, title, subtitle, titlesize, theme
                                     </div>
                                     <div className="card-inner-section-text">
                                         {card.infotype === "tags" && card.infotext ? (
-                                            <div className="flex flex-wrap justify-center gap-2">
+                                            <div className="card-single-tag-outer">
                                                 {card.infotext.split(",").map((tag) => (
                                                     <div
                                                         key={tag.trim()}

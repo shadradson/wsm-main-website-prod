@@ -99,16 +99,17 @@ export default function OurTeam() {
 				type="text"
 				text="CERTS"
 				textpos="bot"
-				textcolor="#fff"
+				textcolor="#F9FAFC"
 				bgtop="#036588"
+				dots="true"
 			/>
 			<CertificationsSection />
 			<Transition
 				type="text"
 				text="MISSION"
 				textpos="bot"
-				textcolor="#fff"
-				bgtop="#036588"
+				textcolor="#036588"
+				bgtop="#E5E7EB"
 			/>
 			<MissionSection />
 			<Transition
@@ -354,55 +355,61 @@ function CertificationsSection() {
 	];
 
 	return (
-		<section id="team-certifications" className="bg-gray-50">
+		<section id="team-certifications" className="bg-gradient-to-b from-gray-50 to-gray-200 flex">
+			<div className="border-r-1 border-r-solid border-r-gray-300 flex-1"></div>
 			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-						Certified Professionals
-					</h2>
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-						Our team maintains the industry's most respected
-						certifications to deliver the highest quality solutions.
-					</p>
-					{/* Salesforce Partner Badge */}
-					<div className="flex justify-center mb-12">
-						<div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
-							<div className="w-4/5">
-								<img src="/images/Salesforce logo.svg" alt="Salesforce" />
-							</div>
-							<div className="text-center text-wsm-dark">
-								<p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
-							</div>
-							<div className="text-center text-wsm-dark">
-								<p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
+				<div className="max-w-7xl mx-auto py-8 border-y-1 border-y-solid border-y-gray-300 relative">
+					<div className="flex flex-row">
+						<div className="flex-1">
+							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-center">
+								Certified Professionals
+							</h2>
+							<p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+								Our team maintains the industry's most respected
+								certifications to deliver the highest quality solutions.
+							</p>
+						</div>
+						<div className="flex-1">
+							{/* Salesforce Partner Badge */}
+							<div className="flex justify-center mb-12">
+								<div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
+									<div className="w-4/5">
+										<img src="/images/Salesforce logo.svg" alt="Salesforce" />
+									</div>
+									<div className="text-center text-wsm-dark">
+										<p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
+									</div>
+									<div className="text-center text-wsm-dark">
+										<p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="flex flex-wrap justify-center gap-4">
+					<div className="flex flex-wrap justify-center">
 						{sfcertifications.map((cert) => (
-							<div
-								key={cert}
-								className="flex-1 min-w-[300px] items-center gap-3 px-6 py-4 bg-white rounded-xl border border-gray-200 shadow-sm"
-							>
-								<svg className="w-6 h-6 text-brand-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-								</svg>
-								<span className="text-sm font-medium text-gray-800">
-									{cert}
-								</span>
+							<div key={cert}
+								className="p-2.5 border border-gray-300 bg-[#eee] flex-1 flex justify-center">
+								<div className="px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm h-[100%] flex items-center justify-center w-fit min-w-[120px]">
+									<span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
+										{cert}
+									</span>
+								</div>
 							</div>
 						))}
 					</div>
 				</div>
 			</div>
+			<div className="border-l-1 border-l-solid border-l-gray-300 flex-1"></div>
 		</section>
 	);
 }
 
+
 function MissionSection() {
 	return (
-		<section id="about-mission">
+		<section id="about-mission" className="bg-wsm-cliff">
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col lg:flex-row gap-16 items-center">
