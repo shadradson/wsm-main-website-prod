@@ -1,4 +1,5 @@
 import { useLeadForm } from "~/lib/useLeadForm";
+import "./FooterContactForm.module.css";
 
 interface FooterContactFormProps {
 	recordTypeId: string;
@@ -23,23 +24,23 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 
 	if (formState === "success") {
 		return (
-			<div className="max-w-2xl mx-auto text-center py-8">
-				<div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
+			<div className="fcf-success">
+				<div className="fcf-success-icon">
 					<svg className="w-8 h-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
 					</svg>
 				</div>
-				<h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
-				<p className="text-gray-300">We'll get back to you within 1 business day.</p>
+				<h3 className="fcf-success-title">Message Sent!</h3>
+				<p className="fcf-success-text">We'll get back to you within 1 business day.</p>
 			</div>
 		);
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4 py-6">
-			<div className="flex flex-col sm:flex-row gap-4">
-				<div className="sm:flex-1">
-					<label htmlFor="footer-firstName" className="block text-sm font-medium text-gray-300 mb-1">
+		<form onSubmit={handleSubmit} className="fcf-form">
+			<div className="fcf-row">
+				<div className="fcf-field">
+					<label htmlFor="footer-firstName" className="fcf-label">
 						First Name *
 					</label>
 					<input
@@ -47,12 +48,12 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 						id="footer-firstName"
 						name="firstName"
 						required
-						className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-brand-sky focus:border-brand-sky outline-none transition-all"
+						className="fcf-input"
 						placeholder="First name"
 					/>
 				</div>
-				<div className="sm:flex-1">
-					<label htmlFor="footer-lastName" className="block text-sm font-medium text-gray-300 mb-1">
+				<div className="fcf-field">
+					<label htmlFor="footer-lastName" className="fcf-label">
 						Last Name *
 					</label>
 					<input
@@ -60,74 +61,79 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 						id="footer-lastName"
 						name="lastName"
 						required
-						className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-brand-sky focus:border-brand-sky outline-none transition-all"
+						className="fcf-input"
 						placeholder="Last name"
 					/>
 				</div>
 			</div>
 
-			<div>
-				<label htmlFor="footer-email" className="block text-sm font-medium text-gray-300 mb-1">
-					Email *
-				</label>
-				<input
-					type="email"
-					id="footer-email"
-					name="email"
-					required
-					className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-brand-sky focus:border-brand-sky outline-none transition-all"
-					placeholder="you@company.com"
-				/>
+			<div className="fcf-row">
+				<div className="fcf-field">
+					<label htmlFor="footer-email" className="fcf-label">
+						Email *
+					</label>
+					<input
+						type="email"
+						id="footer-email"
+						name="email"
+						required
+						className="fcf-input"
+						placeholder="you@company.com"
+					/>
+				</div>
 			</div>
 
-			<div className="flex flex-col sm:flex-row gap-4">
-				<div className="sm:flex-1">
-					<label htmlFor="footer-company" className="block text-sm font-medium text-gray-300 mb-1">
+			<div className="fcf-row">
+				<div className="fcf-field">
+					<label htmlFor="footer-company" className="fcf-label">
 						Company
 					</label>
 					<input
 						type="text"
 						id="footer-company"
 						name="company"
-						className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-brand-sky focus:border-brand-sky outline-none transition-all"
+						className="fcf-input"
 						placeholder="Company name"
 					/>
 				</div>
-				<div className="sm:flex-1">
-					<label htmlFor="footer-phone" className="block text-sm font-medium text-gray-300 mb-1">
+				<div className="fcf-field">
+					<label htmlFor="footer-phone" className="fcf-label">
 						Phone
 					</label>
 					<input
 						type="tel"
 						id="footer-phone"
 						name="phone"
-						className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-brand-sky focus:border-brand-sky outline-none transition-all"
+						className="fcf-input"
 						placeholder="(555) 123-4567"
 					/>
 				</div>
 			</div>
 
-			<div>
-				<label htmlFor="footer-message" className="block text-sm font-medium text-gray-300 mb-1">
-					Message
-				</label>
-				<textarea
-					id="footer-message"
-					name="message"
-					rows={3}
-					className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-brand-sky focus:border-brand-sky outline-none transition-all resize-none"
-					placeholder="Tell us about your project or how we can help..."
-				/>
+			<div className="fcf-row">
+				<div className="fcf-field">
+					<label htmlFor="footer-message" className="fcf-label">
+						Message
+					</label>
+					<textarea
+						id="footer-message"
+						name="message"
+						rows={3}
+						className="fcf-textarea"
+						placeholder="Tell us about your project or how we can help..."
+					/>
+				</div>
 			</div>
 
+
 			{formState === "error" && (
-				<p className="text-red-400 text-sm">{errorMsg}</p>
+				<p className="fcf-error">{errorMsg}</p>
 			)}
 
 			<button
 				type="submit"
 				disabled={formState === "submitting"}
-				className="w-full sm:w-auto px-8 py-3 bg-brand-blue text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25 disabled:opacity-50 disabled:cursor-not-allowed"
+				className="fcf-submit"
 			>
 				{formState === "submitting" ? "Sending..." : "Send Message"}
 			</button>

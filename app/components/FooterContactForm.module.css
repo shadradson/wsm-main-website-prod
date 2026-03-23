@@ -1,0 +1,116 @@
+/* ── Form wrapper ── */
+:global(.fcf-form) {
+    max-width: 42rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    background: #ffffffaa;
+    border: 6px solid black;
+}
+
+/* ── Row (side-by-side fields) ── */
+:global(.fcf-row) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+@media (min-width: 640px) {
+    :global(.fcf-row) {
+        flex-direction: row;
+    }
+    :global(.fcf-field) {
+        flex: 1;
+    }
+}
+
+/* ── Label ── */
+:global(.fcf-label) {
+        display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: black;
+    text-transform: uppercase;
+    text-align: left;
+    line-height: 0.875rem;
+}
+
+/* ── Input & Textarea ── */
+:global(.fcf-input),
+:global(.fcf-textarea) {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: black;
+    border: 1px solid black;
+    color: white;
+    outline: none;
+    transition: all 0.2s;
+}
+:global(.fcf-input)::placeholder,
+:global(.fcf-textarea)::placeholder {
+    color: #9ca3af;
+}
+:global(.fcf-input):focus,
+:global(.fcf-textarea):focus {
+    ring: 2px;
+    border-color: #53C4EE;
+    box-shadow: 0 0 0 2px rgba(83, 196, 238, 0.3);
+}
+
+:global(.fcf-textarea) {
+    resize: none;
+}
+
+/* ── Submit button ── */
+:global(.fcf-submit) {
+    padding: 0.75rem 2rem;
+    background: #036588;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+:global(.fcf-submit):hover {
+    background: #53C4EE;
+    box-shadow: 0 4px 12px rgba(3, 101, 136, 0.25);
+}
+:global(.fcf-submit):disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ── Error message ── */
+:global(.fcf-error) {
+    color: #f87171;
+    font-size: 0.875rem;
+}
+
+/* ── Success state ── */
+:global(.fcf-success) {
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem 0;
+}
+:global(.fcf-success-icon) {
+    width: 4rem;
+    height: 4rem;
+    background: rgba(34, 197, 94, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+:global(.fcf-success-title) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+:global(.fcf-success-text) {
+    color: #d1d5db;
+}

@@ -85,10 +85,7 @@ section {
 	background-image: radial-gradient(var(--pattern-fg) 1.25px, transparent 0);
 	background-size: 40px 40px;
 }
-/*>>>>>>>>>>>>>>>>>>>>>>>>> Gradient Backgrounds <<<<<<<<<<<<<<<<<<<<<<<<<*/
-.gradient-circle-bg-dark {
-	background: radial-gradient(ellipse at 10% 15%, rgb(13 41 70 / 45%) 0%, transparent 60%), radial-gradient(ellipse at 88% 85%, rgb(13 64 90 / 85%) 0%, transparent 60%), radial-gradient(ellipse at 50% 50%, rgb(0 0 0 / 17%) 0%, transparent 60%), linear-gradient(135deg, rgb(8 233 227 / 32%) 0%, rgb(56 0 255 / 35%) 50%, rgb(0 0 0 / 55%) 100%);
-}
+
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Experience <<<<<<<<<<<<<<<<<<<<<<<<<*/
 @keyframes leftmarquee {
@@ -278,7 +275,7 @@ img.clouds_image {
 
 @media screen and (max-width:728px) {
 	.header_logo_main > img.logo_img_vert {
-	width: 300px;
+	width: 200px;
 	padding: 1rem;
 	display: block;
 	}
@@ -290,7 +287,7 @@ img.clouds_image {
 
 @media screen and (min-width:728px) {
 	.header_logo_main > img.logo_img_vert {
-	width: 400px;
+	width: 200px;
 	padding: 1rem;
 	display: none;
 	}
@@ -319,7 +316,7 @@ img.clouds_image {
 img.mountains_img {
 	width: 100vw;
 	filter: brightness(1.5) ;
-	min-width: 1080px;
+	min-width: 900px;
 	transform: translateY(20vw);
 }
 
@@ -332,7 +329,7 @@ img.mountains_img {
 	}
 }
 
-/*---------- Smaller Box right placement Mobile ----------*/
+/*---------- Bigger Box right placement desktop ----------*/
 @media only screen and (min-width:768px) {
 	.splash_tag_text {
 		line-height: 5.5rem;
@@ -347,15 +344,18 @@ img.mountains_img {
 	.splash_tag_box {
 		position: absolute;
 		bottom: 0;
-		right: 1rem;
+		left: 0;
+		width: 100vw;
+		
 	}
 }
 
 /*---------- Smaller Box right placement Mobile ----------*/
 @media only screen and (max-width:768px) {
 	.splash_tag_text {
-		line-height: 3.5rem;
-		font-size: 5rem;
+		text-align: center;
+		line-height: 2.7rem;
+		font-size: 4rem;
 		font-weight: 900;
 	}
 }
