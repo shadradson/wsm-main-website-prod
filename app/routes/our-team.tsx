@@ -1,6 +1,8 @@
 import type { Route } from "./+types/our-team";
 import { Link, useLoaderData } from "react-router";
 import { buildMeta, SITE_URL } from "~/lib/seo";
+import Transition from "~/components/Transition";
+import Stats from "~/components/StatSection";
 
 interface TeamMember {
 	sf_id: string;
@@ -56,14 +58,66 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function OurTeam() {
+	const { totalYearsExperience } = useLoaderData<typeof loader>();
+
 	return (
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }} />
 			<OurTeamHero />
 			<TeamGrid />
-			<TransitionLayer2 />
+
+			<Stats
+				stats={[
+					{
+						label: "Certifications",
+						value: "30",
+					},
+					{
+						label: "Years Experience",
+						value: String(totalYearsExperience || "22"),
+					},
+					{
+						label: "Cats",
+						value: "5",
+					},
+					{
+						label: "Dogs",
+						value: "5",
+					},
+					{
+						label: "People Who Juggle",
+						value: "1",
+					},
+				]}
+				title=""
+				subtitle=""
+				tag=""
+				theme="blue"
+				dots="true"
+			/>
+			<Transition
+				type="text"
+				text="CERTS"
+				textpos="bot"
+				textcolor="#fff"
+				bgtop="#036588"
+			/>
 			<CertificationsSection />
+			<Transition
+				type="text"
+				text="MISSION"
+				textpos="bot"
+				textcolor="#fff"
+				bgtop="#036588"
+			/>
 			<MissionSection />
+			<Transition
+				type="text"
+				text="VALUES"
+				textpos="bot"
+				textcolor="#fff"
+				bgtop="#036588"
+			/>
 			<ValuesSection />
 			<StorySection />
 		</>
@@ -159,25 +213,12 @@ function OurTeamHero() {
 
 
 function TeamGrid() {
-	const { team, totalYearsExperience } = useLoaderData<typeof loader>();
-	const Stats = [
-		{
-			label: "Certifications",
-			data: "30",
-		},
-		{
-			label: "Years Experience",
-			data: String(totalYearsExperience || "22"),
-		},
-		{
-			label: "Cats",
-			data: "5",
-		},
-	]
+	const { team } = useLoaderData<typeof loader>();
+
 
 	return (
 		<section id="team-grid">
-			<div className="py-20 lg:py-28 bg-gradient-to-b from-[#111412] to-wsm-cliff">
+			<div className="bg-gradient-to-b from-[#111412] to-wsm-cliff">
 				<div className="h-20 pattern-bg-dots">
 
 				</div>
@@ -187,7 +228,7 @@ function TeamGrid() {
 					</div>
 					<div className="">
 						<div className="relative max-w-7xl mx-auto">
-						<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>
+							<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>
 							<div className=" p-4 ">
 								<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
 									<span className="block">The Humans Who</span>
@@ -293,44 +334,7 @@ function TeamGrid() {
 
 				</div>
 			</div>
-			<div id="home-stats" className="bg-wsm-cliff">
-				<div className="py-16">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-						<div className="flex flex-wrap gap-8 justify-center">
-							{Stats.map((stat) => (
-								<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center stats-fade-in">
-									<p className="text-8xl sm:text-6xl font-bold text-white mb-2">
-										{stat.data}
-									</p>
-									<p className="text-white text-sm uppercase tracking-wider">
-										{stat.label}
-									</p>
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</div>
 		</section>
-
-	);
-}
-
-
-
-function TransitionLayer2() {
-	return (
-		<div>
-			<div className="transition1 bg-wsm-cliff">
-				<div className="translayer midlay t1_lay5">
-					<div className="splash_tag_box">
-						<div className="splash_tag_text text-gray-50">
-							CERTS
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 	);
 }

@@ -1,5 +1,9 @@
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
+import StatsSection from "~/components/StatSection";
+import SplashSection from "~/components/SplashSection";
+import Transition from "~/components/Transition"
+
 import { buildMeta, SITE_URL, SITE_LOGO, OG_IMAGE } from "~/lib/seo";
 
 const TITLE = "We Summit Mountains | Salesforce & AI Consulting | Dallas, TX";
@@ -86,11 +90,80 @@ export default function Home() {
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }} />
 			<HeroSection />
-			<TransitionLayer1 />
+			<Transition
+				type="text"
+				text="CLIMBING"
+				textpos="top"
+				textcolor="#111"
+				bgbottom="#fff"
+			/>
 			<ServicesOverview />
-			<TransitionLayer2 />
-			<WhyChooseUs />
-			<StatsSection />
+
+			<Transition
+				type="text"
+				text="KEEP"
+				textpos="bot"
+				textcolor="#101622"
+				bgtop="#036588"
+			/>
+
+			<Transition
+				type="text"
+				text="MOVING"
+				textpos="bot"
+				textcolor="#fff"
+				bgtop="#101622"
+			/>
+
+			<SplashSection
+    			//title=""
+    			//subtitle=""
+    			theme="light" // "light, dark, blue"
+    			dots="true"
+				cards={[
+					{
+						title1: "WE ARE",
+						title2: "EXPERIENCED",
+						haslink: true,
+						buttontext: "SEE OUR SUCCESS STORIES",
+						linkUrl: "/success-stories",
+						tag: "01 - EXP",
+						infotype: "text",
+						infotext: "We have extensive experience driving immense growth for companies through technological transformation. We have worked with companies while they grow 10x. We understand the balance between long term vision and short term productivity. This allows us to tailor the iterative process to get you running fast, while keeping on track with the long term needs from your software. Our method involves rapid adoption to get you growing as quickly as possible, and we continue to iterate."
+					},
+					{
+						title1: "WE ARE",
+						title2: "CERTIFIED",
+						haslink: true,
+						buttontext: "VIEW OUR CERTIFICATIONS",
+						linkUrl: "/about-us#team-certifications",
+						tag: "02 - CERT",
+						infotype: "text",
+						infotext: "Each of our developers is Salesforce Certified, with different specialties. Our 2 Solution Architects have been in the Salesforce ecosystem for over 14 years combined. We have seen many problems, and overcome them all to get here. Our entire team is United States based, and always will be. We know Salesforce, Agentic AI tools, and Cloud Solutions like the back of our hand."
+					},
+					{
+						title1: "WE ARE",
+						title2: "YOUR PARTNERS",
+						haslink: true,
+						buttontext: "MEET YOUR TEAM",
+						linkUrl: "/about-us",
+						tag: "03 - PART",
+						infotype: "text",
+						infotext: "Every engagement is focused on delivering tangible business outcomes that you can measure and build upon."
+					},
+				]}
+			 />
+
+			<StatsSection
+				tag="STATS"
+				stats={[
+					{ value: "2023", label: "Founded" },
+					{ value: "5 / 5", label: "CSAT Score" },
+					{ value: "100+", label: "Projects Delivered" },
+					{ value: "30+", label: "Certifications" },
+					{ value: "USA", label: "Located" },
+				]}
+			/>
 		</>
 	);
 }
@@ -123,6 +196,11 @@ function HeroSection() {
 								src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
 								alt="We Summit Mountains"
 								className="logo_img"
+							/>
+							<img
+								src="/images/WSM Logo V2 White Vertical.svg"
+								alt="We Summit Mountains"
+								className="logo_img_vert"
 							/>
 						</div>
 					</div>
@@ -157,19 +235,7 @@ function HeroSection() {
 	);
 }
 
-function TransitionLayer1() {
-	return (
-		<div id="home-transition" className="transition1 bg-white">
-			<div className="translayer midlay t1_lay5">
-				<div className="splash_tag_box">
-					<div className="splash_tag_text text-wsm-dark">
-						CLIMBING
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-}
+
 
 function ServicesOverview() {
 	const services = [
@@ -269,132 +335,5 @@ function ServicesOverview() {
 		</section>
 	);
 }
-function TransitionLayer2() {
-	return (
-		<div>
-			<div className="transition1 bg-wsm-cliff">
-				<div className="translayer midlay t1_lay5">
-					<div className="splash_tag_box">
-						<div className="splash_tag_text text-wsm-dark">
-							KEEP
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<div className="transition1 bg-wsm-dark">
-				<div className="translayer midlay t1_lay5">
-					<div className="splash_tag_box">
-						<div className="splash_tag_text text-white">
-							MOVING
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-	);
-}
-
-function WhyChooseUs() {
-	const reasons = [
-		{
-			title: "EXPERIENCED",
-			description: "We have extensive experience driving immense growth for companies through technological transformation. We have worked with companies while they grow 10x. We understand the balance between long term vision and short term productivity. This allows us to tailor the iterative process to get you running fast, while keeping on track with the long term needs from your software. Our method involves rapid adoption to get you growing as quickly as possible, and we continue to iterate.",
-			haslink: true,
-			linkTxt: "SEE OUR SUCCESS STORIES",
-			linkUrl: "/success-stories",
-			tag: "01 - EXP",
-		},
-		{
-			title: "CERTIFIED",
-			description: "Each of our developers is Salesforce Certified, with different specialties. Our 2 Solution Architects have been in the Salesforce ecosystem for over 14 years combined. We have seen many problems, and overcome them all to get here. Our entire team is United States based, and always will be. We know Salesforce, Agentic AI tools, and Cloud Solutions like the back of our hand.",
-			haslink: true,
-			linkTxt: "VIEW OUR CERTIFICATIONS",
-			linkUrl: "/about-us#team-certifications",
-			tag: "02 - CERT",
-		},
-		{
-			title: "YOUR PARTNERS",
-			description: "Every engagement is focused on delivering tangible business outcomes that you can measure and build upon.",
-			haslink: true,
-			linkTxt: "MEET YOUR TEAM",
-			linkUrl: "/about-us",
-			tag: "03 - PART",
-		},
-	];
-
-	return (
-		<section id="home-why-us">
-			<div className="py-20 lg:py-28 pattern-bg-dots-light">
-				<div className="">
-					<div className="flex flex-col gap-24">
-						{reasons.map((reason, i) => (
-							<div
-								key={reason.title}
-								className={`relative flex flex-col lg:flex-row gap-12 items-start border-y-2 border-y-solid border-gray-200 ${i % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
-							>
-								<div className="relative max-w-7xl bg-white mx-auto flex flex-col lg:flex-row gap-12 items-start border-x-2 border-x-solid border-gray-200">
-								<div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "2rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-									{reason.tag}
-								</div>
-									<div className="lg:w-1/2 flex flex-col gap-4 h-[-webkit-fill-available] p-16 border-x-solid border-x-2 border-gray-200">
-										<h2 className="text-6xl sm:text-6xl font-[900] text-gray-900 bg-gradient-to-r from-[#a365c1] to-[#0b596d] inline-block text-transparent bg-clip-text">
-											WE ARE
-										</h2>
-										<h2 className="text-6xl sm:text-6xl font-[900] text-gray-900">
-											{reason.title}
-										</h2>
-										<div className="w-full border-2 border-solid border-[#00000011] bg-[image:repeating-linear-gradient(315deg,_#00000011,_#00000011_12px,_transparent_0,_transparent_50%)] bg-[size:24px_24px] bg-fixed min-h-[40px]">
-
-										</div>
-										{reason.haslink && (
-											<Link to={reason.linkUrl} className="inline-flex self-start items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors">
-												{reason.linkTxt}
-											</Link>
-										)}
-									</div>
-									<div className="lg:w-1/2 p-16 flex items-center justify-center">
-									<p className="text-gray-800 text-[1.15rem]  leading-relaxed">
-											{reason.description}
-										</p>
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-function StatsSection() {
-	const stats = [
-		{ value: "2023", label: "Founded" },
-		{ value: "5 / 5", label: "CSAT Score" },
-		{ value: "100+", label: "Projects Delivered" },
-		{ value: "30+", label: "Certifications" },
-		{ value: "USA", label: "Located" },
-	];
-
-	return (
-		<section id="home-stats" className="bg-summit-dark">
-			<div className="py-32">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-wrap gap-16">
-						{stats.map((stat) => (
-							<div key={stat.label} className="flex-1 min-w-[25%] w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
-								<p className="text-4xl sm:text-5xl font-bold text-brand-sky mb-2">
-									{stat.value}
-								</p>
-								<p className="text-gray-400 text-1xl uppercase tracking-wider">
-									{stat.label}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}

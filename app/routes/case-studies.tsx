@@ -66,7 +66,7 @@ export default function CaseStudies() {
 
 function PageHero() {
 	return (
-		<section id="cases-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[66vh] relative overflow-hidden">
+		<section id="cases-hero" className="bg-gradient-to-br from-black to-wsm-mountain min-h-[66vh] relative overflow-hidden">
 			<div className="hidden md:block">
 				<ParticleDots
 					particleCount={600}

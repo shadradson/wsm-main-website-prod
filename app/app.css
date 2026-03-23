@@ -85,6 +85,10 @@ section {
 	background-image: radial-gradient(var(--pattern-fg) 1.25px, transparent 0);
 	background-size: 40px 40px;
 }
+/*>>>>>>>>>>>>>>>>>>>>>>>>> Gradient Backgrounds <<<<<<<<<<<<<<<<<<<<<<<<<*/
+.gradient-circle-bg-dark {
+	background: radial-gradient(ellipse at 10% 15%, rgb(13 41 70 / 45%) 0%, transparent 60%), radial-gradient(ellipse at 88% 85%, rgb(13 64 90 / 85%) 0%, transparent 60%), radial-gradient(ellipse at 50% 50%, rgb(0 0 0 / 17%) 0%, transparent 60%), linear-gradient(135deg, rgb(8 233 227 / 32%) 0%, rgb(56 0 255 / 35%) 50%, rgb(0 0 0 / 55%) 100%);
+}
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Experience <<<<<<<<<<<<<<<<<<<<<<<<<*/
 @keyframes leftmarquee {
@@ -272,8 +276,28 @@ img.clouds_image {
 	gap: 1rem;
 }
 
-img.logo_img {
+@media screen and (max-width:728px) {
+	.header_logo_main > img.logo_img_vert {
+	width: 300px;
+	padding: 1rem;
+	display: block;
+	}
+	.header_logo_main > img.logo_img {
 	width: 400px;
+	display: none;
+	}
+}
+
+@media screen and (min-width:728px) {
+	.header_logo_main > img.logo_img_vert {
+	width: 400px;
+	padding: 1rem;
+	display: none;
+	}
+	img.logo_img {
+	width: 400px;
+	display: block;
+	}
 }
 
 .blurb_outer {
@@ -281,6 +305,7 @@ img.logo_img {
 	font-size: 1.2rem;
 	letter-spacing: 0.25em;
 	font-weight: 300;
+	padding: 0 1rem;
 }
 
 .textcenter {
@@ -294,7 +319,7 @@ img.logo_img {
 img.mountains_img {
 	width: 100vw;
 	filter: brightness(1.5) ;
-	min-width: 768px;
+	min-width: 1080px;
 	transform: translateY(20vw);
 }
 
@@ -329,7 +354,7 @@ img.mountains_img {
 /*---------- Smaller Box right placement Mobile ----------*/
 @media only screen and (max-width:768px) {
 	.splash_tag_text {
-		line-height: 3.8rem;
+		line-height: 3.5rem;
 		font-size: 5rem;
 		font-weight: 900;
 	}
@@ -924,9 +949,10 @@ img.close_rocks_img {
 
 .arrow {
 	font-size: 6rem;
-	color: #d0e2fa;
+	color: #ffffff5e;
 	line-height: 6rem;
 	font-weight: 900;
+	mix-blend-mode: exclusion;
 }
 
 .floating {

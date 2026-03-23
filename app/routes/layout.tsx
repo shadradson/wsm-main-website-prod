@@ -56,9 +56,10 @@ function Header() {
 		<>
 		{/* Floating hamburger shown before nav appears on home/about-us */}
 		{showEarlyHamburger && (
-			<div className="fixed top-0 right-0 z-50 lg:hidden">
+			<>
 				<button
-					className="text-white p-3 m-1"
+					className="fixed top-0 right-0 text-white bg-black/50 rounded-lg p-3 m-2"
+					style={{ zIndex: 99999999 }}
 					onClick={() => setMobileOpen(!mobileOpen)}
 					aria-label="Toggle menu"
 				>
@@ -73,7 +74,7 @@ function Header() {
 					)}
 				</button>
 				{mobileOpen && (
-					<div className="bg-black border-t border-white/10">
+					<div className="fixed top-14 left-0 right-0 bg-black border-t border-white/10" style={{ zIndex: 99999998 }}>
 						<div className="px-4 py-4 space-y-1">
 							{navLinks.map((link) => (
 								<NavLink
@@ -100,7 +101,7 @@ function Header() {
 						</div>
 					</div>
 				)}
-			</div>
+			</>
 		)}
 		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${scrolled ? "bg-black border-b border-white/10" : "bg-black border-b border-white/10"}`}>
 			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -235,9 +236,9 @@ function Footer() {
 			<div id="footer-content" className="relative z-10">
 
 				{ctaConfig.showCta && (
-					<div className="py-10 lg:py-20">
-						<div className="max-w-7xl mx-auto px-4 pb-30 sm:px-6 lg:px-8">
-							<div id="home-cta-card" className="relative p-12 lg:p-16 text-center overflow-hidden">
+					<div className="sm:py-4 lg:py-20">
+						<div className="max-w-7xl mx-auto md:px-8 pb-30 sm:px-2 lg:px-8">
+							<div className="relative p-4 sm:p-6 md:p-12 lg:p-16 text-center overflow-hidden">
 								<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
 								<div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-blue/10  blur-3xl" />
 

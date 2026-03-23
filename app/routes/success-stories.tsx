@@ -75,7 +75,7 @@ export default function SuccessStories() {
 
 function PageHero() {
 	return (
-		<section id="stories-hero" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain min-h-[66vh] relative overflow-hidden">
+		<section id="stories-hero" className="bg-gradient-to-br from-black to-wsm-mountain min-h-[66vh] relative overflow-hidden">
 			<div className="hidden md:block">
 				<ParticleDots
 					particleCount={600}

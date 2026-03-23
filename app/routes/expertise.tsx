@@ -1,9 +1,10 @@
 import type { Route } from "./+types/expertise";
-import { Link } from "react-router";
 import Hexagons from "~/components/Hexagons";
 import { MOUNTAIN_POINTS_PATH } from "~/lib/svgPaths";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 import { div } from "three/tsl";
+import Transition from "~/components/Transition";
+import SplashSection from "~/components/SplashSection";
 
 const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
 const DESCRIPTION =
@@ -60,7 +61,57 @@ export default function Expertise() {
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
 			<PageHero />
-			<ServicesDetail />
+			<SplashSection
+				theme="light"
+				dots="true"
+				titlesize="small"
+				cards={[
+					{
+						title1: "AI CONSULTING",
+						title2: "& IMPLEMENTATION",
+						subtitle: "Artificial intelligence is transforming how businesses operate. We help you develop an AI strategy, identify high-impact use cases, and implement solutions that deliver real, measurable value — not just hype.",
+						haslink: true,
+						buttontext: "LET'S SUMMIT AI",
+						linkUrl: "/ai-consulting",
+						tag: "AI EXPERTS",
+						infotype: "tags",
+						infotext: "Agentforce,Agentic Automation,Predictive Analytics,Process Automation with AI,Next Gen Chatbots,AI-Powered Customer Insights"
+					},
+					{
+						title1: "SALESFORCE",
+						title2: "IMPLEMENTATION",
+						subtitle: "We design, build, and optimize Salesforce solutions that align perfectly with your business processes. Whether you're starting fresh or optimizing an existing org, our certified consultants deliver systems that drive adoption and results.",
+						haslink: true,
+						buttontext: "FULL SEND SALESFORCE",
+						linkUrl: "/mountain-guide-services",
+						tag: "SALESFORCE EXPERTS",	
+						infotype: "tags",
+						infotext: "Agentforce Integration,Sales Cloud & Service Cloud,Experience Cloud & Communities,Business Process Implementation,Mulesoft,API Automation,User Training & Adoption,Continuous Growth"
+					},
+					{
+						title1: "SYSTEM",
+						title2: "INTEGRATIONS",
+						subtitle: "Disconnected systems slow you down. We build robust, scalable integrations that connect your tools, eliminate data silos, and create seamless workflows across your entire technology ecosystem.",
+						haslink: true,
+						buttontext: "OVERCOME INTEGRATIONS",
+						linkUrl: "/system-integration-services",
+						tag: "CONNECTED",
+						infotype: "tags",
+						infotext: "API Development & Management,Middleware & iPaaS Solutions,Real-Time Data Synchronization,Legacy System Modernization,Third-Party App Connections,Integration Testing & Monitoring"
+					},
+					{
+						title1: "FRACTIONAL CTO",
+						title2: "SERVICES",
+						subtitle: "When you need executive help with your entire stack. Let us set a path, define future success, and execute the plan.",
+						haslink: true,
+						buttontext: "LET'S CLIMB TOGETHER",
+						linkUrl: "/fractional-cto-services",
+						tag: "GROW EVERYTHING",
+						infotype: "tags",
+						infotext: "KPIs,Reporting,Business Process Optimization,Optimization,Business Unit Unification,Multi-Department Automation,Role Optimization"
+					},
+				]}
+			/>
 			<ProcessSection />
 			<TechStack />
 		</>
@@ -94,7 +145,7 @@ function PageHero() {
 
 			</div>
 			<div className="py-20 lg:py-28 relative z-10">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pointer-events-none">
 					<div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>EXPERTISE</div>
 					<div className="max-w-3xl">
 						<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
@@ -113,131 +164,6 @@ function PageHero() {
 	);
 }
 
-function ServicesDetail() {
-	const services = [
-		{
-			title: "AI Consulting & Implementation",
-			description:
-				"Artificial intelligence is transforming how businesses operate. We help you develop an AI strategy, identify high-impact use cases, and implement solutions that deliver real, measurable value — not just hype.",
-			features: [
-				"Agentforce",
-				"Agentic Automation",
-				"Predictive Analytics",
-				"Process Automation with AI",
-				"Next Gen Chatbots",
-				"AI-Powered Customer Insights",
-			],
-			button_label: "LET'S SUMMIT AI",
-			href: "/ai-consulting",
-			tag: "MAKE AI WORK FOR YOU",
-		},
-		{
-			title: "Salesforce Implementation & Optimization",
-			description:
-				"We design, build, and optimize Salesforce solutions that align perfectly with your business processes. Whether you're starting fresh or optimizing an existing org, our certified consultants deliver systems that drive adoption and results.",
-			features: [
-				"Agentforce Integration",
-				"Sales Cloud & Service Cloud",
-				"Experience Cloud & Communities",
-				"Business Process Implementation",
-				"Mulesoft",
-				"API Automation",
-				"User Training & Adoption",
-				"Continuous Growth",
-			],
-			button_label: "FULL SEND SALESFORCE",
-			href: "/mountain-guide-services",
-			tag: "SALESFORCE EXPERTS",
-		},
-		{
-			title: "System Integrations",
-			description:
-				"Disconnected systems slow you down. We build robust, scalable integrations that connect your tools, eliminate data silos, and create seamless workflows across your entire technology ecosystem.",
-			features: [
-				"API Development & Management",
-				"Middleware & iPaaS Solutions",
-				"Real-Time Data Synchronization",
-				"Legacy System Modernization",
-				"Third-Party App Connections",
-				"Integration Testing & Monitoring",
-			],
-			button_label: "OVERCOME INTEGRATIONS",
-			href: "/system-integration-services",
-			tag: "NO DATA SILOS",
-		},
-		{
-			title: "Fractional CTO Services",
-			description:
-				"When you need executive help with your entire stack. Let us set a path, define future success, and execute the plan",
-			features: [
-				"KPIs",
-				"Reporting",
-				"Business Process Optimization",
-				"Optimization",
-				"Business Unit Unification",
-				"Multi-Department Automation",
-				"Role Optimization",
-			],
-			button_label: "LET'S CLIMB TOGETHER",
-			href: "/fractional-cto-services",
-			tag: "GROW EVERYTHING",
-		},
-	];
-
-	return (
-		<section id="expertise-services">
-			<div className="py-20 lg:py-28 pattern-bg-dots-light">
-				<div className="">
-					<div className="flex flex-col gap-24">
-						{services.map((service, i) => (
-							<div
-								key={service.title}
-								className={`relative flex flex-col lg:flex-row gap-12 items-start border-y-2 border-y-solid border-gray-200  ${i % 2 !== 0 ? "lg:flex-row-reverse " : ""
-									}`}
-							>
-								<div className="relative max-w-7xl bg-white mx-auto flex flex-col lg:flex-row gap-12 items-start border-x-2 border-x-solid border-gray-200">
-									<div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-										{service.tag}
-									</div>
-									<div className="lg:w-1/2 flex flex-col gap-4 h-[-webkit-fill-available] p-16 border-x-solid border-x-2 border-gray-200">
-										<h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-											{service.title}
-										</h2>
-										<p className="text-gray-600 leading-relaxed mb-6">
-											{service.description}
-										</p>
-										<Link
-											to={service.href}
-											className="inline-flex self-start items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-navy-800 transition-colors"
-										>
-											{service.button_label}
-										</Link>
-
-									</div>
-									<div
-										className="lg:w-1/2 p-16"
-									>
-										<ul className="flex flex-row flex-wrap gap-2">
-											{service.features.map((feature) => (
-												<li className="text-white p-2 bg-gray-600"
-													key={feature}
-												>
-													<span className="text-white font-[700]">
-														{feature}
-													</span>
-												</li>
-											))}
-										</ul>
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
 
 function ProcessSection() {
 	const steps = [
