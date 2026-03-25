@@ -1,6 +1,7 @@
 import type { Route } from "./+types/case-studies";
 import { Link, useLoaderData } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
+import FluidParticles from "~/components/FluidParticles";
 import { WSM_LOGO_PATH } from "~/lib/svgPaths";
 import { buildMeta } from "~/lib/seo";
 
@@ -28,7 +29,7 @@ const TITLE = "Client Success Stories | Salesforce & AI Results | We Summit Moun
 const DESCRIPTION =
 	"See how We Summit Mountains delivers real results — Salesforce transformations, AI implementations, and system integrations across industries.";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
 	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/case-studies" });
 }
 
@@ -68,23 +69,7 @@ function PageHero() {
 	return (
 		<section id="cases-hero" className="bg-gradient-to-br from-black to-wsm-mountain min-h-[66vh] relative overflow-hidden">
 			<div className="hidden md:block">
-				<ParticleDots
-					particleCount={600}
-					color="#ffffff22"
-					lineColor="#ffffff"
-					repelRadius={180}
-					repelStrength={0.08}
-					linkDistance={90}
-					svgLinkDistance={30}
-					svgPath={WSM_LOGO_PATH}
-					svgScale={5}
-					svgOffsetX={-200}
-					svgOffsetY={60}
-					svgPoints={300}
-					attractStrength={0.0005}
-					svgFit="none"
-					svgAlign="right"
-				/>
+				<FluidParticles />
 			</div>
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,49 +100,51 @@ function ArticleCard({ article }: { article: Article }) {
 			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
 		>
 			<div className="bg-wsm-dark group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
-				{article.splash_image_url ? (
-					<img
-						src={article.splash_image_url}
-						alt={article.name}
-						className="w-1/3 aspect-square object-contain flex-shrink-0 border-r-2 border-gray-600 p-8"
-					/>
-				) : (
-					<div className="w-1/3 aspect-square bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0 border-r-2 border-gray-600">
-						{initials}
-					</div>
-				)}
-				<div className="text-left p-4 w-2/3 flex flex-col">
-					<div className="flex flex-wrap gap-1 mb-2">
+				<div className="aspect-square max-w-[140px] p-[20px] border-r-2 border-gray-600">
+					{article.splash_image_url ? (
+						<img
+							src={article.splash_image_url}
+							alt={article.name}
+							className=" aspect-square max-w-[100px] object-contain flex-shrink-0"
+						/>
+					) : (
+						<div className="aspect-square max-w-[100px] bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0 border-r-2 border-gray-600">
+							{initials}
+						</div>
+					)}
+				</div>
+
+				<div className="text-left w-2/3 flex flex-col">
+					<div className="flex flex-wrap">
 						{article.subcategory && (
-							<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 rounded">
+							<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1">
 								{article.subcategory}
 							</span>
 						)}
 						{article.vertical_product && (
-							<span className="text-xs font-medium text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1 rounded">
+							<span className="text-xs font-medium text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1">
 								{article.vertical_product}
 							</span>
 						)}
 					</div>
-					<h3 className="text-lg font-bold text-white leading-snug">
-						{article.name}
-					</h3>
-					{article.subtitle && (
-						<p className="text-wsm-glacier text-sm font-medium mt-1">
-							{article.subtitle}
-						</p>
-					)}
-					{article.short_description && (
-						<p className="text-gray-400 text-sm leading-relaxed mt-2 line-clamp-3">
-							{article.short_description}
-						</p>
-					)}
-					{article.author_first_name && (
-						<p className="text-xs text-gray-500 mt-auto pt-3 border-t border-gray-800">
-							By {article.author_first_name} {article.author_last_name}
-							{article.author_title && ` — ${article.author_title}`}
-						</p>
-					)}
+
+					<div className="p-2">
+						<h3 className="text-lg font-bold text-white leading-snug">
+							{article.name}
+						</h3>
+						{article.subtitle && (
+							<p className="text-wsm-glacier text-sm text-[0.75rem] font-medium mt-1">
+								{article.subtitle}
+							</p>
+						)}
+						{article.short_description && (
+							<p className="text-gray-400 text-sm leading-relaxed mt-2 line-clamp-3">
+								{article.short_description}
+							</p>
+						)}
+					</div>
+
+
 				</div>
 			</div>
 		</Link>

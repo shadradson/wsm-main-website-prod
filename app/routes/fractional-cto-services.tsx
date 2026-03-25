@@ -1,6 +1,7 @@
 import type { Route } from "./+types/fractional-cto-services";
 import { Link } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
+import ProcessSection from "~/components/ProcessSection"
 import { MOUNTAIN_POINTS_PATH } from "~/lib/svgPaths";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 
@@ -17,8 +18,34 @@ export default function FractionalCtoServices() {
 		<>
 			<PageHero />
 			<WhatWeDoSection />
-			<HowItWorksSection />
-			<CtaSection />
+			<ProcessSection
+				tag="STRATEGY"
+				title="HOW WE HELP YOU GROW YOUR COMPANY"
+				subtitle="Our proven approach to delivering excellent results."
+				dots="true"
+				steps={[
+					{
+						step: "01",
+						title: "Learn",
+						description: "We dive deep into your business, from executive direction discussions, to boots on the ground strategy meetings. We find out everything about your business from start to finish. We find opportunities for growth and optimization.",
+					},
+					{
+						step: "02",
+						title: "Plan",
+						description: "We start with your current state, and plan the ideal. We break that down into easily executed steps, and prioritize.",
+					},
+					{
+						step: "03",
+						title: "Climb",
+						description: "Leaders put the right people in the right place. Our teams will work alongside your teams to implement the plan, while making sure that your teams are enabled on each step.",
+					},
+					{
+						step: "04",
+						title: "Report",
+						description: "We define milestones and KPIs. Throughout the process we track and report on progress.",
+					},
+				]}
+			/>
 		</>
 	);
 }
@@ -137,80 +164,3 @@ function WhatWeDoSection() {
 	);
 }
 
-function HowItWorksSection() {
-	const steps = [
-		{
-			step: "01",
-			title: "Discover",
-			description:
-				"We assess your current technology landscape, interview stakeholders, and identify constraints, risks, and opportunities.",
-		},
-		{
-			step: "02",
-			title: "Plan",
-			description:
-				"We build a prioritized roadmap — short-term wins paired with long-term strategic initiatives, with clear ownership and timelines.",
-		},
-		{
-			step: "03",
-			title: "Execute",
-			description:
-				"We lead implementation — coordinating your team, vendors, and partners to deliver against the plan.",
-		},
-		{
-			step: "04",
-			title: "Report",
-			description:
-				"Regular reporting against KPIs so leadership always knows what's working, what isn't, and what's next.",
-		},
-	];
-
-	return (
-		<section id="fcto-how-it-works" className="bg-gray-50">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="text-center max-w-2xl mx-auto mb-16">
-						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-						<p className="text-lg text-gray-600">
-							A structured process that gives you clarity, momentum, and accountability at every stage.
-						</p>
-					</div>
-					<div className="flex flex-wrap gap-8">
-						{steps.map((item) => (
-							<div key={item.step} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
-								<div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold mx-auto mb-5">
-									{item.step}
-								</div>
-								<h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-								<p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function CtaSection() {
-	return (
-		<section id="fcto-cta" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-						Ready for a Strategic Partner?
-					</h2>
-					<p className="text-lg text-gray-300 max-w-2xl mx-auto mb-10">
-						Let's start with a discovery conversation — no commitment, just clarity.
-					</p>
-					<Link
-						to="/contact"
-						className="inline-flex items-center px-8 py-4 bg-brand-sky text-wsm-dark font-bold text-lg hover:bg-white transition-colors"
-					>
-						START THE CONVERSATION
-					</Link>
-				</div>
-			</div>
-		</section>
-	);
-}

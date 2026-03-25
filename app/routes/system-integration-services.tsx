@@ -18,7 +18,6 @@ export default function SystemIntegrationServices() {
 			<PageHero />
 			<WhatWeDoSection />
 			<CapabilitiesSection />
-			<CtaSection />
 		</>
 	);
 }
@@ -168,29 +167,6 @@ function CapabilitiesSection() {
 							</span>
 						))}
 					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function CtaSection() {
-	return (
-		<section id="sis-cta" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-						Ready to Connect the Dots?
-					</h2>
-					<p className="text-lg text-gray-300 max-w-2xl mx-auto mb-10">
-						Tell us what you're working with and we'll show you what a connected stack looks like.
-					</p>
-					<Link
-						to="/contact"
-						className="inline-flex items-center px-8 py-4 bg-brand-sky text-wsm-dark font-bold text-lg hover:bg-white transition-colors"
-					>
-						START THE CONVERSATION
-					</Link>
 				</div>
 			</div>
 		</section>

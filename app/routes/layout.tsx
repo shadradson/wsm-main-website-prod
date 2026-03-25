@@ -2,14 +2,16 @@ import { Link, NavLink, Outlet, useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import BirdsFlock from "~/components/BirdsFlock";
 import FooterContactForm from "~/components/FooterContactForm";
-import { getFooterCtaConfig } from "~/lib/footerCtaConfig";
+import { LayoutConfigInterface } from "~/lib/LayoutConfig";
 
 function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [heroLogoGone, setHeroLogoGone] = useState(false);
 	const [navVisible, setNavVisible] = useState(false);
+	const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 	const location = useLocation();
+	const LayoutConfig = LayoutConfigInterface(location.pathname);
 	const isHome = location.pathname === "/";
 	const isOurTeam = location.pathname === "/about-us";
 
@@ -35,10 +37,21 @@ function Header() {
 	}, [isHome, isOurTeam]);
 
 	const navLinks = [
+		{ to: "/", label: "Home" },
 		{ to: "/about-us", label: "About Us" },
-		{ to: "/expertise", label: "Expertise" },
-		{ to: "/case-studies", label: "Case Studies" },
-		{ to: "/success-stories", label: "Success Stories" },
+		{
+			to: "/expertise", label: "Expertise", children: [
+				{ to: "/ai-consulting", label: "AI Consulting" },
+				{ to: "/mountain-guide-services", label: "Salesforce Implementation" },
+				{ to: "/system-integration-services", label: "System Integrations" },
+				{ to: "/fractional-cto-services", label: "CTO" },
+			],
+		},
+		{
+			to: "/case-studies", label: "Case Studies", children: [
+				{ to: "/success-stories", label: "Success Stories" },
+			],
+		},
 	];
 
 	function handleGetClimbing() {
@@ -61,7 +74,7 @@ function Header() {
 				<button
 					className="text-white bg-black/50 rounded-lg p-3 m-2"
 					style={{ zIndex: 99999999 }}
-					onClick={() => setMobileOpen(!mobileOpen)}
+					onClick={() => setNavVisible(!mobileOpen)}
 					aria-label="Toggle menu"
 				>
 					{mobileOpen ? (
@@ -77,23 +90,55 @@ function Header() {
 			</div>
 				
 				{mobileOpen && (
-					<div className="fixed top-14 left-0 right-0 bg-black border-t border-white/10" style={{ zIndex: 99999998 }}>
+					<div className="fixed top-14 left-0 right-0 bg-black border-t border-white/10 max-h-[80vh] overflow-y-auto" style={{ zIndex: 99999998 }}>
 						<div className="px-4 py-4 space-y-1">
 							{navLinks.map((link) => (
-								<NavLink
-									key={link.to}
-									to={link.to}
-									end={link.to === "/"}
-									onClick={() => setMobileOpen(false)}
-									className={({ isActive }) =>
-										`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
-											? "text-brand-sky bg-white/10"
-											: "text-gray-300 hover:text-white hover:bg-white/5"
-										}`
-									}
-								>
-									{link.label}
-								</NavLink>
+								<div key={link.to}>
+									<div className="flex items-center">
+										<NavLink
+											to={link.to}
+											end={link.to === "/"}
+											onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+											className={({ isActive }) =>
+												`flex-1 block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+													? "text-brand-sky bg-white/10"
+													: "text-gray-300 hover:text-white hover:bg-white/5"
+												}`
+											}
+										>
+											{link.label}
+										</NavLink>
+										{link.children && (
+											<button
+												onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
+												className="text-gray-400 hover:text-white p-3"
+											>
+												<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+												</svg>
+											</button>
+										)}
+									</div>
+									{link.children && openDropdown === link.to && (
+										<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
+											{link.children.map((child) => (
+												<NavLink
+													key={child.to}
+													to={child.to}
+													onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+													className={({ isActive }) =>
+														`block px-4 py-2 rounded-lg text-sm transition-colors ${isActive
+															? "text-brand-sky bg-white/10"
+															: "text-gray-400 hover:text-white hover:bg-white/5"
+														}`
+													}
+												>
+													{child.label}
+												</NavLink>
+											))}
+										</div>
+									)}
+								</div>
 							))}
 							<button
 								onClick={handleGetClimbing}
@@ -106,7 +151,7 @@ function Header() {
 				)}
 			</>
 		)}
-		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${scrolled ? "bg-black border-b border-white/10" : "bg-black border-b border-white/10"}`}>
+		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${ !scrolled && LayoutConfig.navBarTransparentOnHero ? "bg-transparent" : "bg-black" }`}>
 			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div id="header-row" className="relative flex items-center h-12 lg:h-16">
 					{/* Logo: centered on mobile always, left-aligned on desktop */}
@@ -129,19 +174,45 @@ function Header() {
 					{/* Desktop nav: centered when logo hidden, right-aligned when logo shows */}
 					<nav id="desktop-nav" className={`hidden lg:flex items-center gap-1 transition-all duration-300 ${isHome && !heroLogoGone ? "mx-auto" : "ml-auto"}`}>
 						{navLinks.map((link) => (
-							<NavLink
-								key={link.to}
-								to={link.to}
-								end={link.to === "/"}
-								className={({ isActive }) =>
-									`px-4 py-2  text-sm font-medium transition-colors ${isActive
-										? "text-brand-sky bg-white/10"
-										: "text-gray-300 hover:text-white hover:bg-white/5"
-									}`
-								}
-							>
-								{link.label}
-							</NavLink>
+							<div key={link.to} className="relative group">
+								<NavLink
+									to={link.to}
+									end={link.to === "/"}
+									className={({ isActive }) =>
+										`px-4 py-2 text-sm font-medium transition-colors inline-flex items-center gap-1 ${isActive
+											? "text-brand-sky bg-white/10"
+											: "text-gray-300 hover:text-white hover:bg-white/5"
+										}`
+									}
+								>
+									{link.label}
+									{link.children && (
+										<svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+										</svg>
+									)}
+								</NavLink>
+								{link.children && (
+									<div className="absolute top-full left-0 hidden group-hover:block pt-1 min-w-[200px]">
+										<div className="bg-black border border-white/10 py-2">
+											{link.children.map((child) => (
+												<NavLink
+													key={child.to}
+													to={child.to}
+													className={({ isActive }) =>
+														`block px-4 py-2 text-sm transition-colors ${isActive
+															? "text-brand-sky bg-white/10"
+															: "text-gray-300 hover:text-white hover:bg-white/5"
+														}`
+													}
+												>
+													{child.label}
+												</NavLink>
+											))}
+										</div>
+									</div>
+								)}
+							</div>
 						))}
 						<button
 							onClick={handleGetClimbing}
@@ -174,20 +245,52 @@ function Header() {
 				<div id="mobile-menu" className="lg:hidden bg-black border-t border-white/10">
 					<div id="mobile-nav-links" className="px-4 py-4 space-y-1">
 						{navLinks.map((link) => (
-							<NavLink
-								key={link.to}
-								to={link.to}
-								end={link.to === "/"}
-								onClick={() => setMobileOpen(false)}
-								className={({ isActive }) =>
-									`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
-										? "text-brand-sky bg-white/10"
-										: "text-gray-300 hover:text-white hover:bg-white/5"
-									}`
-								}
-							>
-								{link.label}
-							</NavLink>
+							<div key={link.to}>
+								<div className="flex items-center">
+									<NavLink
+										to={link.to}
+										end={link.to === "/"}
+										onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+										className={({ isActive }) =>
+											`flex-1 block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+												? "text-brand-sky bg-white/10"
+												: "text-gray-300 hover:text-white hover:bg-white/5"
+											}`
+										}
+									>
+										{link.label}
+									</NavLink>
+									{link.children && (
+										<button
+											onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
+											className="text-gray-400 hover:text-white p-3"
+										>
+											<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+											</svg>
+										</button>
+									)}
+								</div>
+								{link.children && openDropdown === link.to && (
+									<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
+										{link.children.map((child) => (
+											<NavLink
+												key={child.to}
+												to={child.to}
+												onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+												className={({ isActive }) =>
+													`block px-4 py-2 rounded-lg text-sm transition-colors ${isActive
+														? "text-brand-sky bg-white/10"
+														: "text-gray-400 hover:text-white hover:bg-white/5"
+													}`
+												}
+											>
+												{child.label}
+											</NavLink>
+										))}
+									</div>
+								)}
+							</div>
 						))}
 						<button
 							onClick={handleGetClimbing}
@@ -205,7 +308,7 @@ function Header() {
 
 function Footer() {
 	const location = useLocation();
-	const ctaConfig = getFooterCtaConfig(location.pathname);
+	const LayoutConfig = LayoutConfigInterface(location.pathname);
 	const [formOpen, setFormOpen] = useState(false);
 
 	useEffect(() => {
@@ -234,11 +337,11 @@ function Footer() {
 				<img src="/images/footer_hillside.svg" alt="" className="footer_hillside_img" />
 			</div>
 
-			<BirdsFlock birdColor="#eeBDA0" birdCount={300} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.1} birdWiggleRandomMultiplier={100} />
+			<BirdsFlock birdColor="#eeBDA0" birdCount={200} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.2} birdWiggleRandomMultiplier={100} />
 
 			<div id="footer-content" className="relative z-10">
 
-				{ctaConfig.showCta && (
+				{LayoutConfig.showCta && (
 					<div id="home-cta-card" className="sm:py-4 lg:py-20">
 						<div className="max-w-7xl mx-auto md:px-8 pb-30 sm:px-2 lg:px-8">
 							<div className="relative p-4 sm:p-6 md:p-12 lg:p-16 text-center overflow-hidden">
@@ -247,10 +350,10 @@ function Footer() {
 
 								<div className="relative">
 									<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-										{ctaConfig.title}
+										{LayoutConfig.title}
 									</h2>
 									<p className="text-lg text-white max-w-xl mx-auto mb-8">
-										{ctaConfig.subtitle}
+										{LayoutConfig.subtitle}
 									</p>
 									<div className="flex flex-col sm:flex-row gap-4 justify-center">
 										<button
@@ -258,7 +361,7 @@ function Footer() {
 											onClick={() => setFormOpen(!formOpen)}
 											className="inline-flex items-center justify-center px-8 py-4 bg-black text-white font-semibold hover:bg-brand-blue-light transition-all hover:shadow-lg hover:shadow-brand-blue/25"
 										>
-											{ctaConfig.buttonText}
+											{LayoutConfig.buttonText}
 										</button>
 									</div>
 
@@ -270,7 +373,7 @@ function Footer() {
 										}}
 									>
 										<div className="mt-8">
-											<FooterContactForm recordTypeId={ctaConfig.recordTypeId} />
+											<FooterContactForm recordTypeId={LayoutConfig.recordTypeId} />
 										</div>
 									</div>
 								</div>

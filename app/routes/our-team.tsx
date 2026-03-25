@@ -2,6 +2,8 @@ import type { Route } from "./+types/our-team";
 import { Link, useLoaderData } from "react-router";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 import Transition from "~/components/Transition";
+import SimpleTextSection from "~/components/SimpleTextSection";
+import SectionHeaderText from "~/components/SectionHeaderText";
 import Stats from "~/components/StatSection";
 
 interface TeamMember {
@@ -97,30 +99,78 @@ export default function OurTeam() {
 			/>
 			<Transition
 				type="text"
-				text="CERTS"
+				text="WE ARE"
 				textpos="bot"
-				textcolor="#F9FAFC"
+				textcolor="#000000"
 				bgtop="#036588"
+				dots="true"
+			/>
+			<Transition
+				type="text"
+				text="CERTIFIED"
+				textpos="bot"
+				textcolor="#F3F4F7"
+				bgtop="#000000"
 				dots="true"
 			/>
 			<CertificationsSection />
 			<Transition
 				type="text"
+				text="OUR"
+				textpos="bot"
+				textcolor="#000"
+				bgtop="#D1D5DB"
+			/>
+			<Transition
+				type="text"
 				text="MISSION"
 				textpos="bot"
 				textcolor="#036588"
-				bgtop="#E5E7EB"
+				bgtop="#000"
 			/>
-			<MissionSection />
+			<SimpleTextSection
+				theme="blue"
+				type="2bar"
+				title1="THE WSM"
+				title2="MISSION"
+				tag="TRUE NORTH"
+				subtitle="is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software. We will learn to cultivate the best in ourselves, and in each other as we stride toward the top of each mountain. Our knowledge is shared so that we can all grow greater than any one of us."
+				imageUrl="/public/images/MountainCompass.svg"
+			/>
 			<Transition
 				type="text"
 				text="VALUES"
 				textpos="bot"
-				textcolor="#fff"
+				textcolor="#F3F4F6"
 				bgtop="#036588"
 			/>
-			<ValuesSection />
-			<StorySection />
+			<SimpleTextSection
+				theme="light"
+				type="VCards"
+				title1="OUR CORE VALUES"
+				title2="THAT DRIVE US"
+				subtitle="These principles guide everything we do and every solution we build."
+				cards={[
+					{
+						title1: "We Climb Together",
+						tag: "TEAMWORK",
+						subtitle:
+							"Climbing is difficult, but we're not doing it alone! We all help each other when we can. This allows us to do much more as a group, and the effects are exponential.",
+					},
+					{
+						title1: "We Climb to Grow",
+						tag: "IMPROVE",
+						subtitle:
+							"We work to to grow ourselves and the others around us. Growth is painful, but the reward is great. There is nothing as fulfilling as breaking through the walls that hold you back to accomplish what the previous version of yourself did not think was possible.",
+					},
+					{
+						title1: "We Keep Climbing",
+						tag: "TENACITY",
+						subtitle:
+							"We are not here to do the bare minimum. We are not here to take the easy path. We are here to take the right path to the top of every mountain we face together. Let's go.",
+					},
+				]}
+			/>
 		</>
 	);
 }
@@ -230,12 +280,7 @@ function TeamGrid() {
 					<div className="">
 						<div className="relative max-w-7xl mx-auto">
 							<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>
-							<div className=" p-4 ">
-								<h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
-									<span className="block">The Humans Who</span>
-									<span className="bg-gradient-to-r from-wsm-glacier to-brand-peach inline-block text-transparent bg-clip-text">Summit Mountains</span>
-								</h1>
-							</div>
+							<SectionHeaderText title1="THE HUMANS WHO" title2="SUMMIT MOUNTAINS" theme="dark" />
 							<div className="flex flex-wrap justify-center">
 								{team.map((member: TeamMember) => {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
@@ -355,20 +400,17 @@ function CertificationsSection() {
 	];
 
 	return (
-		<section id="team-certifications" className="bg-gradient-to-b from-gray-50 to-gray-200 flex">
-			<div className="border-r-1 border-r-solid border-r-gray-300 flex-1"></div>
+		<section id="team-certifications" className="bg-gradient-to-b from-gray-100 to-gray-300 flex">
+			<div className="border-r-2 border-r-solid border-r-gray-400 flex-1"></div>
 			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto py-8 border-y-1 border-y-solid border-y-gray-300 relative">
-					<div className="flex flex-row">
-						<div className="flex-1">
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-center">
-								Certified Professionals
-							</h2>
-							<p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-								Our team maintains the industry's most respected
-								certifications to deliver the highest quality solutions.
-							</p>
-						</div>
+				<div className="max-w-7xl mx-auto py-8 border-y-2 border-y-solid border-y-gray-300 relative">
+					<div className="flex flex-row flex-wrap">
+						<SectionHeaderText
+							title1="CERTIFIED"
+							title2="PROFESSIONALS"
+							subtitle="Our team maintains the industry's most respected certifications to deliver the highest quality solutions."
+							theme="light"
+						/>
 						<div className="flex-1">
 							{/* Salesforce Partner Badge */}
 							<div className="flex justify-center mb-12">
@@ -390,8 +432,8 @@ function CertificationsSection() {
 					<div className="flex flex-wrap justify-center">
 						{sfcertifications.map((cert) => (
 							<div key={cert}
-								className="p-2.5 border border-gray-300 bg-[#eee] flex-1 flex justify-center">
-								<div className="px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm h-[100%] flex items-center justify-center w-fit min-w-[120px]">
+								className="p-2.5 outline-2 outline-gray-400  flex-1 flex justify-center">
+								<div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-fit min-w-[120px]">
 									<span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
 										{cert}
 									</span>
@@ -401,133 +443,9 @@ function CertificationsSection() {
 					</div>
 				</div>
 			</div>
-			<div className="border-l-1 border-l-solid border-l-gray-300 flex-1"></div>
+			<div className="border-l-2 border-2-solid border-l-gray-400 flex-1"></div>
 		</section>
 	);
 }
 
-
-function MissionSection() {
-	return (
-		<section id="about-mission" className="bg-wsm-cliff">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-col lg:flex-row gap-16 items-center">
-						<div className="lg:w-1/2">
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-								Our Mission
-							</h2>
-							<p className="text-lg text-gray-600 leading-relaxed mb-6">
-								is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software.
-								We will learn to cultivate the best in ourselves, and in eachother as we stride toward the top of each mountain.
-								Our knowledge is shared so that we can all grow greater than any one of us.
-							</p>
-							<p className="text-lg text-gray-600 leading-relaxed">
-								Every mountain represents a challenge waiting to be
-								conquered. We believe that with the right team, the
-								right tools, and the right strategy, no peak is out
-								of reach.
-							</p>
-						</div>
-						<div className="lg:w-1/2 bg-gradient-to-br from-brand-teal/10 to-brand-blue/10 p-12 text-center">
-							<blockquote className="text-2xl font-light text-gray-800 italic leading-relaxed">
-								"Let's climb your software mountain together."
-							</blockquote>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function ValuesSection() {
-	const values = [
-		{
-			title: "We All Climb Together",
-			description:
-				"Climbing is difficult, but we're not doing it alone! We all help each other when we can. This allows us to do much more as a group, and the effects are exponential.",
-			icon: (
-				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-				</svg>
-			),
-		},
-		{
-			title: "We Climb to Grow",
-			description:
-				"We work to to grow ourselves and the others around us. Growth is painful, but the reward is great. There is nothing as fulfilling as breaking through the walls that hold you back to accomplish what the previous version of yourself did not think was possible.",
-			icon: (
-				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-				</svg>
-			),
-		},
-		{
-			title: "We Keep Climbing",
-			description:
-				"We are not here to do the bare minimum. We are not here to take the easy path. We are here to take the right path to the top of every mountain we face together. Let's go.",
-			icon: (
-				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-				</svg>
-			),
-		},
-	];
-
-	return (
-		<section id="about-values" className="bg-gray-50">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="text-center max-w-2xl mx-auto mb-16">
-						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-							Our Core Values
-						</h2>
-						<p className="text-lg text-gray-600">
-							These principles guide everything we do and every
-							solution we build.
-						</p>
-					</div>
-					<div className="flex flex-col gap-8">
-						{values.map((value) => (
-							<div
-								key={value.title}
-								className="w-full bg-white p-8 rounded-2xl shadow-sm"
-							>
-								<div className="w-14 h-14 rounded-xl bg-brand-sky/10 text-brand-sky flex items-center justify-center mb-5">
-									{value.icon}
-								</div>
-								<h3 className="text-xl font-bold text-gray-900 mb-3">
-									{value.title}
-								</h3>
-								<p className="text-gray-600 leading-relaxed">
-									{value.description}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function StorySection() {
-	return (
-		<section id="about-story">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="max-w-3xl mx-auto text-center">
-						<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-							Our Story
-						</h2>
-						<p className="text-lg text-gray-600 leading-relaxed mb-6">
-							Founded in 2023
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
 

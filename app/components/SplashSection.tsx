@@ -49,7 +49,7 @@ export default function SplashSection({ cards, title, subtitle, titlesize, theme
                             >
                                 <div className="card-outer-flex">
                                     {card.tag && (
-                                        <div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1.25rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
+                                        <div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1   rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
                                             {card.tag}
                                         </div>
                                     )}

@@ -16,8 +16,11 @@ interface StatsSectionProps {
     dots?: string;
 }
 
+
 export default function StatsSection({ stats, title, subtitle, tag, theme = "dark", dots }: StatsSectionProps) {
+
     const dotsclass = dots === "true" ? "pattern-bg-dots" : "";
+    const floatingFinsColor = theme === "blue" || theme === "light"? "#eeeeee" : "#000000";
     return (
         <section className={styles[theme]}>
             <div className="stat-inner">
@@ -30,6 +33,7 @@ export default function StatsSection({ stats, title, subtitle, tag, theme = "dar
                                 {tag}
                             </div>
                         )}
+                        <div className="absolute top-0 -left-10 w-10 h-[100%]" style={{ borderLeft: `2px solid ${floatingFinsColor}`, backgroundImage: `repeating-linear-gradient(315deg, ${floatingFinsColor}, ${floatingFinsColor} 1px, transparent 0, transparent 50%)`, backgroundSize: "10px 10px", backgroundAttachment: "fixed" }}></div>
                         {title && (
                             <h2 className="stat-title text-6xl font-bold text-center m-12">{title}</h2>
                         )}
@@ -51,6 +55,7 @@ export default function StatsSection({ stats, title, subtitle, tag, theme = "dar
                                 </div>
                             ))}
                         </div>
+                        <div className="absolute top-0 -right-10 w-10 h-[100%]" style={{ borderRight: `2px solid ${floatingFinsColor}`, backgroundImage: `repeating-linear-gradient(315deg, ${floatingFinsColor}, ${floatingFinsColor} 1px, transparent 0, transparent 50%)`, backgroundSize: "10px 10px", backgroundAttachment: "fixed" }}></div>
                     </div>
                     <div className="stat-sidebar flex-2" />
                 </div>

@@ -123,7 +123,7 @@ export default function Expertise() {
 
 			<ProcessSection
 				tag="PROCESS"
-				title="OUR PROCESS"
+				title1="OUR PROCESS"
 				subtitle="Our proven approach to delivering excellent results."
 				footerTitle="DON'T WASTE TIME"
 				footerText="."

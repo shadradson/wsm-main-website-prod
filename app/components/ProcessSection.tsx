@@ -1,15 +1,18 @@
 import styles from "./ProcessSection.module.css";
+import SectionHeaderText from "./SectionHeaderText";
 
 interface Step {
 	step: string;
-	title: string;
+	title1: string;
+	title2: string;
 	subtitle?: string;
 	description: string;
 }
 
 interface ProcessSectionProps {
 	steps: Step[];
-	title?: string;
+	title1?: string;
+	title2?: string;
 	subtitle?: string;
 	tag?: string;
 	footerTitle?: string;
@@ -20,7 +23,8 @@ interface ProcessSectionProps {
 
 export default function ProcessSection({
 	steps,
-	title,
+	title1,
+	title2,
 	subtitle,
 	tag,
 	footerTitle,
@@ -43,13 +47,8 @@ export default function ProcessSection({
 								{tag}
 							</div>
 						)}
-						{(title || subtitle) && (
-							<div className="p-10 sm:p-8 lg:p-12">
-								<div className="p-2">
-									{title && <h2 className="proc-title text-3xl sm:text-4xl font-bold">{title}</h2>}
-									{subtitle && <p className="proc-subtitle text-lg max-w-2xl mx-auto">{subtitle}</p>}
-								</div>
-							</div>
+						{(title1 || subtitle) && (
+							<SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" noPad="false"/>
 						)}
 
 						<div className="flex flex-wrap justify-center">

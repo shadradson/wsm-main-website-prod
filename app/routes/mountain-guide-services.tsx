@@ -4,9 +4,9 @@ import ParticleDots from "~/components/ParticleDots";
 import { MOUNTAIN_POINTS_PATH } from "~/lib/svgPaths";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 
-const TITLE = "Mountain Guide Services | Fractional Salesforce | We Summit Mountains";
+const TITLE = "Salesforce Implementation | Fractional Salesforce | We Summit Mountains";
 const DESCRIPTION =
-	"Monthly fractional Salesforce implementation — expert Salesforce consulting on a flexible monthly engagement designed to keep your org growing.";
+	"Salesforce Implementation Services — expert Salesforce consulting on a flexible monthly engagement designed to keep your org growing.";
 
 export function meta({}: Route.MetaArgs) {
 	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/mountain-guide-services" });
@@ -18,7 +18,6 @@ export default function MountainGuideServices() {
 			<PageHero />
 			<WhatWeDoSection />
 			<WhatsIncludedSection />
-			<CtaSection />
 		</>
 	);
 }
@@ -39,7 +38,7 @@ function PageHero() {
 					svgScale={1}
 					svgOffsetX={300}
 					svgOffsetY={30}
-					svgPoints={300}
+					svgPoints={500}
 					attractStrength={0.015}
 					svgFit="height"
 					svgAlign="right"
@@ -173,25 +172,3 @@ function WhatsIncludedSection() {
 	);
 }
 
-function CtaSection() {
-	return (
-		<section id="mgs-cta" className="bg-gradient-to-br from-wsm-dark to-wsm-mountain">
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-						Ready for a Guide?
-					</h2>
-					<p className="text-lg text-gray-300 max-w-2xl mx-auto mb-10">
-						Let's talk about your Salesforce org and build a monthly plan that fits your team and budget.
-					</p>
-					<Link
-						to="/contact"
-						className="inline-flex items-center px-8 py-4 bg-brand-sky text-wsm-dark font-bold text-lg hover:bg-white transition-colors"
-					>
-						START THE CONVERSATION
-					</Link>
-				</div>
-			</div>
-		</section>
-	);
-}
