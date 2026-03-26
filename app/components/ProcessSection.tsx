@@ -1,5 +1,6 @@
 import styles from "./ProcessSection.module.css";
 import SectionHeaderText from "./SectionHeaderText";
+import Tag from "./Tag";
 
 interface Step {
 	step: string;
@@ -41,14 +42,12 @@ export default function ProcessSection({
 			<div className={`h-30 ${dots === "true" ? "pattern-bg-dots-nofix" : ""}`}></div>
 			<div>
 				<div className="proc-border border-y-solid border-y-1">
-					<div className="proc-border proc-outline border-x-solid border-x-1 max-w-7xl mx-auto text-center outline-1 outline-solid outline-offset-30 relative">
+					<div className="proc-border proc-outline border-x-solid border-x-1 max-w-7xl mx-auto text-center outline-1 outline-solid outline-offset-30 relative pb-4 md:pb-8">
 						{tag && (
-							<div className="wsm-tag absolute top-4 -left-19 px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-								{tag}
-							</div>
+							<Tag text={tag} theme={theme} />
 						)}
 						{(title1 || subtitle) && (
-							<SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" noPad="false"/>
+							<SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" horzAlign="center" noPad="false"/>
 						)}
 
 						<div className="flex flex-wrap justify-center">

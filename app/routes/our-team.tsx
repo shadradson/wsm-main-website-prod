@@ -159,7 +159,7 @@ export default function OurTeam() {
 					},
 					{
 						title1: "We Climb to Grow",
-						tag: "IMPROVE",
+						tag: "IMPROVEMENT",
 						subtitle:
 							"We work to to grow ourselves and the others around us. Growth is painful, but the reward is great. There is nothing as fulfilling as breaking through the walls that hold you back to accomplish what the previous version of yourself did not think was possible.",
 					},
@@ -270,16 +270,16 @@ function TeamGrid() {
 	return (
 		<section id="team-grid">
 			<div className="bg-gradient-to-b from-[#111412] to-wsm-cliff">
-				<div className="h-20 pattern-bg-dots">
+				<div className="h-20 ">
 
 				</div>
-				<div className="flex flex-row border-y-2 border-solid border-[#ffffff22]">
-					<div className="flex-1 pattern-bg-dots">
+				<div className="flex flex-row">
+					<div className="flex-1 ">
 
 					</div>
 					<div className="">
 						<div className="relative max-w-7xl mx-auto">
-							<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>
+							{/*<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>*/}
 							<SectionHeaderText title1="THE HUMANS WHO" title2="SUMMIT MOUNTAINS" theme="dark" />
 							<div className="flex flex-wrap justify-center">
 								{team.map((member: TeamMember) => {
@@ -317,11 +317,6 @@ function TeamGrid() {
 																		{Math.round(member.years_at_wsm)} yr{Math.round(member.years_at_wsm) !== 1 ? "s" : ""} at WSM
 																	</span>
 																)}
-																{member.time_in_industry != null && (
-																	<span className="text-xs font-semibold text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1 rounded">
-																		{member.time_in_industry} yr{member.time_in_industry !== 1 ? "s" : ""} in industry
-																	</span>
-																)}
 															</div>
 														)}
 														{/* Certifications */}
@@ -335,7 +330,7 @@ function TeamGrid() {
 												</div>
 												{/* Buttons */}
 												{(member.linkedin_url || member.trailblazer_url) && (
-													<div className="flex items-center gap-3 mt-auto border-t border-gray-500 p-2 pattern-bg-dots-sm relative">
+													<div className="flex items-center gap-3 mt-auto border-t border-gray-500 p-2 relative">
 														{member.linkedin_url && (
 															<a
 																href={member.linkedin_url}
@@ -369,14 +364,14 @@ function TeamGrid() {
 									);
 								})}
 							</div>
-							<div className="absolute top-0 -right-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>
+							{/*<div className="absolute top-0 -right-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>*/}
 						</div>
 					</div>
-					<div className="flex-1 pattern-bg-dots">
+					<div className="flex-1 ">
 
 					</div>
 				</div>
-				<div className="h-20 pattern-bg-dots">
+				<div className="h-20 ">
 
 				</div>
 			</div>
@@ -401,49 +396,49 @@ function CertificationsSection() {
 
 	return (
 		<section id="team-certifications" className="bg-gradient-to-b from-gray-100 to-gray-300 flex">
-			<div className="border-r-2 border-r-solid border-r-gray-400 flex-1"></div>
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto py-8 border-y-2 border-y-solid border-y-gray-300 relative">
-					<div className="flex flex-row flex-wrap">
-						<SectionHeaderText
-							title1="CERTIFIED"
-							title2="PROFESSIONALS"
-							subtitle="Our team maintains the industry's most respected certifications to deliver the highest quality solutions."
-							theme="light"
-						/>
-						<div className="flex-1">
-							{/* Salesforce Partner Badge */}
-							<div className="flex justify-center mb-12">
-								<div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
-									<div className="w-4/5">
-										<img src="/images/Salesforce logo.svg" alt="Salesforce" />
-									</div>
-									<div className="text-center text-wsm-dark">
-										<p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
-									</div>
-									<div className="text-center text-wsm-dark">
-										<p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
+			<div className="flex flex-col flex-1">
+				<div className="py-20 lg:py-28">
+					<div className="max-w-7xl mx-auto py-8 relative">
+						<div className="flex flex-row flex-wrap">
+							<SectionHeaderText
+								title1="CERTIFIED"
+								title2="PROFESSIONALS"
+								subtitle="Our team maintains the industry's most respected certifications to deliver the highest quality solutions."
+								theme="light"
+							/>
+							<div className="flex-1">
+								{/* Salesforce Partner Badge */}
+								<div className="flex justify-center mb-12">
+									<div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
+										<div className="w-4/5">
+											<img src="/images/Salesforce logo.svg" alt="Salesforce" />
+										</div>
+										<div className="text-center text-wsm-dark">
+											<p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
+										</div>
+										<div className="text-center text-wsm-dark">
+											<p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div className="flex flex-wrap justify-center">
-						{sfcertifications.map((cert) => (
-							<div key={cert}
-								className="p-2.5 outline-2 outline-gray-400  flex-1 flex justify-center">
-								<div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-fit min-w-[120px]">
-									<span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
-										{cert}
-									</span>
+						<div className="flex flex-wrap justify-center">
+							{sfcertifications.map((cert) => (
+								<div key={cert}
+									className="p-2.5  flex-1 flex justify-center">
+									<div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-fit min-w-[120px]">
+										<span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
+											{cert}
+										</span>
+									</div>
 								</div>
-							</div>
-						))}
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
-			<div className="border-l-2 border-2-solid border-l-gray-400 flex-1"></div>
 		</section>
 	);
 }

@@ -173,6 +173,7 @@
 
 :global(.card-title-text) {
     font-weight: 900;
+    line-height: 3.5rem;
 }
 
 :global(.card-inner-section-text) {

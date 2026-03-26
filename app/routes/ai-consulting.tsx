@@ -1,8 +1,9 @@
 import type { Route } from "./+types/ai-consulting";
 import { Link, useLoaderData } from "react-router";
-import ParticleDots from "~/components/ParticleDots";
+import FluidParticles from "~/components/FluidParticles";
 import { AI_LOGO_PATH } from "~/lib/svgPaths";
 import { buildMeta, SITE_URL } from "~/lib/seo";
+import SectionHeaderText from "~/components/SectionHeaderText";
 
 const TITLE = "AI Consulting & Implementation | We Summit Mountains";
 const DESCRIPTION =
@@ -57,24 +58,9 @@ function PageHero() {
 	return (
 		<section id="ai-hero" className="bg-gradient-to-tl from-summit-dark to-wsm-cliff min-h-[50vh] relative overflow-hidden">
 			<div className="hidden md:block">
-				<ParticleDots
-					particleCount={400}
-					color="#ffffff33"
-					lineColor="#ffffff44"
-					repelRadius={180}
-					repelStrength={0.2}
-					linkDistance={100}
-					svgLinkDistance={80}
-					svgPath={AI_LOGO_PATH}
-					svgScale={0.55}
-					svgOffsetX={-50}
-					svgOffsetY={30}
-					svgPoints={160}
-					attractStrength={0.001}
-					svgFit="height"
-					svgAlign="right"
-				/>
+				
 			</div>
+			< FluidParticles />
 			<div className="py-20 lg:py-28 relative z-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-3xl">
@@ -103,20 +89,10 @@ function WhatWeDoSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col lg:flex-row gap-16 items-start">
 						<div className="lg:w-1/2">
-							<p className="text-brand-sky font-medium text-sm uppercase tracking-widest mb-4">What We Do</p>
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-								AI That Works in the Real World
-							</h2>
-							<p className="text-gray-600 leading-relaxed mb-4">
-								Most businesses aren't ready to hand the keys to a generic AI model and hope for the best.
+							<SectionHeaderText title1="AI THAT WORKS" title2="IN THE REAL WORLD" subtitle="
 								We build AI solutions tailored to your data, your processes, and your goals — whether that
-								means running models on-premise for security, or deploying cloud-based agents that integrate
-								with your existing stack.
-							</p>
-							<p className="text-gray-600 leading-relaxed mb-8">
-								From strategy through deployment and ongoing optimization, we handle the full lifecycle
-								so you get measurable outcomes, not just a demo.
-							</p>
+								means running models on-premise, or deploying cloud-based agents that integrate
+								with your existing stack. We make AI work for you." theme="light" vertAlign="top" horzAlign="left" noPad="true"/>
 							<Link
 								to="/contact"
 								className="inline-flex items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-wsm-mountain transition-colors"
@@ -150,14 +126,9 @@ function CapabilitiesSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 				<div className="">
 				<div className="border-y-solid border-y-1 border-[#ccc]">
 					<div className="border-x-solid border-x-1 border-[#ccc] max-w-7xl mx-auto text-center outline-1 outline-solid outline-[#ccc] outline-offset-30 relative">
-						<div className="wsm-tag absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "2rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-							OUR TOOLS
-						</div>
-						<div className="p-8 sm:p-6 lg:p-8">
-							<div className="p-2 sm:p-2 lg:p-2">
-								<h2 className="text-3xl sm:text-4xl font-bold text-white">Technologies &amp; Capabilities</h2>
-								<p className="text-lg text-gray-300 max-w-2xl mx-auto">We work across the full AI stack from model selection to production deployment. Custom tailored to your needs.</p>
-							</div>
+						<SectionHeaderText title1="AI CAPABILITIES" title2="THAT MATTER" subtitle="We work across the full AI stack from model selection to production deployment. Custom tailored to your needs.." theme="blue" vertAlign="top" horzAlign="center" noPad="false"/>
+						<div className="wsm-tag absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
+							AI TOOLS
 						</div>
 
 						<div className="flex flex-wrap justify-center">

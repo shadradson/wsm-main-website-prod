@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { useEffect, useRef } from "react";
 import SectionHeaderText from "./SectionHeaderText";
+import Tag from "./Tag";
 
 interface Card {
     title1?: string;
@@ -72,10 +73,9 @@ export default function SimpleTextSection({ cards, title1, title2, tag, subtitle
                             <div
                                 className={`relative flex flex-col lg:flex-row items-stretch `}
                             >
-                                <div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1   rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-                                    {tag}
-                                </div>
-                                <SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center"/>
+                                <Tag text={tag} theme={theme} />
+
+                                <SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" noPad="true"/>
                                 <div className={`p-8 lg:p-16 flex items-center justify-center`}>
                                     {imageUrl ? (
                                         <img src={imageUrl} alt={title1 || ""} className="aspect-sqare max-w-[400px]" />
@@ -106,9 +106,7 @@ export default function SimpleTextSection({ cards, title1, title2, tag, subtitle
                         {cards.map((card, i) => (
                             <div key={i} className={`flex flex-col items-start relative corner-card p-2 sm:p-4 lg:p-6 ${borderClassbot} ${borderClasstop}`}>
                                 {card.tag && (
-                                    <div className="absolute top-4 -left-8 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1   rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-                                        {card.tag}
-                                    </div>
+                                    <Tag text={card.tag} theme={theme} />
                                 )}
                                 {/* Corner brackets */}
                                 <svg className="w-4 h-4 corner-tl" viewBox="0 0 20 20" fill="none" aria-hidden="true">

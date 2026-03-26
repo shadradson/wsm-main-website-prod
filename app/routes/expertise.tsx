@@ -6,6 +6,7 @@ import { div } from "three/tsl";
 import Transition from "~/components/Transition";
 import SplashSection from "~/components/SplashSection";
 import ProcessSection from "~/components/ProcessSection";
+import Tag from  "~/components/Tag";
 
 const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
 const DESCRIPTION =
@@ -125,8 +126,6 @@ export default function Expertise() {
 				tag="PROCESS"
 				title1="OUR PROCESS"
 				subtitle="Our proven approach to delivering excellent results."
-				footerTitle="DON'T WASTE TIME"
-				footerText="."
 				dots="true"
 				steps={[
 					{
@@ -235,9 +234,7 @@ function TechStack() {
 			<div className="border-r-1 border-r-solid border-r-gray-300 flex-1"></div>
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto py-8 border-y-1 border-y-solid border-y-gray-300 relative">
-					<div className="wsm-tag absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-						TECH PROFFICIENCY
-					</div>
+					<Tag text="PROFICIENCY" theme="light" />
 					<h2 className="text-3xl sm:text-4xl text-center font-bold text-gray-900 mb-4">
 						Technologies We Work With
 					</h2>

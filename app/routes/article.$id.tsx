@@ -2,6 +2,21 @@ import type { Route } from "./+types/article.$id";
 import { Link, useLoaderData } from "react-router";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 
+function markdownToHtml(md: string): string {
+	return md
+		.replace(/^### (.+)$/gm, "<h3>$1</h3>")
+		.replace(/^## (.+)$/gm, "<h2>$1</h2>")
+		.replace(/^# (.+)$/gm, "<h1>$1</h1>")
+		.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+		.replace(/\*(.+?)\*/g, "<em>$1</em>")
+		.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />')
+		.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+		.replace(/^- (.+)$/gm, "<li>$1</li>")
+		.replace(/(<li>.*<\/li>\n?)+/g, (m) => `<ul>${m}</ul>`)
+		.replace(/^(?!<[hluoi])(.*\S.*)$/gm, "<p>$1</p>")
+		.replace(/\n{2,}/g, "");
+}
+
 interface Article {
 	sf_id: string;
 	name: string;
@@ -19,6 +34,7 @@ interface Article {
 	publish_status: string | null;
 	article_order: number | null;
 	vertical_product: string | null;
+	body_type: string | null;
 	admin_approval: number;
 }
 
@@ -56,7 +72,7 @@ export async function loader({ context, params }: Route.LoaderArgs) {
 		`SELECT sf_id, name, subtitle, short_description, article_body, html_body,
 			article_category, subcategory, author_first_name, author_last_name, author_title,
 			splash_image_url, splash_image_background, publish_status, article_order,
-			vertical_product, admin_approval
+			vertical_product, body_type, admin_approval
 		FROM articles
 		WHERE sf_id = ?
 			AND admin_approval = 1
@@ -89,6 +105,7 @@ export async function loader({ context, params }: Route.LoaderArgs) {
 export default function ArticlePage() {
 	const { article, relatedArticles } = useLoaderData<typeof loader>();
 
+	const bodyType = article.body_type?.trim() ?? "";
 	const hasHtml = !!article.html_body?.trim();
 	const hasBody = !!article.article_body?.trim();
 
@@ -159,17 +176,31 @@ export default function ArticlePage() {
 			{/* Body */}
 			<div className="bg-gradient-to-b from-gray-50 to-gray-200">
 				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-					{hasHtml ? (
+					{bodyType === "HTML" && hasHtml ? (
+						<div
+							className="prose prose-lg max-w-none"
+							dangerouslySetInnerHTML={{ __html: article.html_body! }}
+						/>
+					) : bodyType === "Rich Text" && hasBody ? (
+						<div
+							className="prose prose-lg max-w-none"
+							dangerouslySetInnerHTML={{ __html: article.article_body! }}
+						/>
+					) : bodyType === "MD" && hasHtml ? (
+						<div
+							className="prose prose-lg max-w-none"
+							dangerouslySetInnerHTML={{ __html: markdownToHtml(article.html_body!) }}
+						/>
+					) : hasHtml ? (
 						<div
 							className="prose prose-lg max-w-none"
 							dangerouslySetInnerHTML={{ __html: article.html_body! }}
 						/>
 					) : hasBody ? (
-						<div className="prose prose-lg max-w-none">
-							{article.article_body!.split("\n").map((line, i) =>
-								line.trim() ? <p key={i}>{line}</p> : <br key={i} />
-							)}
-						</div>
+						<div
+							className="prose prose-lg max-w-none"
+							dangerouslySetInnerHTML={{ __html: article.article_body! }}
+						/>
 					) : (
 						<p className="text-gray-500 italic">Full content coming soon.</p>
 					)}

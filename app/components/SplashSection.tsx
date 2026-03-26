@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import styles from "./SplashSection.module.css";
+import Tag from "./Tag";
 
 interface Card {
     title1?: string;
@@ -49,9 +50,7 @@ export default function SplashSection({ cards, title, subtitle, titlesize, theme
                             >
                                 <div className="card-outer-flex">
                                     {card.tag && (
-                                        <div className="absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1   rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
-                                            {card.tag}
-                                        </div>
+                                        <Tag text={card.tag} theme={theme} />
                                     )}
                                     <div className="card-inner-section-title">
                                         {card.title1 && (

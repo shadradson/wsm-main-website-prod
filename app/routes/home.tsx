@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import StatsSection from "~/components/StatSection";
 import SplashSection from "~/components/SplashSection";
 import Transition from "~/components/Transition"
+import SectionHeaderText from "~/components/SectionHeaderText";
 
 import { buildMeta, SITE_URL, SITE_LOGO, OG_IMAGE } from "~/lib/seo";
 
@@ -156,6 +157,8 @@ export default function Home() {
 
 			<StatsSection
 				tag="STATS"
+				theme="light"
+				dots="true"
 				stats={[
 					{ value: "2023", label: "Founded" },
 					{ value: "5 / 5", label: "CSAT Score" },
@@ -285,19 +288,13 @@ function ServicesOverview() {
 		<section id="home-services" className="bg-gradient-to-b from-[#111] to-wsm-cliff pattern-bg-dots">
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="text-center max-w-2xl mx-auto mb-16">
-						<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-							OUR EXPERTISE
-						</h2>
-						<h3 className="text-1xl sm:text-2xl font-normal text-wsm-glacier mb-4">
-							What We Are Good At
-						</h3>
-						<p className="text-lg text-gray-300">
-							We combine technical expertise with a collaborative
-							approach to deliver solutions that enable operational
-							excellence and sustainable success.
-						</p>
-					</div>
+					<SectionHeaderText
+												title1="OUR EXPERTISE"
+												title2="WHAT WE DO"
+												subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
+												theme="dark"
+												horzAlign="center"
+											/>
 
 					<div className="flex flex-wrap gap-5 md:gap-10">
 						{services.map((service) => (

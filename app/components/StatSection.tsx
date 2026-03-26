@@ -20,7 +20,9 @@ interface StatsSectionProps {
 export default function StatsSection({ stats, title, subtitle, tag, theme = "dark", dots }: StatsSectionProps) {
 
     const dotsclass = dots === "true" ? "pattern-bg-dots" : "";
-    const floatingFinsColor = theme === "blue" || theme === "light"? "#eeeeee" : "#000000";
+    const floatingFinsColor = theme === "blue" || theme === "light"? "#cccccc" : "#000000";
+
+
     return (
         <section className={styles[theme]}>
             <div className="stat-inner">

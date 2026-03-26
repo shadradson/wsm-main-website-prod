@@ -56,12 +56,14 @@ export default function FluidParticles({
 			canvas!.height = parent!.clientHeight;
 		}
 		resize();
+		console.log("FluidParticles canvas size:", canvas.width, canvas.height);
 
 		const gl = canvas.getContext("webgl2", { alpha: transparent, premultipliedAlpha: false });
-		if (!gl) return;
+		if (!gl) { console.warn("FluidParticles: WebGL2 not available"); return; }
 
 		// Extensions
 		const extColorFloat = gl.getExtension("EXT_color_buffer_float");
+		if (!extColorFloat) { console.warn("FluidParticles: EXT_color_buffer_float not available"); }
 		const halfFloatTexType = gl.FLOAT;
 
 		// Check float render support
@@ -459,7 +461,7 @@ export default function FluidParticles({
 
 			// Curl
 			useProgram(curlProg);
-			gl!.uniform2f(gl!.getUniformLocation(curlProg, "texelSize"), velocity.read.width, velocity.read.height);
+			gl!.uniform2f(gl!.getUniformLocation(curlProg, "texelSize"), 1.0 / velocity.read.width, 1.0 / velocity.read.height);
 			gl!.uniform1i(gl!.getUniformLocation(curlProg, "uVelocity"), 0);
 			gl!.activeTexture(gl!.TEXTURE0);
 			gl!.bindTexture(gl!.TEXTURE_2D, velocity.read.texture);
@@ -468,7 +470,7 @@ export default function FluidParticles({
 
 			// Vorticity
 			useProgram(vorticityProg);
-			gl!.uniform2f(gl!.getUniformLocation(vorticityProg, "texelSize"), velocity.read.width, velocity.read.height);
+			gl!.uniform2f(gl!.getUniformLocation(vorticityProg, "texelSize"), 1.0 / velocity.read.width, 1.0 / velocity.read.height);
 			gl!.uniform1i(gl!.getUniformLocation(vorticityProg, "uVelocity"), 0);
 			gl!.uniform1i(gl!.getUniformLocation(vorticityProg, "uCurl"), 1);
 			gl!.uniform1f(gl!.getUniformLocation(vorticityProg, "curl"), curl);
@@ -483,7 +485,7 @@ export default function FluidParticles({
 
 			// Divergence
 			useProgram(divergenceProg);
-			gl!.uniform2f(gl!.getUniformLocation(divergenceProg, "texelSize"), velocity.read.width, velocity.read.height);
+			gl!.uniform2f(gl!.getUniformLocation(divergenceProg, "texelSize"), 1.0 / velocity.read.width, 1.0 / velocity.read.height);
 			gl!.uniform1i(gl!.getUniformLocation(divergenceProg, "uVelocity"), 0);
 			gl!.activeTexture(gl!.TEXTURE0);
 			gl!.bindTexture(gl!.TEXTURE_2D, velocity.read.texture);
@@ -502,7 +504,7 @@ export default function FluidParticles({
 
 			// Pressure solve (Jacobi iterations)
 			useProgram(pressureProg);
-			gl!.uniform2f(gl!.getUniformLocation(pressureProg, "texelSize"), velocity.read.width, velocity.read.height);
+			gl!.uniform2f(gl!.getUniformLocation(pressureProg, "texelSize"), 1.0 / velocity.read.width, 1.0 / velocity.read.height);
 			gl!.uniform1i(gl!.getUniformLocation(pressureProg, "uDivergence"), 1);
 			gl!.activeTexture(gl!.TEXTURE1);
 			gl!.bindTexture(gl!.TEXTURE_2D, divergenceField.texture);
@@ -517,7 +519,7 @@ export default function FluidParticles({
 
 			// Gradient subtract
 			useProgram(gradientSubtractProg);
-			gl!.uniform2f(gl!.getUniformLocation(gradientSubtractProg, "texelSize"), velocity.read.width, velocity.read.height);
+			gl!.uniform2f(gl!.getUniformLocation(gradientSubtractProg, "texelSize"), 1.0 / velocity.read.width, 1.0 / velocity.read.height);
 			gl!.uniform1i(gl!.getUniformLocation(gradientSubtractProg, "uPressure"), 0);
 			gl!.uniform1i(gl!.getUniformLocation(gradientSubtractProg, "uVelocity"), 1);
 			gl!.activeTexture(gl!.TEXTURE0);
@@ -570,6 +572,15 @@ export default function FluidParticles({
 			gl!.activeTexture(gl!.TEXTURE0);
 			gl!.bindTexture(gl!.TEXTURE_2D, dye.read.texture);
 			blit(null);
+		}
+
+		// Initial splats so it's not blank on load
+		for (let i = 0; i < 5; i++) {
+			const x = Math.random();
+			const y = Math.random();
+			const dx = (Math.random() - 0.5) * 2;
+			const dy = (Math.random() - 0.5) * 2;
+			splat(x, y, dx, dy, generateColor());
 		}
 
 		step();
