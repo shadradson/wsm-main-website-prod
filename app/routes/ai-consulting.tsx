@@ -1,24 +1,17 @@
 import type { Route } from "./+types/ai-consulting";
 import { Link, useLoaderData } from "react-router";
 import FluidParticles from "~/components/FluidParticles";
-import { AI_LOGO_PATH } from "~/lib/svgPaths";
-import { buildMeta, SITE_URL } from "~/lib/seo";
+import { buildMeta } from "~/lib/seo";
 import SectionHeaderText from "~/components/SectionHeaderText";
+import ArticleCardSection from "~/components/ArticleCardSection";
+import type { ArticleRef } from "~/lib/types";
+import { articleRefToCardData } from "~/lib/types";
 
 const TITLE = "AI Consulting & Implementation | We Summit Mountains";
 const DESCRIPTION =
 	"On-premise and cloud-based AI implementation — agentic workflows, data analysis, chatbots with tools, document processing, and more.";
 
 const AI_ARTICLE_ID = "a05TP00000APBgsYAH";
-
-interface ArticleRef {
-	ref_name: string;
-	ref_order: number;
-	child_sf_id: string;
-	child_name: string;
-	child_short_description: string;
-	child_splash_image_url: string | null;
-}
 
 export function meta({ }: Route.MetaArgs) {
 	return buildMeta({ title: TITLE, description: DESCRIPTION, path: "/ai-consulting" });
@@ -100,17 +93,11 @@ function WhatWeDoSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 								LET'S SUMMIT AI
 							</Link>
 						</div>
-						<div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-							{articleRefs.map((ref) => (
-								<Link
-									key={ref.child_sf_id}
-									to={`/article/${ref.child_sf_id}`}
-									className="border border-gray-200 p-6 bg-white hover:border-brand-sky transition-colors block"
-								>
-									<h3 className="font-bold text-gray-900 mb-2">{ref.child_name}</h3>
-									<p className="text-gray-600 text-sm leading-relaxed">{ref.child_short_description}</p>
-								</Link>
-							))}
+						<div className="lg:w-1/2">
+							<ArticleCardSection
+								articles={articleRefs.map(articleRefToCardData)}
+								theme="light"
+							/>
 						</div>
 					</div>
 				</div>

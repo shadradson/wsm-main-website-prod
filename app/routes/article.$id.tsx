@@ -1,6 +1,7 @@
 import type { Route } from "./+types/article.$id";
 import { Link, useLoaderData } from "react-router";
 import { buildMeta, SITE_URL } from "~/lib/seo";
+import ArticleCardSection from "~/components/ArticleCardSection";
 
 function markdownToHtml(md: string): string {
 	return md
@@ -209,92 +210,13 @@ export default function ArticlePage() {
 			</div>
 			{/* Related Articles */}
 			{relatedArticles.length > 0 && (
-				<div>
-					<div className="transition1 bg-gray-200">
-						<div className="translayer midlay t1_lay5">
-							<div className="splash_tag_box">
-								<div className="splash_tag_text text-black">
-									RELATED
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className="bg-gradient-to-b from-black to-wsm-cliff relative">
-						<div className=" h-10 lg:h-20 border-b-2 border-solid border-[#ffffff22] pattern-bg-dots"></div>
-
-						<div className="flex">
-							<div className="flex-1 pattern-bg-dots relative "></div>
-
-							<div className="relative max-w-6xl mx-auto p-4 sm:p-6 lg:px-8 flex flex-col gap-0">
-
-								<div className="absolute h-[100%] w-10 top-0 -left-10 border-x-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed"></div>
-
-								<div className=" p-4">
-									<h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">Related Articles</h2>
-								</div>
-								<div className="flex flex-wrap justify-start">
-									{relatedArticles.map((ref) => {
-										const initials = `${ref.name?.[0] ?? ""}${ref.name?.split(" ")?.[1]?.[0] ?? ""}`;
-										return (
-											<Link
-												key={ref.sf_id}
-												to={`/article/${ref.sf_id}`}
-												className="sm:w-[calc(50%-0.25rem)] min-w-[400px] max-w-[100%] md:max-w-[50%] grow group hover:shadow-xl transition-all"
-											>
-												<div className="bg-[#00000077] group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
-													<div className="p-2 flex border-r-2 border-gray-600 p-8">
-														{ref.splash_image_url ? (
-															<img
-																src={ref.splash_image_url}
-																alt={ref.name}
-																className="aspect-square max-w-[100px] object-contain flex-shrink-0 "
-															/>
-														) : (
-															<div className="aspect-square max-w-[100px] bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
-																{initials}
-															</div>
-														)}
-													</div>
-													<div className="text-left flex flex-col">
-														<div className="flex flex-wrap ">
-															{ref.subcategory && (
-																<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 ">
-																	{ref.subcategory}
-																</span>
-															)}
-															{ref.vertical_product && (
-																<span className="text-xs font-medium text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1 ">
-																	{ref.vertical_product}
-																</span>
-															)}
-														</div>
-														<div className="p-4">
-															<p className="text-lg font-bold text-white leading-snug">{ref.name}</p>
-															{ref.subtitle && (
-																<p className="text-wsm-glacier text-sm font-medium mt-1">{ref.subtitle}</p>
-															)}
-															{ref.short_description && (
-																<p className="text-gray-400 text-sm leading-relaxed mt-2 line-clamp-2">{ref.short_description}</p>
-															)}
-														</div>
-													</div>
-												</div>
-											</Link>
-										);
-									})}
-								</div>
-
-								<div className="absolute h-[100%] w-10 top-0 -right-10 border-x-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed"></div>
-
-							</div>
-
-							<div className="flex-1 pattern-bg-dots relative"></div>
-						</div>
-
-						<div className=" h-10 lg:h-20 border-t-2 border-solid border-[#ffffff22] pattern-bg-dots"></div>
-					</div>
-				</div>
+				<ArticleCardSection
+					id="related-articles"
+					title="Related Articles"
+					articles={relatedArticles}
+					theme="dark"
+					dots
+				/>
 			)}
 
 		</div>

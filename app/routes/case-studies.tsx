@@ -1,29 +1,9 @@
 import type { Route } from "./+types/case-studies";
-import { Link, useLoaderData } from "react-router";
-import ParticleDots from "~/components/ParticleDots";
+import { useLoaderData } from "react-router";
 import FluidParticles from "~/components/FluidParticles";
-import { WSM_LOGO_PATH } from "~/lib/svgPaths";
+import ArticleCardSection from "~/components/ArticleCardSection";
 import { buildMeta } from "~/lib/seo";
-
-interface Article {
-	sf_id: string;
-	name: string;
-	subtitle: string | null;
-	short_description: string | null;
-	article_body: string | null;
-	html_body: string | null;
-	article_category: string | null;
-	subcategory: string | null;
-	author_first_name: string | null;
-	author_last_name: string | null;
-	author_title: string | null;
-	splash_image_url: string | null;
-	splash_image_background: string | null;
-	publish_status: string | null;
-	article_order: number | null;
-	vertical_product: string | null;
-	admin_approval: number;
-}
+import type { Article } from "~/lib/types";
 
 const TITLE = "Client Success Stories | Salesforce & AI Results | We Summit Mountains";
 const DESCRIPTION =
@@ -55,11 +35,26 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function CaseStudies() {
+	const { industryArticles, productArticles } = useLoaderData<typeof loader>();
 	return (
 		<>
 			<PageHero />
-			<IndustrySection />
-			<ProductSection />
+			<ArticleCardSection
+				id="cases-industry"
+				title="Industry Knowledge"
+				description="Deep expertise across the industries we serve."
+				articles={industryArticles}
+				emptyText="No case studies yet."
+				theme="dark"
+			/>
+			<ArticleCardSection
+				id="cases-products"
+				title="Software Proficiencies"
+				description="Proven results with the platforms and tools we specialize in."
+				articles={productArticles}
+				emptyText="No case studies yet."
+				theme="dark"
+			/>
 			<ResultsSection />
 		</>
 	);
@@ -89,115 +84,6 @@ function PageHero() {
 				</div>
 			</div>
 		</section>
-	);
-}
-
-function ArticleCard({ article }: { article: Article }) {
-	const initials = `${article.name?.[0] ?? ""}${article.name?.split(" ")?.[1]?.[0] ?? ""}`;
-	return (
-		<Link
-			to={`/article/${article.sf_id}`}
-			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
-		>
-			<div className="bg-wsm-dark group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
-				<div className="aspect-square max-w-[140px] p-[20px] border-r-2 border-gray-600">
-					{article.splash_image_url ? (
-						<img
-							src={article.splash_image_url}
-							alt={article.name}
-							className=" aspect-square max-w-[100px] object-contain flex-shrink-0"
-						/>
-					) : (
-						<div className="aspect-square max-w-[100px] bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0 border-r-2 border-gray-600">
-							{initials}
-						</div>
-					)}
-				</div>
-
-				<div className="text-left w-2/3 flex flex-col">
-					<div className="flex flex-wrap">
-						{article.subcategory && (
-							<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1">
-								{article.subcategory}
-							</span>
-						)}
-						{article.vertical_product && (
-							<span className="text-xs font-medium text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1">
-								{article.vertical_product}
-							</span>
-						)}
-					</div>
-
-					<div className="p-2">
-						<h3 className="text-lg font-bold text-white leading-snug">
-							{article.name}
-						</h3>
-						{article.subtitle && (
-							<p className="text-wsm-glacier text-sm text-[0.75rem] font-medium mt-1">
-								{article.subtitle}
-							</p>
-						)}
-						{article.short_description && (
-							<p className="text-gray-400 text-sm leading-relaxed mt-2 line-clamp-3">
-								{article.short_description}
-							</p>
-						)}
-					</div>
-
-
-				</div>
-			</div>
-		</Link>
-	);
-}
-
-function ArticleGrid({ articles, id, title, description }: { articles: Article[]; id: string; title: string; description: string }) {
-	return (
-		<section id={id}>
-			<div className="py-20 lg:py-28 bg-wsm-dark pattern-bg-dots">
-				<div className="max-w-7xl mx-auto p-4 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed">
-					<div className="bg-wsm-dark p-4 border-2 border-solid border-[#ffffff22]">
-						<h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-							{title}
-						</h2>
-						<p className="text-gray-400 mt-2">{description}</p>
-					</div>
-					{articles.length === 0 ? (
-						<p className="text-gray-400 italic p-6">No case studies yet.</p>
-					) : (
-						<div className="flex flex-wrap justify-center bg-[#ffffff44]">
-							{articles.map((article) => (
-								<ArticleCard key={article.sf_id} article={article} />
-							))}
-						</div>
-					)}
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function IndustrySection() {
-	const { industryArticles } = useLoaderData<typeof loader>();
-	return (
-		<ArticleGrid
-			id="cases-industry"
-			title="Industry Knowledge"
-			description="Deep expertise across the industries we serve."
-			articles={industryArticles}
-		/>
-	);
-}
-
-function ProductSection() {
-	const { productArticles } = useLoaderData<typeof loader>();
-	return (
-		<ArticleGrid
-			id="cases-products"
-			title="Software Proficiencies"
-			description="Proven results with the platforms and tools we specialize in."
-			articles={productArticles}
-		/>
 	);
 }
 

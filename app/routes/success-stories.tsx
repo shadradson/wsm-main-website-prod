@@ -1,28 +1,10 @@
 import type { Route } from "./+types/success-stories";
-import { Link, useLoaderData } from "react-router";
+import { useLoaderData } from "react-router";
 import ParticleDots from "~/components/ParticleDots";
 import { WSM_LOGO_PATH } from "~/lib/svgPaths";
+import ArticleCardSection from "~/components/ArticleCardSection";
 import { buildMeta } from "~/lib/seo";
-
-interface Article {
-	sf_id: string;
-	name: string;
-	subtitle: string | null;
-	short_description: string | null;
-	article_body: string | null;
-	html_body: string | null;
-	article_category: string | null;
-	subcategory: string | null;
-	author_first_name: string | null;
-	author_last_name: string | null;
-	author_title: string | null;
-	splash_image_url: string | null;
-	splash_image_background: string | null;
-	publish_status: string | null;
-	article_order: number | null;
-	vertical_product: string | null;
-	admin_approval: number;
-}
+import type { Article } from "~/lib/types";
 
 const TITLE = "Customer Success Stories | We Summit Mountains";
 const DESCRIPTION =
@@ -64,11 +46,28 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function SuccessStories() {
+	const { articles, implArticles } = useLoaderData<typeof loader>();
 	return (
 		<>
 			<PageHero />
-			<StoriesSection />
-			<ImplementationsSection />
+			<ArticleCardSection
+				id="stories-grid"
+				title="Client Success Stories"
+				description="Hear directly from the clients we've helped achieve their goals."
+				articles={articles}
+				emptyText="No success stories yet."
+				theme="dark"
+				dots
+			/>
+			<ArticleCardSection
+				id="implementations-grid"
+				title="Successful Implementations"
+				description="See the solutions we've delivered — built right, on time, and built to last."
+				articles={implArticles}
+				emptyText="No implementation stories yet."
+				theme="dark"
+				dots
+			/>
 		</>
 	);
 }
@@ -116,111 +115,3 @@ function PageHero() {
 	);
 }
 
-function ArticleCard({ article }: { article: Article }) {
-	const initials = `${article.name?.[0] ?? ""}${article.name?.split(" ")?.[1]?.[0] ?? ""}`;
-	return (
-		<Link
-			to={`/article/${article.sf_id}`}
-			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
-		>
-			<div className="bg-wsm-dark group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
-				{article.splash_image_url ? (
-					<img
-						src={article.splash_image_url}
-						alt={article.name}
-						className="w-1/3 aspect-square object-contain flex-shrink-0 border-r-2 border-gray-600 p-8"
-					/>
-				) : (
-					<div className="w-1/3 aspect-square bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0 border-r-2 border-gray-600">
-						{initials}
-					</div>
-				)}
-				<div className="text-left p-4 w-2/3 flex flex-col">
-					<div className="flex flex-wrap gap-1 mb-2">
-						{article.subcategory && (
-							<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 rounded">
-								{article.subcategory}
-							</span>
-						)}
-						{article.vertical_product && (
-							<span className="text-xs font-medium text-gray-400 bg-[#ffffff08] border border-[#ffffff15] px-2 py-1 rounded">
-								{article.vertical_product}
-							</span>
-						)}
-					</div>
-					<h3 className="text-lg font-bold text-white leading-snug">
-						{article.name}
-					</h3>
-					{article.subtitle && (
-						<p className="text-wsm-glacier text-sm font-medium mt-1">
-							{article.subtitle}
-						</p>
-					)}
-					{article.short_description && (
-						<p className="text-gray-400 text-sm leading-relaxed mt-2 line-clamp-3">
-							{article.short_description}
-						</p>
-					)}
-					{article.author_first_name && (
-						<p className="text-xs text-gray-500 mt-auto pt-3 border-t border-gray-800">
-							By {article.author_first_name} {article.author_last_name}
-							{article.author_title && ` — ${article.author_title}`}
-						</p>
-					)}
-				</div>
-			</div>
-		</Link>
-	);
-}
-
-function ArticleGrid({ id, title, description, articles, emptyText }: { id: string; title: string; description: string; articles: Article[]; emptyText: string }) {
-	return (
-		<section id={id}>
-			<div className="py-20 lg:py-28 bg-wsm-dark pattern-bg-dots">
-				<div className="max-w-7xl mx-auto p-4 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed">
-					<div className="bg-wsm-dark p-4 border-2 border-solid border-[#ffffff22]">
-						<h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-							{title}
-						</h2>
-						<p className="text-gray-400 mt-2">{description}</p>
-					</div>
-					{articles.length === 0 ? (
-						<p className="text-gray-400 italic p-6">{emptyText}</p>
-					) : (
-						<div className="flex flex-wrap justify-center bg-[#ffffff44]">
-							{articles.map((article) => (
-								<ArticleCard key={article.sf_id} article={article} />
-							))}
-						</div>
-					)}
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function StoriesSection() {
-	const { articles } = useLoaderData<typeof loader>();
-	return (
-		<ArticleGrid
-			id="stories-grid"
-			title="Client Success Stories"
-			description="Hear directly from the clients we've helped achieve their goals."
-			articles={articles}
-			emptyText="No success stories yet."
-		/>
-	);
-}
-
-function ImplementationsSection() {
-	const { implArticles } = useLoaderData<typeof loader>();
-	return (
-		<ArticleGrid
-			id="implementations-grid"
-			title="Successful Implementations"
-			description="See the solutions we've delivered — built right, on time, and built to last."
-			articles={implArticles}
-			emptyText="No implementation stories yet."
-		/>
-	);
-}
