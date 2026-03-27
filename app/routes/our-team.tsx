@@ -135,7 +135,7 @@ export default function OurTeam() {
 				title2="MISSION"
 				tag="TRUE NORTH"
 				subtitle="is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software. We will learn to cultivate the best in ourselves, and in each other as we stride toward the top of each mountain. Our knowledge is shared so that we can all grow greater than any one of us."
-				imageUrl="/public/images/MountainCompass.svg"
+				imageUrl="/images/MountainCompass.svg"
 			/>
 			<Transition
 				type="text"
@@ -314,7 +314,7 @@ function TeamGrid() {
 															<div className="flex gap-2 mt-2 flex-wrap">
 																{member.years_at_wsm != null && (
 																	<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 rounded">
-																		{Math.round(member.years_at_wsm)} yr{Math.round(member.years_at_wsm) !== 1 ? "s" : ""} at WSM
+																		{Math.round(member.years_at_wsm)} yr{Math.round(member.years_at_wsm) !== 1 ? "s" : ""} at We Summit
 																	</span>
 																)}
 															</div>
