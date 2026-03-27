@@ -1,0 +1,46 @@
+# We Summit Mountains
+
+> Salesforce consulting and technology services company based in Dallas, TX. We specialize in Salesforce implementation, AI consulting, system integrations, and fractional CTO services.
+
+## Services
+
+- **Salesforce Implementation:** End-to-end deployment of Sales Cloud, Service Cloud, Marketing Cloud, and Experience Cloud. Monthly fractional implementation (Mountain Guide Services).
+- **AI Consulting & Implementation:** On-premise and cloud-based AI — agentic workflows, data analysis, chatbots with tools, document processing. Agentforce, Einstein AI, n8n, RAG systems, vector databases.
+- **System Integration Services:** Planning, implementing, and executing integrated solutions connecting Salesforce with ERP, marketing automation, and custom applications.
+- **Fractional CTO Services:** Long-term strategic partnership — discover technical constraints, needs, and growth potential. Plan, execute, and report on implementation success across your business.
+
+## Team
+
+- Jason Booher — Company Owner
+- Jonathan Davis — Managing Partner
+- Ashley Blue — Implementation Consultant
+- Zachary Byrd — Consultant
+
+All team members are Salesforce Certified and US-based.
+
+## Key Facts
+
+- Founded: 2023
+- Location: Dallas, Texas, USA
+- Specialization: Salesforce ecosystem, AI implementation, cloud CRM
+- Combined team experience: 14+ years in Salesforce
+- 100% US-based team
+
+## Contact
+
+- Website: https://www.wesummitmountains.com
+- Contact page: https://www.wesummitmountains.com/contact
+- LinkedIn: https://www.linkedin.com/company/we-summit-mountains
+
+## Pages
+
+- Home: https://www.wesummitmountains.com/
+- About Us: https://www.wesummitmountains.com/about-us
+- Expertise: https://www.wesummitmountains.com/expertise
+- AI Consulting: https://www.wesummitmountains.com/ai-consulting
+- Salesforce Implementation: https://www.wesummitmountains.com/mountain-guide-services
+- System Integrations: https://www.wesummitmountains.com/system-integration-services
+- Fractional CTO: https://www.wesummitmountains.com/fractional-cto-services
+- Case Studies: https://www.wesummitmountains.com/case-studies
+- Success Stories: https://www.wesummitmountains.com/success-stories
+- Contact: https://www.wesummitmountains.com/contact

@@ -21,6 +21,7 @@ export default [
 		route("mountain-rescue", "routes/mountain-rescue.tsx"),
 	]),
 	route("s/*", "routes/s.$.tsx"),
+	route("sitemap.xml", "routes/sitemap[.]xml.ts"),
 	route("api/og", "routes/api.og.tsx"),
 	route("api/lead", "routes/api.lead.ts"),
 	route("api/sync", "routes/api.sync.ts"),

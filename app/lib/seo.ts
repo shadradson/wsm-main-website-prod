@@ -25,6 +25,7 @@ export function buildMeta({
 		{ title },
 		{ name: "description", content: description },
 		{ name: "robots", content: "index, follow" },
+		{ name: "theme-color", content: "#036588" },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: SITE_NAME },
 		{ property: "og:url", content: url },
@@ -33,11 +34,14 @@ export function buildMeta({
 		{ property: "og:image", content: img },
 		{ property: "og:image:width", content: "1200" },
 		{ property: "og:image:height", content: "630" },
+		{ property: "og:image:type", content: "image/png" },
+		{ property: "og:image:alt", content: `${title} | ${SITE_NAME}` },
 		{ property: "og:locale", content: "en_US" },
 		{ name: "twitter:card", content: "summary_large_image" },
 		{ name: "twitter:title", content: title },
 		{ name: "twitter:description", content: description },
 		{ name: "twitter:image", content: img },
+		{ name: "twitter:image:alt", content: `${title} | ${SITE_NAME}` },
 		{ tagName: "link", rel: "canonical", href: url },
 	];
 }

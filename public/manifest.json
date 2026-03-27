@@ -1,0 +1,21 @@
+{
+  "name": "We Summit Mountains",
+  "short_name": "WSM",
+  "description": "Salesforce consulting and technology services — implementation, AI, integrations, and CTO services.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#021626",
+  "theme_color": "#036588",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
