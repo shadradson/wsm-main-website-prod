@@ -99,7 +99,7 @@ export default function SimpleTextSection({ cards, title1, title2, tag, subtitle
                 <div className={`max-w-7xl mx-auto relative ${borderClassleft} ${borderClassright}`}>
                     <div className="flex flex-col gap-16">
                         <div className={`flex flex-col gap-4 p-8 lg:p-16 text-center`}>
-                            <SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} />
+                            <SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} horzAlign="left" />
                         </div>
                     </div>
                     <div className="flex flex-col gap-8">

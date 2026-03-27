@@ -86,7 +86,7 @@ export default function SectionHeaderText({ title1, title2, subtitle, theme = "d
 				<span className={`${gradientColors} inline-block text-transparent bg-clip-text`}>{title2}</span>
 			</h1>
 			{subtitle && (
-				<p className={`text-lg ${subtitleColor} ${horzAlignClass} max-w-2xl mx-auto mb-12 mt-4`}>
+				<p className={`text-lg ${subtitleColor} ${horzAlignClass} mb-12 mt-4`}>
 					{subtitle}
 				</p>
 			)}
