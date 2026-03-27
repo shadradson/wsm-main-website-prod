@@ -20,6 +20,7 @@ export default [
 		route("contact", "routes/contact.tsx"),
 		route("mountain-rescue", "routes/mountain-rescue.tsx"),
 	]),
+	route("s/*", "routes/s.$.tsx"),
 	route("api/og", "routes/api.og.tsx"),
 	route("api/lead", "routes/api.lead.ts"),
 	route("api/sync", "routes/api.sync.ts"),
