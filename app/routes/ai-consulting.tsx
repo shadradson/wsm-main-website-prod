@@ -97,6 +97,7 @@ function WhatWeDoSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 							<ArticleCardSection
 								articles={articleRefs.map(articleRefToCardData)}
 								theme="light"
+								trail="ai-consulting"
 							/>
 						</div>
 					</div>

@@ -41,19 +41,21 @@ export default function CaseStudies() {
 			<PageHero />
 			<ArticleCardSection
 				id="cases-industry"
-				title="Industry Knowledge"
-				description="Deep expertise across the industries we serve."
+				title1="Industry Knowledge"
+				subtitle="Deep expertise across the industries we serve."
 				articles={industryArticles}
 				emptyText="No case studies yet."
 				theme="dark"
+				trail="case-studies"
 			/>
 			<ArticleCardSection
 				id="cases-products"
-				title="Software Proficiencies"
-				description="Proven results with the platforms and tools we specialize in."
+				title1="Software Proficiencies"
+				subtitle="Proven results with the platforms and tools we specialize in."
 				articles={productArticles}
 				emptyText="No case studies yet."
 				theme="dark"
+				trail="case-studies"
 			/>
 			<ResultsSection />
 		</>

@@ -6,6 +6,7 @@ export type Theme = "light" | "dark" | "blue";
 interface ArticleLinkCardProps {
 	article: ArticleCardData;
 	theme?: Theme;
+	trail?: string;
 }
 
 const themeStyles: Record<Theme, {
@@ -78,13 +79,16 @@ const themeStyles: Record<Theme, {
 	},
 };
 
-export default function ArticleLinkCard({ article, theme = "dark" }: ArticleLinkCardProps) {
+export default function ArticleLinkCard({ article, theme = "dark", trail }: ArticleLinkCardProps) {
 	const s = themeStyles[theme];
 	const initials = `${article.name?.[0] ?? ""}${article.name?.split(" ")?.[1]?.[0] ?? ""}`;
+	const href = trail
+		? `/article/${article.sf_id}?trail=${encodeURIComponent(trail)}`
+		: `/article/${article.sf_id}`;
 
 	return (
 		<Link
-			to={`/article/${article.sf_id}`}
+			to={href}
 			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
 		>
 			<div className={`${s.card} ${s.cardHover} border-2 border-solid ${s.border} ${s.borderHover} flex h-full relative z-10 transition-colors`}>

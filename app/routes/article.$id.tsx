@@ -2,6 +2,7 @@ import type { Route } from "./+types/article.$id";
 import { Link, useLoaderData } from "react-router";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 import ArticleCardSection from "~/components/ArticleCardSection";
+import { PAGE_CRUMBS, MAX_TRAIL_DEPTH, buildTrailParam } from "~/lib/types";
 
 function markdownToHtml(md: string): string {
 	return md
@@ -65,9 +66,11 @@ export function meta({ data }: Route.MetaArgs) {
 	});
 }
 
-export async function loader({ context, params }: Route.LoaderArgs) {
+export async function loader({ context, params, request }: Route.LoaderArgs) {
 	const db = context.cloudflare.env.DB;
 	const id = params.id;
+	const url = new URL(request.url);
+	const trailParam = url.searchParams.get("trail") ?? "";
 
 	const article = await db.prepare(
 		`SELECT sf_id, name, subtitle, short_description, article_body, html_body,
@@ -100,11 +103,57 @@ export async function loader({ context, params }: Route.LoaderArgs) {
 			AND a.admin_approval = 1 AND a.publish_status = 'Published'`
 	).bind(id, id).all<RelatedArticle>();
 
-	return { article, relatedArticles: relatedArticles ?? [] };
+	// Resolve breadcrumb trail — fetch article names for sf_ids in the trail
+	const trailParts = trailParam ? trailParam.split(",").slice(-MAX_TRAIL_DEPTH) : [];
+	const breadcrumbs: { label: string; path: string }[] = [];
+
+	// Always start with Home
+	breadcrumbs.push({ label: "Home", path: "/" });
+
+	// Separate page slugs from article sf_ids
+	const articleIds = trailParts.filter((p) => !PAGE_CRUMBS[p]);
+	const pageSlugs = trailParts.filter((p) => PAGE_CRUMBS[p]);
+
+	// Add the page crumb (first one found)
+	if (pageSlugs.length > 0) {
+		const page = PAGE_CRUMBS[pageSlugs[0]];
+		breadcrumbs.push({ label: page.label, path: page.path });
+	}
+
+	// Fetch names for article sf_ids in one query
+	if (articleIds.length > 0) {
+		const placeholders = articleIds.map(() => "?").join(",");
+		const { results: crumbArticles } = await db.prepare(
+			`SELECT sf_id, name FROM articles WHERE sf_id IN (${placeholders})`
+		).bind(...articleIds).all<{ sf_id: string; name: string }>();
+
+		// Maintain trail order
+		const nameMap = new Map((crumbArticles ?? []).map((a) => [a.sf_id, a.name]));
+		for (const aid of articleIds) {
+			const name = nameMap.get(aid);
+			if (name) {
+				// Build the trail up to this article for its link
+				const idx = trailParts.indexOf(aid);
+				const subTrail = trailParts.slice(0, idx + 1).join(",");
+				breadcrumbs.push({ label: name, path: `/article/${aid}?trail=${encodeURIComponent(subTrail)}` });
+			}
+		}
+	}
+
+	// The trail to pass to related article links (current trail + this article)
+	const nextTrail = buildTrailParam(trailParam, id);
+
+	return {
+		article,
+		relatedArticles: relatedArticles ?? [],
+		breadcrumbs,
+		trail: trailParam,
+		nextTrail,
+	};
 }
 
 export default function ArticlePage() {
-	const { article, relatedArticles } = useLoaderData<typeof loader>();
+	const { article, relatedArticles, breadcrumbs, nextTrail } = useLoaderData<typeof loader>();
 
 	const bodyType = article.body_type?.trim() ?? "";
 	const hasHtml = !!article.html_body?.trim();
@@ -117,16 +166,31 @@ export default function ArticlePage() {
 				className="bg-gradient-to-br from-wsm-dark to-wsm-mountain py-20 lg:py-28"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
-				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-					<Link
-						to="/case-studies"
-						className="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-8 transition-colors"
-					>
-						<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-						</svg>
-						Back to Case Studies
-					</Link>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					{/* Breadcrumbs */}
+					<nav className="flex flex-wrap items-center gap-1 text-sm mb-8">
+						{breadcrumbs.map((crumb, i) => (
+							<span key={i} className="flex items-center gap-1">
+								{i > 0 && (
+									<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+									</svg>
+								)}
+								<Link
+									to={crumb.path}
+									className="text-gray-400 hover:text-white transition-colors"
+								>
+									{crumb.label}
+								</Link>
+							</span>
+						))}
+						<span className="flex items-center gap-1">
+							<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+							</svg>
+							<span className="text-white font-medium">{article.name}</span>
+						</span>
+					</nav>
 
 					<div className="flex items-start gap-6">
 						<div className="flex-1">
@@ -176,7 +240,7 @@ export default function ArticlePage() {
 
 			{/* Body */}
 			<div className="bg-gradient-to-b from-gray-50 to-gray-200">
-				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 					{bodyType === "HTML" && hasHtml ? (
 						<div
 							className="prose prose-lg max-w-none"
@@ -212,10 +276,11 @@ export default function ArticlePage() {
 			{relatedArticles.length > 0 && (
 				<ArticleCardSection
 					id="related-articles"
-					title="Related Articles"
+					title1="Related Articles"
 					articles={relatedArticles}
 					theme="dark"
 					dots
+					trail={nextTrail}
 				/>
 			)}
 

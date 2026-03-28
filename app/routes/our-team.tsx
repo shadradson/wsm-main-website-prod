@@ -285,44 +285,44 @@ function TeamGrid() {
 								{team.map((member: TeamMember) => {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
 									return (
-										<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[400px] grow group p-1 border-4 border-solid border-[#ffffff22] hover-border-[#ffffff77] transition-all cursor-pointer">
+										<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[400px] grow group border-4 border-solid border-[#ffffff22] hover-border-[#ffffff77] transition-all cursor-pointer">
 											<div className="flex flex-col h-full relative z-10">
-												{/* Top row: photo left, name/title right */}
-												<div className="flex items-start gap-4 p-2">
-													{member.photo_r2_key ? (
-														<img
-															src={`/api/assets/${member.photo_r2_key}`}
-															alt={`${member.first_name} ${member.last_name}`}
-															className="w-1/3 aspect-square object-cover flex-shrink-0"
-														/>
-													) : (
-														<div className="w-1/3 aspect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
-															{initials}
-														</div>
-													)}
-													<div className="text-left p-2 w-2/3">
-														<h3 className="text-lg font-bold text-white">
-															{member.first_name} {member.last_name}
-														</h3>
-														{member.title && (
-															<p className="text-wsm-glacier text-sm font-medium mt-1">
-																{member.title}
-															</p>
-														)}
-														{/* Career stats */}
+												{/* Career stats */}
 														{(member.years_at_wsm != null || member.time_in_industry != null) && (
-															<div className="flex gap-2 mt-2 flex-wrap">
+															<div className="flex gap-2flex-wrap absolute top-0 right-0">
 																{member.years_at_wsm != null && (
-																	<span className="text-xs font-semibold text-wsm-glacier bg-[#ffffff11] border border-[#ffffff22] px-2 py-1 rounded">
-																		{Math.round(member.years_at_wsm)} yr{Math.round(member.years_at_wsm) !== 1 ? "s" : ""} at We Summit
+																	<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
+																		{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
 																	</span>
 																)}
 															</div>
 														)}
+												{/* Top row: photo left, name/title right */}
+												<div className="flex items-center sm:items-start flex-col sm:flex-row">
+													{member.photo_r2_key ? (
+														<img
+															src={`/api/assets/${member.photo_r2_key}`}
+															alt={`${member.first_name} ${member.last_name}`}
+															className="w-1/1 sm:w-1/3 aspect-square object-cover flex-shrink-0"
+														/>
+													) : (
+														<div className="w-1/1 sm:w-1/3 aspect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
+															{initials}
+														</div>
+													)}
+													<div className="text-center sm:text-left p-2 sm:p-4 md:p-6 w-1/1 sm:w-2/3">
+														<h3 className="text-lg font-bold text-white">
+															{member.first_name} {member.last_name}
+														</h3>
+														{member.title && (
+															<p className="text-center sm:text-left text-wsm-glacier text-sm font-medium mt-1">
+																{member.title}
+															</p>
+														)}
 														{/* Certifications */}
 														{member.certifications && (
 															<div
-																className="text-gray-200 text-sm leading-relaxed text-left flex-grow p-2"
+																className="text-center sm:text-left text-gray-200 text-sm leading-relaxed flex-grow p-2"
 																dangerouslySetInnerHTML={{ __html: member.certifications }}
 															/>
 														)}

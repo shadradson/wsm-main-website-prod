@@ -59,6 +59,28 @@ export interface CsatSurvey {
 	csat_date: string | null;
 }
 
+/** Known page slugs for breadcrumb trail */
+export const PAGE_CRUMBS: Record<string, { label: string; path: string }> = {
+	"home": { label: "Home", path: "/" },
+	"case-studies": { label: "Case Studies", path: "/case-studies" },
+	"success-stories": { label: "Success Stories", path: "/success-stories" },
+	"ai-consulting": { label: "AI Consulting", path: "/ai-consulting" },
+	"expertise": { label: "Expertise", path: "/expertise" },
+	"our-team": { label: "Our Team", path: "/our-team" },
+};
+
+/** Max breadcrumb trail depth (not counting the current page) */
+export const MAX_TRAIL_DEPTH = 4;
+
+/** Build a trail query string for linking to an article */
+export function buildTrailParam(currentTrail: string, currentArticleId: string): string {
+	const parts = currentTrail ? currentTrail.split(",") : [];
+	parts.push(currentArticleId);
+	// Keep only the last MAX_TRAIL_DEPTH items
+	const trimmed = parts.slice(-MAX_TRAIL_DEPTH);
+	return trimmed.join(",");
+}
+
 /** Convert an ArticleRef into the ArticleCardData shape */
 export function articleRefToCardData(ref: ArticleRef): ArticleCardData {
 	return {

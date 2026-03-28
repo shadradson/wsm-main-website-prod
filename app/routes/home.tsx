@@ -155,10 +155,10 @@ export default function Home() {
 			/>
 
 			<SplashSection
-    			//title=""
-    			//subtitle=""
-    			theme="light" // "light, dark, blue"
-    			dots="true"
+				//title=""
+				//subtitle=""
+				theme="light" // "light, dark, blue"
+				dots="true"
 				cards={[
 					{
 						title1: "WE ARE",
@@ -191,16 +191,17 @@ export default function Home() {
 						infotext: "Every engagement is focused on delivering tangible business outcomes that you can measure and build upon."
 					},
 				]}
-			 />
+			/>
 
 			{testimonials.length > 0 && (
 				<ArticleCardSection
 					id="home-testimonials"
-					title="Client Testimonials"
-					description="Hear what our clients have to say about working with us."
+					title1="Client Testimonials"
+					subtitle="Hear what our clients have to say about working with us."
 					articles={testimonials}
 					theme="dark"
 					dots
+					trail="home"
 				/>
 			)}
 
@@ -263,7 +264,22 @@ function HeroSection() {
 						<p>SUMMIT YOUR SOFTWARE MOUNTAINS</p>
 					</div>
 					<div className="arrow-container">
-						<div className="arrow floating">⛛</div>
+						<div className="arrow floating fill-wsm-glacier flex justify-center">
+							<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="68.7114mm" height="59.5059mm" version="1.1" className="max-h-[5rem]"
+								viewBox="0 0 5047 4371"
+								xmlns:xlink="http://www.w3.org/1999/xlink">
+								<defs>
+									<linearGradient x1="50%" y1="92.034%" x2="50%" y2="7.2%" id="a">
+										<stop stop-opacity="0.8" offset="0%" stop-color="white" />
+										<stop stop-opacity="0.4" offset="100%" stop-color="white" />
+									</linearGradient>
+								</defs>
+								<g id="Layer_x0020_1">
+									<path fill="url(#a)" d="M0 0l5047 0 -2523 4371 -2524 -4371zm2524 2513l912 -1580 -1825 0 913 1580z" />
+								</g>
+							</svg>
+
+						</div>
 					</div>
 				</div>
 			</div>
@@ -340,12 +356,12 @@ function ServicesOverview() {
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<SectionHeaderText
-												title1="OUR EXPERTISE"
-												title2="WHAT WE DO"
-												subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
-												theme="dark"
-												horzAlign="center"
-											/>
+						title1="OUR EXPERTISE"
+						title2="WHAT WE DO"
+						subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
+						theme="dark"
+						horzAlign="center"
+					/>
 
 					<div className="flex flex-wrap gap-5 md:gap-10">
 						{services.map((service) => (
@@ -392,10 +408,7 @@ function CsatSection({ surveys }: { surveys: CsatSurvey[] }) {
 			<div className="py-20 lg:py-28 pattern-bg-dots">
 				<div className="max-w-7xl mx-auto p-4 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed">
 					<div className="bg-wsm-dark p-4 border-2 border-solid border-[#ffffff22]">
-						<h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-							What Our Clients Say
-						</h2>
-						<p className="text-gray-400 mt-2">Real feedback from the people we work with every day.</p>
+						<SectionHeaderText title1="CLIENT REVIEWS" subtitle="Real feedback from the people at the tops of their mountains." />
 					</div>
 					<div className="flex flex-wrap justify-center bg-[#ffffff44]">
 						{surveys.map((survey) => (
@@ -419,7 +432,7 @@ function CsatSection({ surveys }: { surveys: CsatSurvey[] }) {
 										</div>
 									)}
 									{survey.website_testimonial_blurb && (
-										<p className="text-gray-300 text-sm leading-relaxed italic mb-4">
+										<p className="text-gray-300 text-sm leading-relaxed italic mb-4 max-h-[100px] overflow-y-clip">
 											"{survey.website_testimonial_blurb}"
 										</p>
 									)}

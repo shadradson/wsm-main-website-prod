@@ -1,6 +1,6 @@
 import ArticleLinkCard from "./ArticleLinkCard";
 import type { ArticleCardData } from "~/lib/types";
-import SimpleTextSection from "./SimpleTextSection";
+import SectionHeaderText from "./SectionHeaderText";
 
 type Theme = "light" | "dark" | "blue";
 
@@ -13,6 +13,7 @@ interface ArticleCardSectionProps {
 	theme?: Theme;
 	dots?: boolean;
 	id?: string;
+	trail?: string;
 }
 
 const themeStyles: Record<Theme, {
@@ -57,6 +58,7 @@ export default function ArticleCardSection({
 	theme = "dark",
 	dots = false,
 	id,
+	trail,
 }: ArticleCardSectionProps) {
 	const s = themeStyles[theme];
 	const dotsClass = dots
@@ -79,6 +81,7 @@ export default function ArticleCardSection({
 									key={article.sf_id}
 									article={article}
 									theme={theme}
+									trail={trail}
 								/>
 							))}
 						</div>
