@@ -112,9 +112,9 @@ export async function loader({ context, params, request }: Route.LoaderArgs) {
 
 	// Separate page slugs from article sf_ids
 	const articleIds = trailParts.filter((p) => !PAGE_CRUMBS[p]);
-	const pageSlugs = trailParts.filter((p) => PAGE_CRUMBS[p]);
+	const pageSlugs = trailParts.filter((p) => PAGE_CRUMBS[p] && p !== "home");
 
-	// Add the page crumb (first one found)
+	// Add the page crumb (first non-home one found)
 	if (pageSlugs.length > 0) {
 		const page = PAGE_CRUMBS[pageSlugs[0]];
 		breadcrumbs.push({ label: page.label, path: page.path });

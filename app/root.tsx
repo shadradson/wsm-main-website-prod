@@ -36,6 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<style dangerouslySetInnerHTML={{ __html: "html,body{background:#000}" }} />
 				<Meta />
 				<Links />
 				<style>{`@font-face { font-family: 'Gabato'; src: url('${gabatoUrl}') format('truetype'); font-weight: normal; font-style: normal; }`}</style>
@@ -48,7 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
 				/>
 			</head>
-			<body style={{ backgroundColor: "#000" }}>
+			<body className="bg-black" style={{ backgroundColor: "#000" }}>
 				{children}
 				<ScrollRestoration />
 				<Scripts />
