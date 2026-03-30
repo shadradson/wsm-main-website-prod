@@ -1524,7 +1524,7 @@ ol.stacked_list > li {
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Links <<<<<<<<<<<<<<<<<<<<<<<<<*/
-.wsm_article_detail_body a {
+.section_body a {
     display: block;
     text-decoration: none;
     background-color: #2b6486;
@@ -1539,7 +1539,7 @@ ol.stacked_list > li {
     text-align: center;
     margin: 0.75rem;
 }
-.wsm_article_detail_body a:hover {
+.section_body a:hover {
     background-color: #2b6486;
     outline: 3px solid #2b6486;
     outline-offset: 6px;
