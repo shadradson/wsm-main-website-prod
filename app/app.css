@@ -1518,7 +1518,7 @@ ol.stacked_list {
 }
 ol.stacked_list > li {
     padding: 0.5rem;
-    background-color: #ffffff77;
+    background-color: #eee;
     border-radius: 0.25rem;
     display: block;
 }
