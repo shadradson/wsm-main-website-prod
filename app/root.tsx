@@ -36,10 +36,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<style dangerouslySetInnerHTML={{ __html: "html,body{background:#000}" }} />
 				<Meta />
 				<Links />
-				<style>{`@font-face { font-family: 'Gabato'; src: url('${gabatoUrl}') format('truetype'); font-weight: normal; font-style: normal; }`}</style>
+				<style>{`@font-face { font-family: 'Gabato'; src: url('${gabatoUrl}') format('truetype'); font-weight: normal; font-style: normal; } html,body{background-color:#000;}`}</style>
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

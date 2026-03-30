@@ -70,7 +70,7 @@ export default function ArticleCardSection({
 			<div className={`py-20 lg:py-28 ${s.wrapper} ${dotsClass}`}>
 				<div className={`max-w-7xl mx-auto p-4 border-2 border-solid ${s.outerBorder} bg-fixed`}>
 					{(title1 || title2 || subtitle) && (
-						<SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" horzAlign="center" noPad="false"/>
+						<SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" horzAlign="center" noPad="false" compact="true"/>
 					)}
 					{articles.length === 0 ? (
 						<p className={`${s.empty} italic p-6`}>{emptyText}</p>

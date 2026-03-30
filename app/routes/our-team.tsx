@@ -287,16 +287,6 @@ function TeamGrid() {
 									return (
 										<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[400px] grow group border-4 border-solid border-[#ffffff22] hover-border-[#ffffff77] transition-all cursor-pointer">
 											<div className="flex flex-col h-full relative z-10">
-												{/* Career stats */}
-														{(member.years_at_wsm != null || member.time_in_industry != null) && (
-															<div className="flex gap-2flex-wrap absolute top-0 right-0">
-																{member.years_at_wsm != null && (
-																	<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
-																		{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
-																	</span>
-																)}
-															</div>
-														)}
 												{/* Top row: photo left, name/title right */}
 												<div className="flex items-center sm:items-start flex-col sm:flex-row">
 													{member.photo_r2_key ? (
@@ -356,6 +346,16 @@ function TeamGrid() {
 																</svg>
 																Trailhead
 															</a>
+														)}
+														{/* Career stats */}
+														{(member.years_at_wsm != null || member.time_in_industry != null) && (
+															<div className="flex gap-2flex-wrap absolute bottom-0 right-0">
+																{member.years_at_wsm != null && (
+																	<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
+																		{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
+																	</span>
+																)}
+															</div>
 														)}
 													</div>
 												)}
