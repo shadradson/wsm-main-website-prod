@@ -1531,7 +1531,7 @@ ol.stacked_list > li {
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Links <<<<<<<<<<<<<<<<<<<<<<<<<*/
 .section_body a {
-    display: block;
+    display: inline;
     text-decoration: none;
     background-color: #2b6486;
     color: #fff;
