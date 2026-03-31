@@ -1439,7 +1439,6 @@ a.nav_item_cover { position: absolute; top: 0; left: 0; height: 100%; width: 100
 
 div.section_outer {
     padding: 3rem;
-    background: #ffffffcc;
     margin-bottom: 1rem;
 }
 
@@ -1522,10 +1521,12 @@ ol.stacked_list {
     gap: 0.25rem;
     padding: 0.25rem;
 }
-ol.stacked_list > li {
-    padding: 0.5rem;
+ol.stacked_list>li {
     background-color: #eee;
-    border-radius: 0.25rem;
+    border-radius: 0 .25rem .25rem 0;
+    border-left: 6px solid #51BEE7;
+    box-shadow: 2px 2px 2px #00000044;
+    padding: .5rem 0.75rem;
     display: block;
 }
 

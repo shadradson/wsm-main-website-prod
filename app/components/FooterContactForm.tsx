@@ -141,14 +141,15 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 			{formState === "error" && (
 				<p className="fcf-error">{errorMsg}</p>
 			)}
-
-			<button
+			<div className="flex justify-center">
+				<button
 				type="submit"
 				disabled={formState === "submitting"}
-				className="fcf-submit"
+				className="fcf-submit min-w-[400px]"
 			>
 				{formState === "submitting" ? "Sending..." : "Send Message"}
 			</button>
+			</div>
 		</form>
 	);
 }
