@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { useLeadForm } from "~/lib/useLeadForm";
+import TurnstileWidget from "./TurnstileWidget";
 import "./FooterContactForm.css";
 
 interface FooterContactFormProps {
@@ -7,6 +9,7 @@ interface FooterContactFormProps {
 
 export default function FooterContactForm({ recordTypeId }: FooterContactFormProps) {
 	const { formState, errorMsg, submitLead } = useLeadForm();
+	const turnstileToken = useRef("");
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -18,6 +21,8 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 			company: fd.get("company"),
 			phone: fd.get("phone"),
 			message: fd.get("message"),
+			website: fd.get("website"),
+			cfTurnstileResponse: turnstileToken.current,
 			recordTypeId,
 		});
 	}
@@ -38,6 +43,11 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 
 	return (
 		<form onSubmit={handleSubmit} className="fcf-form">
+			{/* Honeypot — hidden from humans, bots fill it */}
+			<div aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, overflow: "hidden" }}>
+				<label htmlFor="footer-website">Website</label>
+				<input type="text" id="footer-website" name="website" tabIndex={-1} autoComplete="off" />
+			</div>
 			<div className="fcf-row">
 				<div className="fcf-field">
 					<label htmlFor="footer-firstName" className="fcf-label">
@@ -125,6 +135,8 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 				</div>
 			</div>
 
+
+			<TurnstileWidget onToken={(t) => { turnstileToken.current = t; }} />
 
 			{formState === "error" && (
 				<p className="fcf-error">{errorMsg}</p>

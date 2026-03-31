@@ -14,6 +14,9 @@ declare interface Env {
 	SF_CLIENT_SECRET: string;
 	SF_INSTANCE_URL: string;
 
+	// Turnstile CAPTCHA (set via Cloudflare dashboard secrets)
+	TURNSTILE_SECRET_KEY: string;
+
 	// Existing vars
 	VALUE_FROM_CLOUDFLARE: string;
 }

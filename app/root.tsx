@@ -47,6 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
 				/>
+				<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
 			</head>
 			<body className="bg-black" style={{ backgroundColor: "#000" }}>
 				{children}

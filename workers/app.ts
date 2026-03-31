@@ -1,5 +1,6 @@
 import { createRequestHandler } from "react-router";
 import { runSync } from "../app/lib/sync.server";
+import { cleanupRateLimits } from "../app/lib/rateLimit.server";
 
 declare module "react-router" {
 	export interface AppLoadContext {
@@ -24,13 +25,20 @@ export default {
 
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(
-			runSync(env).then((result) => {
-				console.log(
-					`Sync complete: ${result.contactsSynced} contacts, ${result.articlesSynced} articles`,
-				);
-			}).catch((error) => {
-				console.error("Sync failed:", error);
-			}),
+			Promise.all([
+				runSync(env).then((result) => {
+					console.log(
+						`Sync complete: ${result.contactsSynced} contacts, ${result.articlesSynced} articles`,
+					);
+				}).catch((error) => {
+					console.error("Sync failed:", error);
+				}),
+				cleanupRateLimits(env.DB).then((deleted) => {
+					if (deleted > 0) console.log(`Rate limit cleanup: ${deleted} rows deleted`);
+				}).catch((error) => {
+					console.error("Rate limit cleanup failed:", error);
+				}),
+			]),
 		);
 	},
 } satisfies ExportedHandler<Env>;

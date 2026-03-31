@@ -1,6 +1,8 @@
 import type { Route } from "./+types/contact";
+import { useRef } from "react";
 import { Link } from "react-router";
 import { useLeadForm } from "~/lib/useLeadForm";
+import TurnstileWidget from "~/components/TurnstileWidget";
 import ParticleDots from "~/components/ParticleDots";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 
@@ -83,6 +85,7 @@ function PageHero() {
 
 function ContactContent() {
 	const { formState, errorMsg, submitLead } = useLeadForm();
+	const turnstileToken = useRef("");
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -94,6 +97,8 @@ function ContactContent() {
 			company: fd.get("company"),
 			message: fd.get("message"),
 			service: fd.get("service"),
+			website: fd.get("website"),
+			cfTurnstileResponse: turnstileToken.current,
 			recordTypeId: "012Hs0000007XzWIAU",
 		});
 	}
@@ -120,6 +125,11 @@ function ContactContent() {
 								</div>
 							) : (
 							<form onSubmit={handleSubmit} className="space-y-6">
+								{/* Honeypot — hidden from humans, bots fill it */}
+								<div aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, overflow: "hidden" }}>
+									<label htmlFor="contact-website">Website</label>
+									<input type="text" id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
+								</div>
 								<div className="flex flex-col sm:flex-row gap-6">
 									<div className="sm:flex-1">
 										<label
@@ -230,6 +240,8 @@ function ContactContent() {
 										placeholder="Tell us about your project or challenge..."
 									/>
 								</div>
+
+								<TurnstileWidget onToken={(t) => { turnstileToken.current = t; }} />
 
 								{formState === "error" && (
 									<p className="text-red-600 text-sm">{errorMsg}</p>
