@@ -165,6 +165,15 @@ export default function ArticlePage() {
 		const mermaidElements = document.querySelectorAll(".mermaid, pre.mermaid, code.language-mermaid");
 		if (mermaidElements.length === 0) return;
 
+		// Strip \r from Windows line endings and LWC attributes that Salesforce injects
+		mermaidElements.forEach((el) => {
+			el.textContent = (el.textContent ?? "").replace(/\r/g, "");
+			// Remove any Salesforce LWC scoped attributes
+			Array.from(el.attributes).forEach((attr) => {
+				if (attr.name.startsWith("lwc-")) el.removeAttribute(attr.name);
+			});
+		});
+
 		import("mermaid").then((m) => {
 			m.default.initialize({
 				startOnLoad: false,
@@ -318,7 +327,7 @@ export default function ArticlePage() {
 			{relatedArticles.length > 0 && (
 				<ArticleCardSection
 					id="related-articles"
-					title1="Related Articles"
+					title1="RELATED ARTICLES"
 					articles={relatedArticles}
 					theme="dark"
 					dots
