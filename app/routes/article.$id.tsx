@@ -1,5 +1,6 @@
 import type { Route } from "./+types/article.$id";
 import { Link, useLoaderData } from "react-router";
+import { useEffect } from "react";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 import ArticleCardSection from "~/components/ArticleCardSection";
 import { PAGE_CRUMBS, MAX_TRAIL_DEPTH, buildTrailParam } from "~/lib/types";
@@ -158,6 +159,21 @@ export default function ArticlePage() {
 	const bodyType = article.body_type?.trim() ?? "";
 	const hasHtml = !!article.html_body?.trim();
 	const hasBody = !!article.article_body?.trim();
+
+	// Render Mermaid diagrams after body content is injected
+	useEffect(() => {
+		const mermaidElements = document.querySelectorAll(".mermaid, pre.mermaid, code.language-mermaid");
+		if (mermaidElements.length === 0) return;
+
+		import("mermaid").then((m) => {
+			m.default.initialize({
+				startOnLoad: false,
+				theme: "default",
+				securityLevel: "loose",
+			});
+			m.default.run({ nodes: mermaidElements });
+		});
+	}, [article.sf_id]);
 
 	return (
 		<div className="min-h-screen bg-white">

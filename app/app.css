@@ -1295,7 +1295,7 @@ img.footer_hillside_img {
 .bg_wsm_light {background: #D0E2FA;}
  .bg_wsm_dark {background: #101622;}
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Make Text Bigger <<<<<<<<<<<<<<<<<<<<<<<<<*/
-p, span, strong, a, li, div {
+.wsm_article_body_outer p, .wsm_article_body_outer span, .wsm_article_body_outer strong, .wsm_article_body_outer a, .wsm_article_body_outer li, .wsm_article_body_outer div {
     font-size: 1rem;
 }
 

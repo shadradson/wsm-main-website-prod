@@ -14,7 +14,7 @@ interface SectionHeaderTextProps {
 export default function SectionHeaderText({ title1, title2, subtitle, theme = "dark", horzAlign = "left", vertAlign = "top", noPad = "false", spacingCompact = "false" }: SectionHeaderTextProps) {
 	let topColor: string;
 	let spacingClassP = spacingCompact === "true" ? " mb-12 mt-4 " : " mb-12 mt-4 ";
-	let spacingClassh1 = spacingCompact === "true" ? " leading-none " : " leading-6 sm:leading-8 md:leading-10 lg:leading-12 ";
+	let spacingClassh1 = spacingCompact === "true" ? " leading-none	 " : " leading-6 sm:leading-8 md:leading-10 lg:leading-12 ";
 	switch (theme) {
 		case "light":
 			topColor = "text-gray-900";
@@ -84,7 +84,7 @@ export default function SectionHeaderText({ title1, title2, subtitle, theme = "d
 
 	return (
 		<div className={`${outerPaddingClass} flex-col ${vertalignClass}`}>
-			<h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[900] ${spacingClassh1}  ${horzAlignClass}`}>
+			<h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[900] ${spacingClassh1} ${horzAlignClass}`}>
 				<span className={`block ${topColor}`}>{title1}</span>
 				<span className={`${gradientColors} inline-block text-transparent bg-clip-text`}>{title2}</span>
 			</h2>
