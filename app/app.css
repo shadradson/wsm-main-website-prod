@@ -45,6 +45,12 @@ section {
 	overflow: clip;
 }
 
+/*>>>>>>>>>>>>>>>>>>>>>>>>> Mermaid <<<<<<<<<<<<<<<<<<<<<<<<<*/
+pre.mermaid {
+    padding: 1rem;
+    background: linear-gradient(45deg, #101622, #163857);
+}
+
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Pattern Background <<<<<<<<<<<<<<<<<<<<<<<<<*/
 .pattern-bg-dots, .pattern-bg-dots-sm, .pattern-bg-dots-light, .pattern-bg-dots-nofix {
 	position: relative;
