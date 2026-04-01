@@ -168,8 +168,34 @@ export default function ArticlePage() {
 		import("mermaid").then((m) => {
 			m.default.initialize({
 				startOnLoad: false,
-				theme: "default",
+				theme: "base",
 				securityLevel: "loose",
+				fontFamily: "Montserrat, sans-serif",
+				fontSize: 14,
+				themeVariables: {
+					primaryColor: "#036588",
+					primaryTextColor: "#ffffff",
+					primaryBorderColor: "#53C4EE",
+					secondaryColor: "#00276f",
+					secondaryTextColor: "#ffffff",
+					secondaryBorderColor: "#6da6a9",
+					tertiaryColor: "#6da6a9",
+					tertiaryTextColor: "#ffffff",
+					tertiaryBorderColor: "#036588",
+					lineColor: "#53C4EE",
+					fontFamily: "Montserrat, sans-serif",
+					fontSize: "14px",
+					background: "#ffffff",
+					mainBkg: "#036588",
+					nodeBorder: "#53C4EE",
+					noteBkgColor: "#FCDEBE",
+					noteTextColor: "#000000",
+					noteBorderColor: "#FE735F",
+					edgeLabelBackground: "#ffffff",
+					clusterBkg: "#B1E2F5",
+					clusterBorder: "#036588",
+					titleColor: "#00276f",
+				},
 			});
 			m.default.run({ nodes: mermaidElements });
 		});
