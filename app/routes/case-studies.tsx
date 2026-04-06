@@ -4,6 +4,7 @@ import FluidParticles from "~/components/FluidParticles";
 import ArticleCardSection from "~/components/ArticleCardSection";
 import { buildMeta } from "~/lib/seo";
 import type { Article } from "~/lib/types";
+import StatsSection from "~/components/StatSection";
 
 const TITLE = "Client Success Stories | Salesforce & AI Results | We Summit Mountains";
 const DESCRIPTION =
@@ -41,23 +42,39 @@ export default function CaseStudies() {
 			<PageHero />
 			<ArticleCardSection
 				id="cases-industry"
-				title1="Industry Knowledge"
+				title1="INDUSTRY "
+				title2="KNOWLEDGE"
 				subtitle="Deep expertise across the industries we serve."
 				articles={industryArticles}
 				emptyText="No case studies yet."
 				theme="dark"
 				trail="case-studies"
+				dots="true"
+				tag="INDUSTRIES"
 			/>
 			<ArticleCardSection
 				id="cases-products"
-				title1="Software Proficiencies"
+				title1="SOFTWARE "
+				title2="PROFICIENCIES"
 				subtitle="Proven results with the platforms and tools we specialize in."
 				articles={productArticles}
 				emptyText="No case studies yet."
 				theme="dark"
 				trail="case-studies"
+				dots="true"
+				tag="SOFTWARES"
 			/>
-			<ResultsSection />
+			<StatsSection
+				tag="STATS"
+				theme="light"
+				dots="true"
+				stats={[
+					{ value: "95%", label: "CLIENT RETENTION" },
+					{ value: "60%", label: "AVG. EFFICIENCY GAIN" },
+					{ value: "4.9/6", label: "CLIENT SATISFACTION" },
+					{ value: "<2wk", label: "AVG. TIME TO FIRST VALUE" },
+				]}
+			/>
 		</>
 	);
 }

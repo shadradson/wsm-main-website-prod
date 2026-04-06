@@ -59,8 +59,8 @@ export default function SimpleTextSection({ cards, title1, title2, tag, subtitle
     const borderClass = isDark || isBlue ? "border-3 border-white border-solid" : "border-3 border-gray-200 border-solid";
     const borderClasstop = isDark || isBlue ? "border-t-3 border-t-white border-t-solid" : "border-t-3 border-t-gray-200 border-t-solid";
     const borderClassbot = isDark || isBlue ? "border-b-3 border-b-white border-b-solid" : "border-b-3 border-b-gray-200 border-b-solid";
-    const borderClassleft = isDark || isBlue ? "border-l-3 border-l-white border-l-solid" : "border-l-3 border-l-gray-200 border-l-solid";
-    const borderClassright = isDark || isBlue ? "border-r-3 border-r-white border-r-solid" : "border-r-3 border-r-gray-200 border-r-solid";
+    const borderClassleft = isDark || isBlue ? "border-l-0 md:border-l-3 border-l-white border-l-solid" : "border-l-3 border-l-gray-200 border-l-solid";
+    const borderClassright = isDark || isBlue ? "border-r-0 md:border-r-3 border-r-white border-r-solid" : "border-r-3 border-r-gray-200 border-r-solid";
     const tagClass = isDark || isBlue ? "text-brand-sky" : "text-brand-sky";
 
     if (type === "2bar") {

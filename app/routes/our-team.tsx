@@ -131,7 +131,7 @@ export default function OurTeam() {
 			<SimpleTextSection
 				theme="blue"
 				type="2bar"
-				title1="THE WSM"
+				title1="THE WSM "
 				title2="MISSION"
 				tag="TRUE NORTH"
 				subtitle="is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software. We will learn to cultivate the best in ourselves, and in each other as we stride toward the top of each mountain. Our knowledge is shared so that we can all grow greater than any one of us."
@@ -147,7 +147,7 @@ export default function OurTeam() {
 			<SimpleTextSection
 				theme="light"
 				type="VCards"
-				title1="OUR CORE VALUES"
+				title1="OUR CORE VALUES "
 				title2="THAT DRIVE US"
 				subtitle="These principles guide everything we do and every solution we build."
 				cards={[
@@ -280,7 +280,7 @@ function TeamGrid() {
 					<div className="">
 						<div className="relative max-w-7xl mx-auto">
 							{/*<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>*/}
-							<SectionHeaderText title1="THE HUMANS WHO" title2="SUMMIT MOUNTAINS" theme="dark" />
+							<SectionHeaderText title1="THE HUMANS WHO " title2="SUMMIT MOUNTAINS" theme="dark" />
 							<div className="flex flex-wrap justify-center">
 								{team.map((member: TeamMember) => {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
@@ -405,6 +405,7 @@ function CertificationsSection() {
 								title2="PROFESSIONALS"
 								subtitle="Our team maintains the industry's most respected certifications to deliver the highest quality solutions."
 								theme="light"
+								titlemultiline="true"
 							/>
 							<div className="flex-1">
 								{/* Salesforce Partner Badge */}

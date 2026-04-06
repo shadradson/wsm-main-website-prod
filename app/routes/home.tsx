@@ -196,7 +196,8 @@ export default function Home() {
 			{testimonials.length > 0 && (
 				<ArticleCardSection
 					id="home-testimonials"
-					title1="Client Testimonials"
+					title1="CLIENT "
+					title2="TESTIMONIALS"
 					subtitle="Hear what our clients have to say about working with us."
 					articles={testimonials}
 					theme="dark"
@@ -356,8 +357,8 @@ function ServicesOverview() {
 			<div className="py-20 lg:py-28">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<SectionHeaderText
-						title1="OUR EXPERTISE"
-						title2="WHAT WE DO"
+						title1="OUR "
+						title2="EXPERTISE"
 						subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
 						theme="dark"
 						horzAlign="center"

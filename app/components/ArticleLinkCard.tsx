@@ -27,7 +27,7 @@ const themeStyles: Record<Theme, {
 	initials: string;
 }> = {
 	dark: {
-		card: "bg-wsm-dark",
+		card: "",
 		cardHover: "group-hover:bg-[#141b2a]",
 		border: "border-gray-600",
 		borderHover: "group-hover:border-brand-sky",
@@ -41,10 +41,10 @@ const themeStyles: Record<Theme, {
 		description: "text-gray-400",
 		author: "text-gray-500",
 		authorBorder: "border-gray-800",
-		initials: "bg-gradient-to-br from-brand-sky to-brand-teal text-white",
+		initials: " text-white",
 	},
 	light: {
-		card: "bg-white",
+		card: "",
 		cardHover: "group-hover:bg-gray-50",
 		border: "border-gray-200",
 		borderHover: "group-hover:border-brand-sky",
@@ -58,10 +58,10 @@ const themeStyles: Record<Theme, {
 		description: "text-gray-600",
 		author: "text-gray-400",
 		authorBorder: "border-gray-200",
-		initials: "bg-gradient-to-br from-brand-sky to-brand-teal text-white",
+		initials: " text-white",
 	},
 	blue: {
-		card: "bg-[#03658822]",
+		card: "",
 		cardHover: "group-hover:bg-[#03658844]",
 		border: "border-[#ffffff33]",
 		borderHover: "group-hover:border-white",
@@ -75,7 +75,7 @@ const themeStyles: Record<Theme, {
 		description: "text-gray-300",
 		author: "text-gray-400",
 		authorBorder: "border-[#ffffff22]",
-		initials: "bg-gradient-to-br from-brand-sky to-brand-teal text-white",
+		initials: " text-white",
 	},
 };
 
@@ -89,25 +89,47 @@ export default function ArticleLinkCard({ article, theme = "dark", trail }: Arti
 	return (
 		<Link
 			to={href}
-			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
+			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] max-w-[100%] sm:max-w-[50%] grow group p-1 hover:shadow-xl transition-all"
 		>
-			<div className={`${s.card} ${s.cardHover} border-2 border-solid ${s.border} ${s.borderHover} flex h-full relative z-10 transition-colors`}>
-				<div className={`aspect-square max-w-[140px] p-[20px] border-r-2 ${s.imageBorder} flex items-center justify-center`}>
+			<div className={`${s.card} ${s.cardHover} border-8 border-solid ${s.border} ${s.borderHover} flex flex-wrap justify-center h-full relative z-10 transition-colors`}>
+				<div className={`aspect-square w-[30%] sm:w-1/3 border-r-none sm:border-r-2 ${s.imageBorder} flex items-center justify-center p-2 sm:p-4 md:p-6`}>
 					{article.splash_image_url ? (
 						<img
 							src={article.splash_image_url}
 							alt={article.name}
-							className="aspect-square max-w-[100px] object-contain flex-shrink-0"
+							className="aspect-square object-contain flex-shrink-0 "
 						/>
 					) : (
-						<div className={`aspect-square max-w-[100px] ${s.initials} flex items-center justify-center text-xl font-bold flex-shrink-0`}>
+						<div className={`aspect-square  ${s.initials} flex items-center justify-center text-xl font-bold flex-shrink-0`}>
 							{initials}
 						</div>
 					)}
 				</div>
 
-				<div className="text-left w-2/3 flex flex-col">
-					<div className="flex flex-wrap">
+				<div className="text-center sm:text-left w-[100%] sm:w-2/3 flex flex-col justify-between relative">
+
+					<div className="p-2">
+						<h3 className={`text-lg font-bold ${s.title} leading-snug`}>
+							{article.name}
+						</h3>
+						{article.subtitle && (
+							<p className={`${s.subtitle} text-sm text-[0.75rem] font-medium mt-1`}>
+								{article.subtitle}
+							</p>
+						)}
+						{article.author_first_name && (
+						<p className={`text-xs ${s.author} mt-auto pt-3 `}>
+							By {article.author_first_name} {article.author_last_name}
+							{article.author_title && ` — ${article.author_title}`}
+						</p>
+						)}
+						{/*article.short_description && (
+							<p className={`${s.description} text-sm leading-relaxed mt-2 line-clamp-3`}>
+								{article.short_description}
+							</p>
+						)*/}
+					</div>
+					<div className="flex flex-wrap justify-center sm:justify-start">
 						{article.subcategory && (
 							<span className={`text-xs font-semibold ${s.tagText} ${s.tagBg} border px-2 py-1`}>
 								{article.subcategory}
@@ -120,28 +142,6 @@ export default function ArticleLinkCard({ article, theme = "dark", trail }: Arti
 						)}
 					</div>
 
-					<div className="p-2">
-						<h3 className={`text-lg font-bold ${s.title} leading-snug`}>
-							{article.name}
-						</h3>
-						{article.subtitle && (
-							<p className={`${s.subtitle} text-sm text-[0.75rem] font-medium mt-1`}>
-								{article.subtitle}
-							</p>
-						)}
-						{article.short_description && (
-							<p className={`${s.description} text-sm leading-relaxed mt-2 line-clamp-3`}>
-								{article.short_description}
-							</p>
-						)}
-					</div>
-
-					{article.author_first_name && (
-						<p className={`text-xs ${s.author} mt-auto pt-3 px-2 pb-2 border-t ${s.authorBorder}`}>
-							By {article.author_first_name} {article.author_last_name}
-							{article.author_title && ` — ${article.author_title}`}
-						</p>
-					)}
 				</div>
 			</div>
 		</Link>

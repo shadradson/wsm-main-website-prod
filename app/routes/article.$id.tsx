@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 import ArticleCardSection from "~/components/ArticleCardSection";
 import { PAGE_CRUMBS, MAX_TRAIL_DEPTH, buildTrailParam } from "~/lib/types";
+import { div } from "three/tsl";
 
 function markdownToHtml(md: string): string {
 	return md
@@ -162,108 +163,130 @@ export default function ArticlePage() {
 
 	// Render Mermaid diagrams after body content is injected
 	useEffect(() => {
-		const mermaidElements = document.querySelectorAll(".mermaid, pre.mermaid, code.language-mermaid");
-		if (mermaidElements.length === 0) return;
+		const timer = setTimeout(() => {
+			const mermaidElements = document.querySelectorAll<HTMLElement>(".mermaid, pre.mermaid, code.language-mermaid");
+			console.log("Mermaid: found", mermaidElements.length, "elements");
+			if (mermaidElements.length === 0) return;
 
-		// Strip \r from Windows line endings and LWC attributes that Salesforce injects
-		mermaidElements.forEach((el) => {
-			el.textContent = (el.textContent ?? "").replace(/\r/g, "");
-			// Remove any Salesforce LWC scoped attributes
-			Array.from(el.attributes).forEach((attr) => {
-				if (attr.name.startsWith("lwc-")) el.removeAttribute(attr.name);
+			// Strip \r from Windows line endings, remove LWC attributes, reset processed state
+			mermaidElements.forEach((el) => {
+				if (el.getAttribute("data-mermaid-src")) {
+					el.textContent = el.getAttribute("data-mermaid-src")!;
+					el.removeAttribute("data-processed");
+				} else {
+					el.textContent = (el.textContent ?? "").replace(/\r/g, "");
+					el.setAttribute("data-mermaid-src", el.textContent ?? "");
+				}
+				Array.from(el.attributes).forEach((attr) => {
+					if (attr.name.startsWith("lwc-")) el.removeAttribute(attr.name);
+				});
 			});
-		});
 
-		import("mermaid").then((m) => {
-			m.default.initialize({
-				startOnLoad: false,
-				theme: "base",
-				securityLevel: "loose",
-				fontFamily: "Montserrat, sans-serif",
-				fontSize: 14,
-				themeVariables: {
-					primaryColor: "#036588",
-					primaryTextColor: "#ffffff",
-					primaryBorderColor: "#53C4EE",
-					secondaryColor: "#00276f",
-					secondaryTextColor: "#ffffff",
-					secondaryBorderColor: "#6da6a9",
-					tertiaryColor: "#6da6a9",
-					tertiaryTextColor: "#ffffff",
-					tertiaryBorderColor: "#036588",
-					lineColor: "#53C4EE",
+			import("mermaid").then(async (m) => {
+				m.default.initialize({
+					startOnLoad: false,
+					theme: "base",
+					securityLevel: "sandbox",
 					fontFamily: "Montserrat, sans-serif",
-					fontSize: "14px",
-					background: "#ffffff",
-					mainBkg: "#036588",
-					nodeBorder: "#53C4EE",
-					noteBkgColor: "#FCDEBE",
-					noteTextColor: "#000000",
-					noteBorderColor: "#FE735F",
-					edgeLabelBackground: "#ffffff",
-					clusterBkg: "#B1E2F5",
-					clusterBorder: "#036588",
-					titleColor: "#00276f",
-				},
-			});
-			m.default.run({ nodes: mermaidElements });
-		});
+					fontSize: 14,
+					htmlLabels: false,
+					themeVariables: {
+						primaryColor: "#333333",
+						primaryTextColor: "#ffffff",
+						primaryBorderColor: "#666666",
+						secondaryColor: "#555555",
+						secondaryTextColor: "#ffffff",
+						secondaryBorderColor: "#888888",
+						tertiaryColor: "#777777",
+						tertiaryTextColor: "#ffffff",
+						tertiaryBorderColor: "#999999",
+						lineColor: "#444444",
+						fontFamily: "Montserrat, sans-serif",
+						fontSize: "14px",
+						background: "#ffffff",
+						mainBkg: "#222222",
+						nodeBorder: "#666666",
+						noteBkgColor: "#eeeeee",
+						noteTextColor: "#000000",
+						noteBorderColor: "#aaaaaa",
+						edgeLabelBackground: "#ffffff",
+						clusterBkg: "#e0e0e0",
+						clusterBorder: "#999999",
+						titleColor: "#000000",
+					},
+				});
+				await m.default.run({ nodes: mermaidElements });
+			}).catch((err) => console.error("Mermaid render error:", err));
+		}, 100);
+
+		return () => clearTimeout(timer);
 	}, [article.sf_id]);
 
 	return (
 		<div className="min-h-screen bg-white">
 			{/* Hero */}
 			<div
-				className="bg-gradient-to-br from-wsm-dark to-wsm-mountain py-20 lg:py-28"
+				className="bg-gradient-to-r from-[#cbCBCB] to-[#797979] py-20 lg:py-28 flex flex-row relative overflow-y-clip"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="absolute bot-0 lg:top-0 left-0 bg-wsm-mountain h-[40px] lg:h-[90%] w-[40px] lg:w-[60px] p-2 flex justify-end z-1"></div>
+				{article.splash_image_url && (
+							<div className="absolute top-0 right-0 h-[100%] w-[50%] px-4 pt-18 pb-2 flex justify-end opacity-50 z-1">
+								<img
+								src={article.splash_image_url}
+								alt={article.name}
+								className="object-cover hidden sm:block"
+								/>
+							</div>
+				)}
+				<div className="flex-1 pattern-bg-dots-darkthick z-3"></div>
+				<div className="max-w-7xl w-[100%] px-4 sm:px-6 lg:px-8 flex-col z-3">
 					{/* Breadcrumbs */}
-					<nav className="flex flex-wrap items-center gap-1 text-sm mb-8">
+					<nav className="flex flex-wrap items-center gap-1 text-sm">
 						{breadcrumbs.map((crumb, i) => (
 							<span key={i} className="flex items-center gap-1">
 								{i > 0 && (
 									<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
 									</svg>
 								)}
 								<Link
 									to={crumb.path}
-									className="text-gray-400 hover:text-white transition-colors"
+									className="text-gray-800 hover:text-black transition-colors font-black"
 								>
 									{crumb.label}
 								</Link>
 							</span>
 						))}
 						<span className="flex items-center gap-1">
-							<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+							<svg className="w-3 h-3 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
 							</svg>
-							<span className="text-white font-medium">{article.name}</span>
+							<span className="text-gray-900 font-black">{article.name}</span>
 						</span>
 					</nav>
 
-					<div className="flex items-start gap-6">
-						<div className="flex-1">
-							<div className="flex flex-wrap gap-2 mb-4">
+					<div className="flex items-between">
+						<div className="">
+							<div className="flex flex-wrap mb-4 gap-2">
 								{article.subcategory && (
-									<span className="px-3 py-1 bg-brand-blue/20 text-brand-sky text-xs font-semibold rounded-full">
+									<span className="px-3 py-1 bg-brand-blue text-gray-100 text-xs font-semibold">
 										{article.subcategory}
 									</span>
 								)}
 								{article.vertical_product && (
-									<span className="px-3 py-1 bg-white/10 text-gray-300 text-xs font-medium rounded-full">
+									<span className="px-3 py-1 bg-black text-gray-300 text-xs font-semibold">
 										{article.vertical_product}
 									</span>
 								)}
 							</div>
 
-							<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+							<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-tight mb-4 ">
 								{article.name}
 							</h1>
 
 							{article.subtitle && (
-								<p className="text-xl text-brand-sky font-medium mb-6">{article.subtitle}</p>
+								<p className="text-xl text-wsm-cliff font-bold mb-6">{article.subtitle}</p>
 							)}
 
 							{article.short_description && (
@@ -271,27 +294,22 @@ export default function ArticlePage() {
 							)}
 
 							{article.author_first_name && (
-								<p className="text-sm text-gray-400">
+								<p className="text-sm text-gray-900 ">
 									By {article.author_first_name} {article.author_last_name}
 									{article.author_title && ` — ${article.author_title}`}
 								</p>
 							)}
 						</div>
 
-						{article.splash_image_url && (
-							<img
-								src={article.splash_image_url}
-								alt={article.name}
-								className="w-32 h-32 object-contain flex-shrink-0 hidden sm:block"
-							/>
-						)}
 					</div>
 				</div>
+				<div className="flex-1"></div>
 			</div>
 
 			{/* Body */}
-			<div className="bg-gradient-to-b from-gray-50 to-gray-200">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+			<div className="bg-gradient-to-r from-[#cbCBCB] to-[#797979] py-8 relative">
+				<div className="bg-gradient-to-b from-transparent to-gray-200 top-0 left-0 h-[100%] w-[100%] absolute"></div>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50 ">
 					{bodyType === "HTML" && hasHtml ? (
 						<div
 							className="prose prose-lg max-w-none"
