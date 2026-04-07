@@ -226,21 +226,21 @@ export default function ArticlePage() {
 		<div className="min-h-screen bg-white">
 			{/* Hero */}
 			<div
-				className="bg-gradient-to-r from-[#cbCBCB] to-[#797979] py-20 lg:py-28 flex flex-row relative overflow-y-clip"
+				className="bg-gradient-to-r from-[#eee9e2] to-[#b7ada1] py-20 lg:py-28 flex flex-row relative overflow-y-clip"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
-				<div className="absolute bot-0 lg:top-0 left-0 bg-wsm-mountain h-[40px] lg:h-[90%] w-[40px] lg:w-[60px] p-2 flex justify-end z-1"></div>
+				{/*<div className="absolute bot-0 lg:top-0 left-0 bg-wsm-glacier h-[40px] lg:h-[90%] w-[40px] lg:w-[60px] p-2 flex justify-end z-1"></div>*/}
 				{article.splash_image_url && (
-							<div className="absolute top-0 right-0 h-[100%] w-[50%] px-4 pt-18 pb-2 flex justify-end opacity-50 z-1">
+							<div className="absolute top-0 right-0 h-[100%] w-[50%] px-4 pt-18 pb-2 flex justify-end opacity-80 z-1">
 								<img
 								src={article.splash_image_url}
 								alt={article.name}
-								className="object-cover hidden sm:block"
+								className="object-contain hidden sm:block"
 								/>
 							</div>
 				)}
 				<div className="flex-1 pattern-bg-dots-darkthick z-3"></div>
-				<div className="max-w-7xl w-[100%] px-4 sm:px-6 lg:px-8 flex-col z-3">
+				<div className="max-w-7xl w-[100%] px-4 sm:px-6 lg:px-8 flex flex-col gap-4 z-3">
 					{/* Breadcrumbs */}
 					<nav className="flex flex-wrap items-center gap-1 text-sm">
 						{breadcrumbs.map((crumb, i) => (
@@ -307,9 +307,9 @@ export default function ArticlePage() {
 			</div>
 
 			{/* Body */}
-			<div className="bg-gradient-to-r from-[#cbCBCB] to-[#797979] py-8 relative">
-				<div className="bg-gradient-to-b from-transparent to-gray-200 top-0 left-0 h-[100%] w-[100%] absolute"></div>
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50 ">
+			<div className="bg-gradient-to-b from-transparent to-gray-200 relative">
+				{/*<div className="bg-gradient-to-b from-transparent to-gray-200 top-0 left-0 h-[100%] w-[100%] absolute z-1"></div>*/}
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					{bodyType === "HTML" && hasHtml ? (
 						<div
 							className="prose prose-lg max-w-none"

@@ -164,14 +164,17 @@ function PageHero() {
 		<section id="expertise-hero" className="bg-gradient-to-br from-[#000] to-wsm-cliff min-h-[55vh] relative overflow-hidden">
 			<div className="hidden md:block">
 				<Hexagons
-					len={80}
-					count={40}
+					len={40}
+					randomlen={120}
+					randomlenChance={40}
+					turnangle={60}
+					count={80}
 					baseTime={10}
 					addedTime={60}
 					dieChance={0.01}
 					spawnChance={1}
 					sparkChance={0.1}
-					sparkDist={5}
+					sparkDist={2}
 					sparkSize={1}
 					color="hsl(hue,100%,light%)"
 					baseLight={70}

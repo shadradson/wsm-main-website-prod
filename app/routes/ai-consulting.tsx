@@ -85,7 +85,7 @@ function WhatWeDoSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 							<SectionHeaderText title1="AI THAT WORKS" title2="IN THE REAL WORLD" subtitle="
 								We build AI solutions tailored to your data, your processes, and your goals — whether that
 								means running models on-premise, or deploying cloud-based agents that integrate
-								with your existing stack. We make AI work for you." theme="light" vertAlign="top" horzAlign="left" noPad="true"/>
+								with your existing stack. We make AI work for you." theme="light" vertAlign="top" horzAlign="left" noPad="true" titlemultiline="true"/>
 							<Link
 								to="/contact"
 								className="inline-flex items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-wsm-mountain transition-colors"
@@ -114,7 +114,7 @@ function CapabilitiesSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 				<div className="">
 				<div className="border-y-solid border-y-1 border-[#ccc]">
 					<div className="border-x-solid border-x-1 border-[#ccc] max-w-7xl mx-auto text-center outline-1 outline-solid outline-[#ccc] outline-offset-30 relative">
-						<SectionHeaderText title1="AI CAPABILITIES" title2="THAT MATTER" subtitle="We work across the full AI stack from model selection to production deployment. Custom tailored to your needs.." theme="blue" vertAlign="top" horzAlign="center" noPad="false"/>
+						<SectionHeaderText title1="AI CAPABILITIES" title2="THAT MATTER" subtitle="We work across the full AI stack from model selection to production deployment. Custom tailored to your needs.." theme="blue" vertAlign="top" horzAlign="center" noPad="false" titlemultiline="true"/>
 						<div className="wsm-tag absolute top-4 -left-19 text-wsm-mountain px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
 							AI TOOLS
 						</div>

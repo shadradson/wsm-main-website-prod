@@ -7,13 +7,13 @@ import { LayoutConfigInterface } from "~/lib/LayoutConfig";
 function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
-	const [heroLogoGone, setHeroLogoGone] = useState(false);
 	const [navVisible, setNavVisible] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 	const location = useLocation();
-	const LayoutConfig = LayoutConfigInterface(location.pathname);
+	//const LayoutConfig = LayoutConfigInterface(location.pathname);
 	const isHome = location.pathname === "/";
 	const isOurTeam = location.pathname === "/about-us";
+	const LayoutConfig = location.pathname.includes("article") ? LayoutConfigInterface("/article") : LayoutConfigInterface(location.pathname);
 
 	useEffect(() => {
 		const onScroll = () => {
@@ -24,7 +24,6 @@ function Header() {
 				setScrolled(window.scrollY > 20);
 			}
 			if (isHome) {
-				setHeroLogoGone(window.scrollY > window.innerHeight * 1);
 				setNavVisible(window.scrollY > window.innerHeight * 0.5);
 			}
 			if (!isHome && !isOurTeam) {
@@ -67,14 +66,12 @@ function Header() {
 
 	return (
 		<>
-		{/* Floating hamburger shown before nav appears on home/about-us */}
+		{/* Floating hamburger shown before main nav appears on home/about-us */}
 		{showEarlyHamburger && (
-			<>
-			<div className="fixed top-0 right-0 bg-black z-9999999999999">
+			<div className="fixed top-0 right-0 z-[60]">
 				<button
-					className="text-white bg-black/50 rounded-lg p-3 m-2"
-					style={{ zIndex: 99999999 }}
-					onClick={() => setNavVisible(!mobileOpen)}
+					className="text-white bg-black p-3 m-2"
+					onClick={() => { setNavVisible(true); setMobileOpen(!mobileOpen); }}
 					aria-label="Toggle menu"
 				>
 					{mobileOpen ? (
@@ -88,69 +85,70 @@ function Header() {
 					)}
 				</button>
 			</div>
-				
-				{mobileOpen && (
-					<div className="fixed top-14 left-0 right-0 bg-black border-t border-white/10 max-h-[80vh] overflow-y-auto" style={{ zIndex: 99999998 }}>
-						<div className="px-4 py-4 space-y-1">
-							{navLinks.map((link) => (
-								<div key={link.to}>
-									<div className="flex items-center">
+		)}
+
+		{/* Single mobile menu, shared by both early hamburger and main header */}
+		{mobileOpen && (
+			<div id="mobile-menu" className="lg:hidden fixed top-12 left-0 right-0 z-[55] bg-black border-t border-white/10 max-h-[80vh] overflow-y-auto">
+				<div id="mobile-nav-links" className="px-4 py-4 space-y-1">
+					{navLinks.map((link) => (
+						<div key={link.to}>
+							<div className="flex items-center">
+								<NavLink
+									to={link.to}
+									end={link.to === "/"}
+									onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+									className={({ isActive }) =>
+										`flex-1 block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+											? "text-brand-sky bg-white/10"
+											: "text-gray-300 hover:text-white hover:bg-white/5"
+										}`
+									}
+								>
+									{link.label}
+								</NavLink>
+								{link.children && (
+									<button
+										onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
+										className="text-gray-400 hover:text-white p-3"
+									>
+										<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+										</svg>
+									</button>
+								)}
+							</div>
+							{link.children && openDropdown === link.to && (
+								<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
+									{link.children.map((child) => (
 										<NavLink
-											to={link.to}
-											end={link.to === "/"}
+											key={child.to}
+											to={child.to}
 											onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
 											className={({ isActive }) =>
-												`flex-1 block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+												`block px-4 py-2 rounded-lg text-sm transition-colors ${isActive
 													? "text-brand-sky bg-white/10"
-													: "text-gray-300 hover:text-white hover:bg-white/5"
+													: "text-gray-400 hover:text-white hover:bg-white/5"
 												}`
 											}
 										>
-											{link.label}
+											{child.label}
 										</NavLink>
-										{link.children && (
-											<button
-												onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
-												className="text-gray-400 hover:text-white p-3"
-											>
-												<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-												</svg>
-											</button>
-										)}
-									</div>
-									{link.children && openDropdown === link.to && (
-										<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
-											{link.children.map((child) => (
-												<NavLink
-													key={child.to}
-													to={child.to}
-													onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
-													className={({ isActive }) =>
-														`block px-4 py-2 rounded-lg text-sm transition-colors ${isActive
-															? "text-brand-sky bg-white/10"
-															: "text-gray-400 hover:text-white hover:bg-white/5"
-														}`
-													}
-												>
-													{child.label}
-												</NavLink>
-											))}
-										</div>
-									)}
+									))}
 								</div>
-							))}
-							<button
-								onClick={handleGetClimbing}
-								className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-							>
-								Get Climbing
-							</button>
+							)}
 						</div>
-					</div>
-				)}
-			</>
+					))}
+					<button
+						onClick={handleGetClimbing}
+						className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+					>
+						Get Climbing
+					</button>
+				</div>
+			</div>
 		)}
+
 		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${ !scrolled && LayoutConfig.navBarTransparentOnHero ? "bg-transparent" : "bg-black" }`}>
 			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div id="header-row" className="relative flex items-center h-12 lg:h-16">
@@ -158,10 +156,7 @@ function Header() {
 					<Link
 						to="/"
 						id="header-logo-link"
-						className={`transition-all duration-300 lg:relative ${isHome && !heroLogoGone
-							? "absolute left-1/2 -translate-x-1/2 lg:opacity-0 lg:pointer-events-none"
-							: "absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
-							}`}
+						className="transition-all duration-300 absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
 					>
 						<img
 							id="header-logo"
@@ -172,7 +167,7 @@ function Header() {
 					</Link>
 
 					{/* Desktop nav: centered when logo hidden, right-aligned when logo shows */}
-					<nav id="desktop-nav" className={`hidden lg:flex items-center gap-1 transition-all duration-300 ${isHome && !heroLogoGone ? "mx-auto" : "ml-auto"}`}>
+					<nav id="desktop-nav" className="hidden lg:flex items-center gap-1 transition-all duration-300 ml-auto">
 						{navLinks.map((link) => (
 							<div key={link.to} className="relative group">
 								<NavLink
@@ -240,67 +235,6 @@ function Header() {
 					</button>
 				</div>
 			</div>
-
-			{mobileOpen && (
-				<div id="mobile-menu" className="lg:hidden bg-black border-t border-white/10">
-					<div id="mobile-nav-links" className="px-4 py-4 space-y-1">
-						{navLinks.map((link) => (
-							<div key={link.to}>
-								<div className="flex items-center">
-									<NavLink
-										to={link.to}
-										end={link.to === "/"}
-										onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
-										className={({ isActive }) =>
-											`flex-1 block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
-												? "text-brand-sky bg-white/10"
-												: "text-gray-300 hover:text-white hover:bg-white/5"
-											}`
-										}
-									>
-										{link.label}
-									</NavLink>
-									{link.children && (
-										<button
-											onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
-											className="text-gray-400 hover:text-white p-3"
-										>
-											<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-											</svg>
-										</button>
-									)}
-								</div>
-								{link.children && openDropdown === link.to && (
-									<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
-										{link.children.map((child) => (
-											<NavLink
-												key={child.to}
-												to={child.to}
-												onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
-												className={({ isActive }) =>
-													`block px-4 py-2 rounded-lg text-sm transition-colors ${isActive
-														? "text-brand-sky bg-white/10"
-														: "text-gray-400 hover:text-white hover:bg-white/5"
-													}`
-												}
-											>
-												{child.label}
-											</NavLink>
-										))}
-									</div>
-								)}
-							</div>
-						))}
-						<button
-							onClick={handleGetClimbing}
-							className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-						>
-							Get Climbing
-						</button>
-					</div>
-				</div>
-			)}
 		</header>
 		</>
 	);
@@ -355,7 +289,7 @@ function Footer() {
 									<p className="text-lg text-white max-w-xl mx-auto mb-8">
 										{LayoutConfig.subtitle}
 									</p>
-									<div className="flex flex-col sm:flex-row gap-4 justify-center">
+									<div className="flex flex-col sm:flex-row gap-4 justify-center p-4">
 										<button
 											type="button"
 											onClick={() => setFormOpen(!formOpen)}
@@ -384,7 +318,7 @@ function Footer() {
 
 			</div>
 
-			<div className="footer_bottom_box pattern-bg-dots bg-gradient-to-b from-[#03172C00] to-[#021626ff] flex flex-col justify-between sm:flex-row justify-between items-center px-6 sm:px-12 py-8 gap-8 relative z-10">
+			<div className="footer_bottom_box flex flex-col justify-between sm:flex-row justify-between items-center px-6 sm:px-12 py-8 gap-8 relative z-10">
 				{/* Col 1: Logo & location */}
 				<div className="flex flex-col gap-3 ">
 					<Link to="/">

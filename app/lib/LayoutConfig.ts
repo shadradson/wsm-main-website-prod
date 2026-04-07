@@ -24,6 +24,7 @@ const configs: Record<string, LayoutConfig> = {
 	"/fractional-cto-services": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: true, title: "Ready for the next level of guidance?", subtitle: "Let's discuss how we can become your technology executive team.", navBarTransparentOnHero: true },
 	"/contact": { buttonText: "Get In Touch", recordTypeId: RECORD_TYPE_GENERAL, showCta: false, title: "Ready to Summit your Tech?", subtitle: "Let's discuss how we can transform your technology challenges into competitive advantages.", navBarTransparentOnHero: true },
 	"/mountain-rescue": { buttonText: "Request Mountain Rescue", recordTypeId: RECORD_TYPE_RESCUE, showCta: true, title: "Need to be rescued?", subtitle: "Reach out to learn about our process to get you back on track!", navBarTransparentOnHero: true },
+	"/article": { buttonText: "Get Started", recordTypeId: RECORD_TYPE_RESCUE, showCta: true, title: "Ready to climb?", subtitle: "You are just a few clickes away!", navBarTransparentOnHero: false },
 };
 
 const defaultConfig: LayoutConfig = {

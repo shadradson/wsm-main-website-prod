@@ -241,6 +241,7 @@ pre.mermaid {
 	animation-range-start: 90vh;
 	animation-range-end: 260vh;
 	z-index: 3;
+	top: calc(100px - 20vw);
 }
 
 .lay4 {
@@ -249,6 +250,7 @@ pre.mermaid {
 	animation-range-start: 90vh;
 	animation-range-end: 260vh;
 	z-index: 4;
+	top: calc(200px - 10vw);
 }
 
 .lay5 {

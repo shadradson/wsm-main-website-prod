@@ -166,7 +166,7 @@
     flex-grow: 1;
     flex-basis: 0;
     gap: 0.5rem;
-    min-width: 400px;
+    min-width: 360px;
     border-left: 2px solid #ccc;
     border-right: 2px solid #ccc;
 }
@@ -182,7 +182,7 @@
     display: flex;
     align-items: center;
     justify-items: center;
-    min-width: 400px;
+    min-width: 360px;
 }
 
 

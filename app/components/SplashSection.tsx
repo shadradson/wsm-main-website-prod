@@ -42,7 +42,7 @@ export default function SplashSection({ cards, title, subtitle, titlesize, theme
         <section className={styles[theme]}>
             <div className={`py-20 lg:py-28 ${dotsclass}`}>
                 <div className="">
-                    <div className="flex flex-col gap-24">
+                    <div className="flex flex-col gap-0 sm:gap-24">
                         {cards.map((card, i) => (
                             <div
                                 key={i}

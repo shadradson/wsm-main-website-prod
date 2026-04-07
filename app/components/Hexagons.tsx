@@ -12,6 +12,9 @@ import { useEffect, useRef, useState } from "react";
 
 interface HexagonProps {
 	len?: number;
+	randomlen?: number;
+	randomlenChance?: number;
+	turnangle?: number;
 	count?: number;
 	baseTime?: number;
 	addedTime?: number;
@@ -33,6 +36,9 @@ interface HexagonProps {
 
 export default function Hexagons({
 	len = 40,
+	randomlen = 120,
+	randomlenChance = 10,
+	turnangle = 10,
 	count = 10,
 	baseTime = 10,
 	addedTime = 60,
@@ -79,7 +85,7 @@ export default function Hexagons({
 		if (!ctx) return;
 
 		const opts = {
-			len, count, baseTime, addedTime, dieChance, spawnChance,
+			len, randomlen, randomlenChance, turnangle, count, baseTime, addedTime, dieChance, spawnChance,
 			sparkChance, sparkDist, sparkSize, color, baseLight, addedLight,
 			shadowToTimePropMult, baseLightInputMultiplier, addedLightInputMultiplier,
 			repaintAlpha, hueChange,
@@ -91,7 +97,8 @@ export default function Hexagons({
 		const lines: Line[] = [];
 		let dieX = w / 2 / opts.len;
 		let dieY = h / 2 / opts.len;
-		const baseRad = (Math.PI * 2) / 6;
+		const baseRad = (opts.turnangle * Math.PI) / 180;
+		//console.log("Hexagons turnangle:", opts.turnangle, "baseRad:", baseRad);
 		let mouseX = w / 2;
 		let mouseY = h / 2;
 		let mouseOver = false;
@@ -104,6 +111,7 @@ export default function Hexagons({
 			addedX = 0;
 			addedY = 0;
 			rad = 0;
+			stepLen = opts.len;
 			lightInputMultiplier = 0;
 			cumulativeTime = 0;
 			lineColor = "";
@@ -132,11 +140,12 @@ export default function Hexagons({
 				this.y += this.addedY;
 				this.time = 0;
 				this.targetTime = (opts.baseTime + opts.addedTime * Math.random()) | 0;
+				this.stepLen = Math.random() * 100 < opts.randomlenChance ? opts.randomlen : opts.len;
 
 				if (followMouse && mouseOver) {
 					// Direction from this particle's world position to the mouse
-					const px = opts.cx + this.x * opts.len;
-					const py = opts.cy + this.y * opts.len;
+					const px = opts.cx + this.x * this.stepLen;
+					const py = opts.cy + this.y * this.stepLen;
 					const toMouseAngle = Math.atan2(mouseY - py, mouseX - px);
 					// Pick the hex direction (CW or CCW) closest to the mouse
 					const cwRad = this.rad + baseRad;
@@ -177,15 +186,15 @@ export default function Hexagons({
 				ctx!.fillStyle = fillColor;
 				ctx!.shadowColor = fillColor;
 				ctx!.fillRect(
-					opts.cx + (this.x + x) * opts.len,
-					opts.cy + (this.y + y) * opts.len,
+					opts.cx + (this.x + x) * this.stepLen,
+					opts.cy + (this.y + y) * this.stepLen,
 					2, 2
 				);
 
 				if (Math.random() < opts.sparkChance) {
 					ctx!.fillRect(
-						opts.cx + (this.x + x) * opts.len + Math.random() * opts.sparkDist * (Math.random() < 0.5 ? 1 : -1) - opts.sparkSize / 2,
-						opts.cy + (this.y + y) * opts.len + Math.random() * opts.sparkDist * (Math.random() < 0.5 ? 1 : -1) - opts.sparkSize / 2,
+						opts.cx + (this.x + x) * this.stepLen + Math.random() * opts.sparkDist * (Math.random() < 0.5 ? 1 : -1) - opts.sparkSize / 2,
+						opts.cy + (this.y + y) * this.stepLen + Math.random() * opts.sparkDist * (Math.random() < 0.5 ? 1 : -1) - opts.sparkSize / 2,
 						opts.sparkSize, opts.sparkSize
 					);
 				}
@@ -251,7 +260,7 @@ export default function Hexagons({
 			window.removeEventListener("resize", onResize);
 		};
 	}, [
-		isClient, len, count, baseTime, addedTime, dieChance, spawnChance,
+		isClient, len, randomlen, randomlenChance, turnangle, count, baseTime, addedTime, dieChance, spawnChance,
 		sparkChance, sparkDist, sparkSize, color, baseLight, addedLight,
 		shadowToTimePropMult, baseLightInputMultiplier, addedLightInputMultiplier,
 		repaintAlpha, hueChange, followMouse,

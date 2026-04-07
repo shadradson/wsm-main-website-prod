@@ -271,8 +271,8 @@ function HeroSection() {
 								xmlns:xlink="http://www.w3.org/1999/xlink">
 								<defs>
 									<linearGradient x1="50%" y1="92.034%" x2="50%" y2="7.2%" id="a">
-										<stop stop-opacity="0.8" offset="0%" stop-color="white" />
-										<stop stop-opacity="0.4" offset="100%" stop-color="white" />
+										<stop stop-opacity="1" offset="0%" stop-color="#ddddee" />
+										<stop stop-opacity="1" offset="100%" stop-color="#ddeeee" />
 									</linearGradient>
 								</defs>
 								<g id="Layer_x0020_1">
@@ -353,8 +353,9 @@ function ServicesOverview() {
 	];
 
 	return (
-		<section id="home-services" className="bg-gradient-to-b from-[#111] to-wsm-cliff pattern-bg-dots">
-			<div className="py-20 lg:py-28">
+		<section id="home-services" className="bg-gradient-to-b from-[#111] to-wsm-cliff">
+			<div className="py-20 lg:py-28 flex flex-row">
+				<div className="flex-1 pattern-bg-dots"></div>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<SectionHeaderText
 						title1="OUR "
@@ -369,7 +370,7 @@ function ServicesOverview() {
 							<Link
 								key={service.title}
 								to={service.href}
-								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
+								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
 							>
 								<div className="w-14 h-14 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
 									{service.icon}
@@ -396,6 +397,7 @@ function ServicesOverview() {
 						</Link>
 					</div>
 				</div>
+				<div className="flex-1 pattern-bg-dots"></div>
 			</div>
 		</section>
 	);
