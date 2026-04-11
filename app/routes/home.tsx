@@ -5,6 +5,7 @@ import SplashSection from "~/components/SplashSection";
 import Transition from "~/components/Transition"
 import SectionHeaderText from "~/components/SectionHeaderText";
 import ArticleCardSection from "~/components/ArticleCardSection";
+import CsatCardSection from "~/components/CsatCardSection";
 import type { Article, CsatSurvey } from "~/lib/types";
 
 import { buildMeta, SITE_URL, SITE_LOGO, OG_IMAGE } from "~/lib/seo";
@@ -38,10 +39,8 @@ export async function loader({ context }: Route.LoaderArgs) {
 				permission_for_website, csat_date
 			FROM csat_surveys
 			WHERE permission_for_website = 1
-				AND website_testimonial_blurb IS NOT NULL
-				AND website_testimonial_blurb != ''
 			ORDER BY csat_date DESC
-			LIMIT 8`
+			LIMIT 16`
 		).all<CsatSurvey>(),
 	]);
 
@@ -206,7 +205,15 @@ export default function Home() {
 				/>
 			)}
 
-			<CsatSection surveys={csatSurveys} />
+			<CsatCardSection
+				surveys={csatSurveys}
+				title1="CLIENT "
+				title2="SATISFACTION"
+				subtitle="Real feedback from the people at the tops of their mountains."
+				id="home-csat"
+				dots={true}
+				multiLineTitles={false}
+			/>
 
 			<StatsSection
 				tag="STATS"
@@ -403,55 +410,3 @@ function ServicesOverview() {
 	);
 }
 
-function CsatSection({ surveys }: { surveys: CsatSurvey[] }) {
-	if (surveys.length === 0) return null;
-
-	return (
-		<section id="home-csat" className="bg-wsm-dark">
-			<div className="py-20 lg:py-28 pattern-bg-dots">
-				<div className="max-w-7xl mx-auto p-4 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff18,_#ffffff18_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed">
-					<div className="bg-wsm-dark p-4 border-2 border-solid border-[#ffffff22]">
-						<SectionHeaderText title1="CLIENT REVIEWS" subtitle="Real feedback from the people at the tops of their mountains." />
-					</div>
-					<div className="flex flex-wrap justify-center bg-[#ffffff44]">
-						{surveys.map((survey) => (
-							<div
-								key={survey.sf_id}
-								className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1"
-							>
-								<div className="bg-wsm-dark border-2 border-solid border-gray-600 flex flex-col h-full relative z-10 p-6">
-									{survey.star_rating != null && (
-										<div className="flex gap-1 mb-3">
-											{Array.from({ length: 5 }).map((_, i) => (
-												<svg
-													key={i}
-													className={`w-5 h-5 ${i < survey.star_rating! ? "text-yellow-400" : "text-gray-600"}`}
-													fill="currentColor"
-													viewBox="0 0 20 20"
-												>
-													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-												</svg>
-											))}
-										</div>
-									)}
-									{survey.website_testimonial_blurb && (
-										<p className="text-gray-300 text-sm leading-relaxed italic mb-4 max-h-[100px] overflow-y-clip">
-											"{survey.website_testimonial_blurb}"
-										</p>
-									)}
-									<div className="mt-auto pt-3 border-t border-gray-800">
-										<p className="text-white font-bold text-sm">
-											{survey.first_name} {survey.last_name}
-										</p>
-										{survey.title && <p className="text-gray-500 text-xs">{survey.title}</p>}
-										{survey.account_name && <p className="text-gray-500 text-xs">{survey.account_name}</p>}
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}

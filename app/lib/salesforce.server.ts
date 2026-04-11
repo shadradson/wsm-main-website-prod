@@ -83,6 +83,25 @@ export async function fetchImage(
 		return { data, contentType };
 	}
 
+	// For file.force.com Content Version download URLs, use the REST API
+	const cvMatch = imageUrl.match(/[?&]ids=([a-zA-Z0-9]+)/);
+	if (cvMatch) {
+		const contentVersionId = cvMatch[1];
+		const apiUrl = `${token.instance_url}/services/data/v62.0/sobjects/ContentVersion/${contentVersionId}/VersionData`;
+
+		const res = await fetch(apiUrl, {
+			headers: { Authorization: `Bearer ${token.access_token}` },
+		});
+
+		if (!res.ok) return null;
+
+		const contentType = res.headers.get("content-type") || "image/png";
+		if (contentType.includes("text/html")) return null;
+
+		const data = await res.arrayBuffer();
+		return { data, contentType };
+	}
+
 	// Fallback: direct URL fetch
 	const fullUrl = imageUrl.startsWith("http")
 		? imageUrl

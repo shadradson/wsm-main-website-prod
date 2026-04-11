@@ -205,8 +205,10 @@ function OurTeamHero() {
 
 				<div className="our_team_para_layer layer5 mix_blend_ex" id="keyart-0" data-speed="-0.8" data-blur="0" data-baseblur="0">
 					<div className="wsm slide">
-						<img src="/images/WSM_LOGO_V2_Norm_Wht.svg" className="wsm_img" />
-						<h1 className="absolute top-[calc(75vh-7vw)] text-5xl font-bold text-white">OUR TEAM</h1>
+						<div className="wsm_img">
+							<img src="/images/WSM_LOGO_V2_Norm_Wht.svg" className="" />
+							<h1 className="text-5xl font-bold text-white">OUR TEAM</h1>
+						</div>
 					</div>
 				</div>
 
@@ -280,12 +282,12 @@ function TeamGrid() {
 					<div className="">
 						<div className="relative max-w-7xl mx-auto">
 							{/*<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>*/}
-							<SectionHeaderText title1="THE HUMANS WHO " title2="SUMMIT MOUNTAINS" theme="dark" />
+							<SectionHeaderText title1="THE HUMANS WHO" title2="SUMMIT MOUNTAINS" theme="dark" titlemultiline="true" />
 							<div className="flex flex-wrap justify-center">
 								{team.map((member: TeamMember) => {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
 									return (
-										<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[400px] grow group border-4 border-solid border-[#ffffff22] hover-border-[#ffffff77] transition-all cursor-pointer">
+										<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] hover-border-[#ffffff77] transition-all cursor-pointer">
 											<div className="flex flex-col h-full relative z-10">
 												{/* Top row: photo left, name/title right */}
 												<div className="flex items-center sm:items-start flex-col sm:flex-row">
@@ -316,11 +318,21 @@ function TeamGrid() {
 																dangerouslySetInnerHTML={{ __html: member.certifications }}
 															/>
 														)}
+														{/* Career stats */}
+														{(member.years_at_wsm != null || member.time_in_industry != null) && (
+															<div className="text-center flex gap-2 flex-wrap width-[100%] justify-center sm:justify-start">
+																{member.years_at_wsm != null && (
+																	<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
+																		{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
+																	</span>
+																)}
+															</div>
+														)}
 													</div>
 												</div>
 												{/* Buttons */}
 												{(member.linkedin_url || member.trailblazer_url) && (
-													<div className="flex items-center gap-3 mt-auto border-t border-gray-500 p-2 relative">
+													<div className="flex justify-center gap-3 mt-auto border-t border-gray-500 p-2">
 														{member.linkedin_url && (
 															<a
 																href={member.linkedin_url}
@@ -339,23 +351,13 @@ function TeamGrid() {
 																href={member.trailblazer_url}
 																target="_blank"
 																rel="noreferrer"
-																className="relative z-10 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#00A1E0] rounded hover:bg-[#0082b4] transition-colors"
+																className="relative z-10 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#00A1E0] hover:bg-[#0082b4] transition-colors"
 															>
-																<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-																	<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+																<svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 200 140">
+																	<path fill="#ffffff" d="M 83.226562 15.273438 C 89.679688 8.554688 98.660156 4.382812 108.589844 4.382812 C 121.792969 4.382812 133.308594 11.746094 139.445312 22.675781 C 144.773438 20.292969 150.675781 18.96875 156.882812 18.96875 C 180.695312 18.96875 200 38.441406 200 62.460938 C 200 86.484375 180.695312 105.957031 156.882812 105.957031 C 154.03125 105.957031 151.1875 105.675781 148.390625 105.109375 C 142.988281 114.746094 132.695312 121.257812 120.878906 121.257812 C 115.933594 121.257812 111.257812 120.113281 107.089844 118.082031 C 101.617188 130.960938 88.859375 139.992188 73.988281 139.992188 C 58.503906 139.992188 45.308594 130.195312 40.242188 116.457031 C 38.027344 116.925781 35.734375 117.171875 33.382812 117.171875 C 14.945312 117.171875 0 102.070312 0 83.441406 C 0 70.957031 6.714844 60.058594 16.691406 54.226562 C 14.636719 49.5 13.496094 44.28125 13.496094 38.796875 C 13.496094 17.375 30.890625 0.00390625 52.34375 0.00390625 C 64.9375 0.00390625 76.132812 5.996094 83.226562 15.273438 "></path>
 																</svg>
-																Trailhead
+																Trailhead Account
 															</a>
-														)}
-														{/* Career stats */}
-														{(member.years_at_wsm != null || member.time_in_industry != null) && (
-															<div className="flex gap-2flex-wrap absolute bottom-0 right-0">
-																{member.years_at_wsm != null && (
-																	<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
-																		{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
-																	</span>
-																)}
-															</div>
 														)}
 													</div>
 												)}

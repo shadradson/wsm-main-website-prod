@@ -27,4 +27,5 @@ export default [
 	route("api/sync", "routes/api.sync.ts"),
 	route("api/assets/*", "routes/api.assets.$.ts"),
 	route("api/debug", "routes/api.debug.ts"),
+	route("ai-scrape-test", "routes/ai-scrape-test.tsx"),
 ] satisfies RouteConfig;

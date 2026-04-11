@@ -29,9 +29,9 @@ const themeStyles: Record<Theme, {
 	dark: {
 		card: "",
 		cardHover: "group-hover:bg-[#141b2a]",
-		border: "border-gray-600",
+		border: "border-gray-800",
 		borderHover: "group-hover:border-brand-sky",
-		imageBorder: "border-gray-600",
+		imageBorder: "border-gray-800",
 		tagBg: "bg-[#ffffff11] border-[#ffffff22]",
 		tagText: "text-wsm-glacier",
 		productBg: "bg-[#ffffff08] border-[#ffffff15]",
@@ -89,7 +89,7 @@ export default function ArticleLinkCard({ article, theme = "dark", trail }: Arti
 	return (
 		<Link
 			to={href}
-			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] max-w-[100%] sm:max-w-[50%] grow group p-1 hover:shadow-xl transition-all"
+			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[300px] max-w-[100%] sm:max-w-[50%] 2xl:max-w-[30%] grow group p-0 hover:shadow-xl transition-all"
 		>
 			<div className={`${s.card} ${s.cardHover} border-8 border-solid ${s.border} ${s.borderHover} flex flex-wrap justify-center h-full relative z-10 transition-colors`}>
 				<div className={`aspect-square w-[30%] sm:w-1/3 border-r-none sm:border-r-2 ${s.imageBorder} flex items-center justify-center p-2 sm:p-4 md:p-6`}>
@@ -130,13 +130,13 @@ export default function ArticleLinkCard({ article, theme = "dark", trail }: Arti
 						)*/}
 					</div>
 					<div className="flex flex-wrap justify-center sm:justify-start">
-						{article.subcategory && (
+						{/*article.subcategory && (
 							<span className={`text-xs font-semibold ${s.tagText} ${s.tagBg} border px-2 py-1`}>
 								{article.subcategory}
 							</span>
-						)}
+						)*/}
 						{article.vertical_product && (
-							<span className={`text-xs font-medium ${s.productText} ${s.productBg} border px-2 py-1`}>
+							<span className={`text-xs text-center font-medium ${s.productText} ${s.productBg} flex-1 px-2 py-1`}>
 								{article.vertical_product}
 							</span>
 						)}

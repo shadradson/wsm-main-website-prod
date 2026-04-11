@@ -3,29 +3,24 @@ import { useEffect, useRef } from "react";
 import SectionHeaderText from "./SectionHeaderText";
 import Tag from "./Tag";
 
-interface Card {
-    title1?: string;
-    title2?: string;
-    subtitle?: string;
-    tag?: string;
+interface Pill {
     linkUrl?: string;
-    buttontext?: string;
-    imageUrl?: string;
+    buttontext: string;
 }
 
-interface SimpleTextSectionProps {
-    cards: Card[];
+interface SimplePillSectionProps {
+    pills: Pill[];
     title1?: string;
     title2?: string;
     subtitle?: string;
     imageUrl?: string;
     tag?: string;
-    type?: "2bar" | "VCards";
+    type?: "pills" | "imgpills";
     theme?: "light" | "dark" | "blue";
     dots?: string;
 }
 
-export default function SimpleTextSection({ cards, title1, title2, tag, subtitle, imageUrl, type, theme = "dark", dots }: SimpleTextSectionProps) {
+export default function SimplePillSection({ pills, title1, title2, tag, subtitle, imageUrl, type, theme = "dark", dots }: SimplePillSectionProps) {
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -59,40 +54,61 @@ export default function SimpleTextSection({ cards, title1, title2, tag, subtitle
     const borderClass = isDark || isBlue ? "border-3 border-white border-solid" : "border-3 border-gray-200 border-solid";
     const borderClasstop = isDark || isBlue ? "border-t-0 md:border-t-3 border-t-white border-t-solid" : "border-t-3 border-t-gray-200 border-t-solid";
     const borderClassbot = isDark || isBlue ? "border-b-0 md:border-b-3 border-b-white border-b-solid" : "border-b-3 border-b-gray-200 border-b-solid";
-    const borderClassleft = isDark || isBlue ? "border-l-0 xl:border-l-3 border-l-white border-l-solid" : "border-l-3 border-l-gray-200 border-l-solid";
-    const borderClassright = isDark || isBlue ? "border-r-0 xl:border-r-3 border-r-white border-r-solid" : "border-r-3 border-r-gray-200 border-r-solid";
+    const borderClassleft = isDark || isBlue ? "border-l-0 md:border-l-3 border-l-white border-l-solid" : "border-l-3 border-l-gray-200 border-l-solid";
+    const borderClassright = isDark || isBlue ? "border-r-0 md:border-r-3 border-r-white border-r-solid" : "border-r-3 border-r-gray-200 border-r-solid";
     const tagClass = isDark || isBlue ? "text-brand-sky" : "text-brand-sky";
 
-    if (type === "2bar") {
+    if (type === "pills") {
         return (
-            <section className={bgClass}>
-                <div className={``}>
-                    <div className={`h-20 lg:h-28 ${dotsclass} ${borderClassbot} `}></div>
-                    <div className={`max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative ${borderClassleft} ${borderClassright}`}>
-                        <div className="flex flex-col gap-16">
-                            <div
-                                className={`relative flex flex-col lg:flex-row items-stretch `}
-                            >
-                                <Tag text={tag} theme={theme} />
-                                <div className={`p-2 md:p-4 xl:p-16 w-[100%] flex items-center justify-center`}>
-                                    <SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" noPad="true" />
+            <section id="team-certifications" className="bg-gradient-to-b from-gray-100 to-gray-300 flex">
+                <div className="flex flex-col flex-1">
+                    <div className="py-20 lg:py-28">
+                        <div className="max-w-7xl mx-auto py-8 relative">
+                            <div className="flex flex-row flex-wrap">
+                                <SectionHeaderText
+                                    title1={title1}
+                                    title2={title2}
+                                    subtitle={subtitle}
+                                    theme={theme}
+                                    titlemultiline="true"
+                                />
+                                <div className="flex-1">
+                                    {/* Salesforce Partner Badge */}
+                                    <div className="flex justify-center mb-12">
+                                        <div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
+                                            <div className="w-4/5">
+                                                <img src="/images/Salesforce logo.svg" alt="Salesforce" />
+                                            </div>
+                                            <div className="text-center text-wsm-dark">
+                                                <p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
+                                            </div>
+                                            <div className="text-center text-wsm-dark">
+                                                <p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={`p-2 md:p-8 xl:p-16 w-[100%] flex items-center justify-center`}>
-                                    {imageUrl ? (
-                                        <img src={imageUrl} alt={title1 || ""} className="aspect-sqare max-w-[400px] w-[100%]" />
-                                    ) : (
-                                        <div className={`w-full border-2 border-solid border-[#00000011] bg-[image:repeating-linear-gradient(315deg,_#00000011,_#00000011_12px,_transparent_0,_transparent_50%)] bg-[size:24px_24px] bg-fixed min-h-[200px] object-contain`} />
-                                    )}
-                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap justify-center">
+                                {pills.map((pill) => (
+                                    <div key={pill.buttontext}
+                                        className="p-2.5  flex-1 flex justify-center">
+                                        <div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-fit min-w-[120px]">
+                                            <span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
+                                                {pill.buttontext}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
-                    <div className={`h-20 lg:h-28 ${dotsclass} ${borderClasstop} `}></div>
                 </div>
             </section>
         );
     }
-    else if (type === "VCards") {
+    else if (type === "imgpills") {
         return (
             <section ref={sectionRef} className={bgClass}>
                 <div className={``}>

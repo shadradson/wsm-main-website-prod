@@ -223,93 +223,104 @@ export default function ArticlePage() {
 	}, [article.sf_id]);
 
 	return (
-		<div className="min-h-screen bg-white">
+		<div className="min-h-screen bg-gradient-to-b from-[#F0EFEC] to-[#DFDCD8]">
 			{/* Hero */}
 			<div
-				className="bg-gradient-to-r from-[#eee9e2] to-[#b7ada1] py-20 lg:py-28 flex flex-row relative overflow-y-clip"
+				className="py-10 lg:py-18 flex flex-col relative"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
-				{/*<div className="absolute bot-0 lg:top-0 left-0 bg-wsm-glacier h-[40px] lg:h-[90%] w-[40px] lg:w-[60px] p-2 flex justify-end z-1"></div>*/}
-				{article.splash_image_url && (
-							<div className="absolute top-0 right-0 h-[100%] w-[50%] px-4 pt-18 pb-2 flex justify-end opacity-80 z-1">
-								<img
-								src={article.splash_image_url}
-								alt={article.name}
-								className="object-contain hidden sm:block"
-								/>
-							</div>
-				)}
-				<div className="flex-1 pattern-bg-dots-darkthick z-3"></div>
-				<div className="max-w-7xl w-[100%] px-4 sm:px-6 lg:px-8 flex flex-col gap-4 z-3">
-					{/* Breadcrumbs */}
-					<nav className="flex flex-wrap items-center gap-1 text-sm">
-						{breadcrumbs.map((crumb, i) => (
-							<span key={i} className="flex items-center gap-1">
-								{i > 0 && (
-									<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
-									</svg>
-								)}
-								<Link
-									to={crumb.path}
-									className="text-gray-800 hover:text-black transition-colors font-black"
-								>
-									{crumb.label}
-								</Link>
-							</span>
-						))}
-						<span className="flex items-center gap-1">
-							<svg className="w-3 h-3 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
-							</svg>
-							<span className="text-gray-900 font-black">{article.name}</span>
+				{/* Breadcrumbs */}
+				<nav className="flex flex-wrap items-center gap-1 text-sm">
+					{breadcrumbs.map((crumb, i) => (
+						<span key={i} className="flex items-center gap-1">
+							{i > 0 && (
+								<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
+								</svg>
+							)}
+							<Link
+								to={crumb.path}
+								className="text-gray-800 hover:text-black transition-colors font-black"
+							>
+								{crumb.label}
+							</Link>
 						</span>
-					</nav>
+					))}
+					<span className="flex items-center gap-1">
+						<svg className="w-3 h-3 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
+						</svg>
+						<span className="text-gray-900 font-black">{article.name}</span>
+					</span>
+				</nav>
 
-					<div className="flex items-between">
-						<div className="">
-							<div className="flex flex-wrap mb-4 gap-2">
-								{article.subcategory && (
-									<span className="px-3 py-1 bg-brand-blue text-gray-100 text-xs font-semibold">
-										{article.subcategory}
-									</span>
-								)}
-								{article.vertical_product && (
-									<span className="px-3 py-1 bg-black text-gray-300 text-xs font-semibold">
-										{article.vertical_product}
-									</span>
-								)}
+				<div className="flex flex-row border-y-4 border-gray-300">
+					<div className="flex-1 pattern-bg-dots-darkthick z-3 "></div>
+					<div className="max-w-7xl p-4 sm:p-6 lg:p-8 flex flex-row z-3">
+
+						{/*Title Box*/}
+						<div className="flex flex-col">
+							<div className="flex items-between">
+								<div className="">
+									<div className="flex flex-wrap">
+										{article.subcategory && (
+											<span className="px-3 py-1 bg-brand-blue text-gray-100 text-xs font-semibold">
+												{article.subcategory}
+											</span>
+										)}
+										{article.vertical_product && (
+											<span className="px-3 py-1 bg-black text-gray-300 text-xs font-semibold">
+												{article.vertical_product}
+											</span>
+										)}
+									</div>
+
+									<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-tight mb-4 ">
+										{article.name}
+									</h1>
+
+									{article.subtitle && (
+										<p className="text-xl text-wsm-cliff font-bold mb-6">{article.subtitle}</p>
+									)}
+
+									{article.short_description && (
+										<p className="text-lg text-gray-300 leading-relaxed mb-6">{article.short_description}</p>
+									)}
+
+									{article.author_first_name && (
+										<p className="text-sm text-gray-900 ">
+											By {article.author_first_name} {article.author_last_name}
+											{article.author_title && ` — ${article.author_title}`}
+										</p>
+									)}
+								</div>
+
 							</div>
+						</div>
 
-							<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-tight mb-4 ">
-								{article.name}
-							</h1>
-
-							{article.subtitle && (
-								<p className="text-xl text-wsm-cliff font-bold mb-6">{article.subtitle}</p>
-							)}
-
-							{article.short_description && (
-								<p className="text-lg text-gray-300 leading-relaxed mb-6">{article.short_description}</p>
-							)}
-
-							{article.author_first_name && (
-								<p className="text-sm text-gray-900 ">
-									By {article.author_first_name} {article.author_last_name}
-									{article.author_title && ` — ${article.author_title}`}
-								</p>
+						{/*image Box*/}
+						<div className="flex flex-col">
+							{article.splash_image_url && (
+								<div className=" h-[100%] w-[50%] px-4 pt-18 pb-2 flex justify-end opacity-80 z-1">
+									<img
+										src={article.splash_image_url}
+										alt={article.name}
+										className="object-contain hidden sm:block"
+									/>
+								</div>
 							)}
 						</div>
 
 					</div>
+					<div className="flex-1 pattern-bg-dots-darkthick  z-3"></div>
 				</div>
-				<div className="flex-1"></div>
+
 			</div>
 
 			{/* Body */}
-			<div className="bg-gradient-to-b from-transparent to-gray-200 relative">
+			<div className=" relative">
 				{/*<div className="bg-gradient-to-b from-transparent to-gray-200 top-0 left-0 h-[100%] w-[100%] absolute z-1"></div>*/}
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 bg-gray-50 lg:px-8">
 					{bodyType === "HTML" && hasHtml ? (
 						<div
 							className="prose prose-lg max-w-none"

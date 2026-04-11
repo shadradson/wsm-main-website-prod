@@ -46,11 +46,8 @@ function Header() {
 				{ to: "/fractional-cto-services", label: "CTO" },
 			],
 		},
-		{
-			to: "/case-studies", label: "Case Studies", children: [
-				{ to: "/success-stories", label: "Success Stories" },
-			],
-		},
+		{ to: "/case-studies", label: "Case Studies" },
+		{ to: "/success-stories", label: "Success Stories" },
 	];
 
 	function handleGetClimbing() {

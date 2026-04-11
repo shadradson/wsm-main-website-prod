@@ -56,7 +56,7 @@ interface SFArticle {
 	Author_First_Name__c: string | null;
 	Author_Last_Name__c: string | null;
 	Author_Title__c: string | null;
-	Splash_Image_URL__c: string | null;
+	Article_Image_Selector_formula__c: string | null;
 	Splash_Image_Background__c: string | null;
 	Publish_Status__c: string | null;
 	Order__c: number | null;
@@ -73,7 +73,7 @@ const ARTICLE_QUERY = `
 	SELECT Id, Name, Subtitle__c, Short_Description__c,
 		Article_Body__c, HTML_Body__c, Article_Category__c, Subcategory__c,
 		Author__c, Author_First_Name__c, Author_Last_Name__c, Author_Title__c,
-		Splash_Image_URL__c, Splash_Image_Background__c,
+		Article_Image_Selector_formula__c, Splash_Image_Background__c,
 		Publish_Status__c, Order__c, Navigation_Type__c, NavJSON__c,
 		Rich_Text_or_HTML_body__c, Intended_Audiences__c,
 		Parent_Article__c, Vertical_Product__c, Admin_Approval__c
@@ -225,6 +225,13 @@ export async function runSync(env: SyncEnv): Promise<{
 		const articles = await soqlQuery<SFArticle>(token, ARTICLE_QUERY);
 
 		for (const a of articles) {
+			const splashKey = await syncImageToR2(
+				token,
+				env.ASSETS_BUCKET,
+				a.Article_Image_Selector_formula__c,
+				`articles/${a.Id}.jpg`,
+			);
+
 			await env.DB.prepare(`
 				INSERT INTO articles (sf_id, name, subtitle, short_description, article_body, html_body,
 					article_category, subcategory, author_id, author_first_name, author_last_name, author_title,
@@ -260,7 +267,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				a.Id, a.Name, a.Subtitle__c, a.Short_Description__c,
 				a.Article_Body__c, a.HTML_Body__c, a.Article_Category__c, a.Subcategory__c,
 				a.Author__c, a.Author_First_Name__c, a.Author_Last_Name__c, a.Author_Title__c,
-				a.Splash_Image_URL__c, a.Splash_Image_Background__c, a.Publish_Status__c,
+				splashKey ? `/api/assets/${splashKey}` : null, a.Splash_Image_Background__c, a.Publish_Status__c,
 				a.Order__c, a.Navigation_Type__c, a.NavJSON__c,
 				a.Rich_Text_or_HTML_body__c, a.Intended_Audiences__c,
 				a.Parent_Article__c, a.Vertical_Product__c,

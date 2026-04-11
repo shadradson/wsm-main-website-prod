@@ -82,7 +82,7 @@ export default function SectionHeaderText({ title1, title2, subtitle, theme = "d
 			break;
 	}
 
-	const outerPaddingClass = noPad === "true" ? "" : "p-4";
+	const outerPaddingClass = noPad === "true" ? "" : "p-2";
 
 	return (
 		<div className={`${outerPaddingClass} flex-col ${vertalignClass}`}>
