@@ -89,9 +89,30 @@ export async function fetchImage(
 		const contentVersionId = cvMatch[1];
 		const apiUrl = `${token.instance_url}/services/data/v62.0/sobjects/ContentVersion/${contentVersionId}/VersionData`;
 
+		// Use manual redirect — the API returns a 302 to file.force.com,
+		// and auto-follow strips the Auth header on cross-origin redirects
 		const res = await fetch(apiUrl, {
 			headers: { Authorization: `Bearer ${token.access_token}` },
+			redirect: "manual",
 		});
+
+		// Follow the redirect ourselves, preserving the auth header
+		if (res.status >= 300 && res.status < 400) {
+			const location = res.headers.get("Location");
+			if (location) {
+				const redirectUrl = location.startsWith("http")
+					? location
+					: `${token.instance_url}${location}`;
+				const fileRes = await fetch(redirectUrl, {
+					headers: { Authorization: `Bearer ${token.access_token}` },
+				});
+				if (!fileRes.ok) return null;
+				const contentType = fileRes.headers.get("content-type") || "image/png";
+				if (contentType.includes("text/html")) return null;
+				const data = await fileRes.arrayBuffer();
+				return { data, contentType };
+			}
+		}
 
 		if (!res.ok) return null;
 
