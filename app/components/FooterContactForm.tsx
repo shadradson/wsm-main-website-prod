@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useLeadForm } from "~/lib/useLeadForm";
 import TurnstileWidget from "./TurnstileWidget";
 import "./FooterContactForm.css";
@@ -10,6 +10,10 @@ interface FooterContactFormProps {
 export default function FooterContactForm({ recordTypeId }: FooterContactFormProps) {
 	const { formState, errorMsg, submitLead } = useLeadForm();
 	const turnstileToken = useRef("");
+	// Only mount Turnstile once the user actually engages with the form.
+	// This prevents the Turnstile iframe from loading (and periodically refreshing,
+	// which can steal window focus on Windows) for users who never touch the form.
+	const [formActivated, setFormActivated] = useState(false);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -42,7 +46,11 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="fcf-form">
+		<form
+			onSubmit={handleSubmit}
+			className="fcf-form"
+			onFocus={() => { if (!formActivated) setFormActivated(true); }}
+		>
 			{/* Honeypot — hidden from humans, bots fill it */}
 			<div aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, overflow: "hidden" }}>
 				<label htmlFor="footer-website">Website</label>
@@ -136,7 +144,9 @@ export default function FooterContactForm({ recordTypeId }: FooterContactFormPro
 			</div>
 
 
-			<TurnstileWidget onToken={(t) => { turnstileToken.current = t; }} />
+			{formActivated && (
+				<TurnstileWidget onToken={(t) => { turnstileToken.current = t; }} />
+			)}
 
 			{formState === "error" && (
 				<p className="fcf-error">{errorMsg}</p>

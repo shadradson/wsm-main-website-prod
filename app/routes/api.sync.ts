@@ -7,8 +7,9 @@ export async function loader({ context }: Route.LoaderArgs) {
 		const result = await runSync(env);
 		return Response.json({ success: true, ...result });
 	} catch (error) {
+		const errMsg = error instanceof Error ? `${error.message}\n${error.stack}` : String(error);
 		return Response.json(
-			{ success: false, error: String(error) },
+			{ success: false, error: errMsg },
 			{ status: 500 },
 		);
 	}

@@ -26,16 +26,16 @@ export default function StatsSection({ stats, title, subtitle, tag, theme = "dar
     return (
         <section className={styles[theme]}>
             <div className="stat-inner">
-                <div className={`h-20 ${dotsclass}`}></div>
+                <div className={`h-20`}></div>
                 <div className="stat-border-row flex flex-row">
-                    <div className="stat-sidebar flex-2" />
+                    <div className={`flex-2 ${dotsclass}`} />
                     <div className="max-w-7xl mx-auto relative">
                         {tag && (
                             <div className="wsm-tag absolute top-4 -left-19 px-3 py-1" style={{ fontFamily: "Gabato, sans-serif", fontWeight: 900, fontSize: "1.25rem", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.2em" }}>
                                 {tag}
                             </div>
                         )}
-                        <div className="absolute top-0 -left-10 w-10 h-[100%]" style={{ borderLeft: `2px solid ${floatingFinsColor}`, backgroundImage: `repeating-linear-gradient(315deg, ${floatingFinsColor}, ${floatingFinsColor} 1px, transparent 0, transparent 50%)`, backgroundSize: "10px 10px", backgroundAttachment: "fixed" }}></div>
+                        {/*<div className="absolute top-0 -left-10 w-10 h-[100%]" style={{ borderLeft: `2px solid ${floatingFinsColor}`, backgroundImage: `repeating-linear-gradient(315deg, ${floatingFinsColor}, ${floatingFinsColor} 1px, transparent 0, transparent 50%)`, backgroundSize: "10px 10px", backgroundAttachment: "fixed" }}></div>*/}
                         {title && (
                             <h2 className="stat-title text-6xl font-bold text-center m-12">{title}</h2>
                         )}
@@ -57,11 +57,11 @@ export default function StatsSection({ stats, title, subtitle, tag, theme = "dar
                                 </div>
                             ))}
                         </div>
-                        <div className="absolute top-0 -right-10 w-10 h-[100%]" style={{ borderRight: `2px solid ${floatingFinsColor}`, backgroundImage: `repeating-linear-gradient(315deg, ${floatingFinsColor}, ${floatingFinsColor} 1px, transparent 0, transparent 50%)`, backgroundSize: "10px 10px", backgroundAttachment: "fixed" }}></div>
+                        {/*<div className="absolute top-0 -right-10 w-10 h-[100%]" style={{ borderRight: `2px solid ${floatingFinsColor}`, backgroundImage: `repeating-linear-gradient(315deg, ${floatingFinsColor}, ${floatingFinsColor} 1px, transparent 0, transparent 50%)`, backgroundSize: "10px 10px", backgroundAttachment: "fixed" }}></div>*/}
                     </div>
-                    <div className="stat-sidebar flex-2" />
+                    <div className={`flex-2 ${dotsclass}`} />
                 </div>
-                <div className={`h-20 ${dotsclass}`}></div>
+                <div className={`h-20`}></div>
             </div>
         </section>
     );

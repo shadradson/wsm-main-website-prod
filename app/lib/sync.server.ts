@@ -225,17 +225,6 @@ export async function runSync(env: SyncEnv): Promise<{
 		const articles = await soqlQuery<SFArticle>(token, ARTICLE_QUERY);
 
 		for (const a of articles) {
-			// Try formula field first (downloads from SF ContentVersion to R2)
-			let splashKey: string | null = null;
-			if (a.Article_Image_Selector_formula__c) {
-				splashKey = await syncImageToR2(
-					token,
-					env.ASSETS_BUCKET,
-					a.Article_Image_Selector_formula__c,
-					`articles/${a.Id}.jpg`,
-				);
-			}
-
 			await env.DB.prepare(`
 				INSERT INTO articles (sf_id, name, subtitle, short_description, article_body, html_body,
 					article_category, subcategory, author_id, author_first_name, author_last_name, author_title,
@@ -271,7 +260,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				a.Id, a.Name, a.Subtitle__c, a.Short_Description__c,
 				a.Article_Body__c, a.HTML_Body__c, a.Article_Category__c, a.Subcategory__c,
 				a.Author__c, a.Author_First_Name__c, a.Author_Last_Name__c, a.Author_Title__c,
-				splashKey ? `/api/assets/${splashKey}` : null, a.Splash_Image_Background__c, a.Publish_Status__c,
+				a.Article_Image_Selector_formula__c, a.Splash_Image_Background__c, a.Publish_Status__c,
 				a.Order__c, a.Navigation_Type__c, a.NavJSON__c,
 				a.Rich_Text_or_HTML_body__c, a.Intended_Audiences__c,
 				a.Parent_Article__c, a.Vertical_Product__c,

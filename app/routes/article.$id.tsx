@@ -5,6 +5,7 @@ import { buildMeta, SITE_URL } from "~/lib/seo";
 import ArticleCardSection from "~/components/ArticleCardSection";
 import { PAGE_CRUMBS, MAX_TRAIL_DEPTH, buildTrailParam } from "~/lib/types";
 import { div } from "three/tsl";
+import Transition from "~/components/Transition"
 
 function markdownToHtml(md: string): string {
 	return md
@@ -223,42 +224,27 @@ export default function ArticlePage() {
 	}, [article.sf_id]);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-[#F0EFEC] to-[#DFDCD8]">
+		<div className="min-h-screen bg-gradient-to-b from-[#e3E5EA] to-[#bdBFC5] relative">
+			<div className="absolute bottom-200 -left-40 rotate-90">
+					<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10rem" height="" version="1.1" viewBox="0 0 13275 3982" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g>
+							<path fill="white" d="M3319 3319l0 -3319 663 0 0 3982 -3982 0 0 -3982 664 0 0 3319 995 0 0 -3319 664 0 0 3319 996 0zm4722 -3319l0 664 -2731 0 0 995 3318 0 0 2323 -3982 0 0 -663 3319 0 0 -996 -3319 0 0 -2323 3395 0zm5234 3982l-664 0 0 -3318 -996 0 0 3318 -663 0 0 -3318 -996 0 0 3318 -664 0 0 -3982 3983 0 0 3982z" />
+						</g>
+					</svg>
+				</div>
+
 			{/* Hero */}
 			<div
-				className="py-10 lg:py-18 flex flex-col relative"
+				className="pt-10 lg:pt-18 pb-2 lg:pb-8 flex flex-col relative"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
-				{/* Breadcrumbs */}
-				<nav className="flex flex-wrap items-center gap-1 text-sm">
-					{breadcrumbs.map((crumb, i) => (
-						<span key={i} className="flex items-center gap-1">
-							{i > 0 && (
-								<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
-								</svg>
-							)}
-							<Link
-								to={crumb.path}
-								className="text-gray-800 hover:text-black transition-colors font-black"
-							>
-								{crumb.label}
-							</Link>
-						</span>
-					))}
-					<span className="flex items-center gap-1">
-						<svg className="w-3 h-3 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
-						</svg>
-						<span className="text-gray-900 font-black">{article.name}</span>
-					</span>
-				</nav>
 
-				<div className="flex flex-row border-y-4 border-gray-300">
-					<div className="flex-1 pattern-bg-dots-darkthick z-3 "></div>
-					<div className="max-w-7xl p-4 sm:p-6 lg:p-8 flex flex-row z-3">
+				<div className="flex flex-row ">
+					<div className="flex-1 pattern-bg-dots-darkthick z-3 opacity-20"></div>
+					<div className="max-w-7xl w-full p-4 sm:p-6 lg:p-8 flex justify-between flex-row z-3">
 
 						{/*Title Box*/}
+
 						<div className="flex flex-col">
 							<div className="flex items-between">
 								<div className="">
@@ -274,6 +260,31 @@ export default function ArticlePage() {
 											</span>
 										)}
 									</div>
+
+									{/* Breadcrumbs */}
+									<nav className="flex flex-wrap items-center gap-1 text-sm">
+										{breadcrumbs.map((crumb, i) => (
+											<span key={i} className="flex items-center gap-1">
+												{i > 0 && (
+													<svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
+													</svg>
+												)}
+												<Link
+													to={crumb.path}
+													className="text-gray-800 hover:text-black transition-colors font-bold "
+												>
+													{crumb.label}
+												</Link>
+											</span>
+										))}
+										<span className="flex items-center gap-1">
+											<svg className="w-3 h-3 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
+											</svg>
+											<span className="text-gray-900 font-bold">{article.name}</span>
+										</span>
+									</nav>
 
 									<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-tight mb-4 ">
 										{article.name}
@@ -299,59 +310,72 @@ export default function ArticlePage() {
 						</div>
 
 						{/*image Box*/}
-						<div className="flex flex-col">
+						<div className="flex ">
 							{article.splash_image_url && (
-								<div className=" h-[100%] w-[50%] px-4 pt-18 pb-2 flex justify-end opacity-80 z-1">
+								<div className="opacity-80 z-1 flex items-center justify-center">
 									<img
 										src={article.splash_image_url}
 										alt={article.name}
-										className="object-contain hidden sm:block"
+										className="object-contain hidden sm:block w-[20vw] max-w-[360px]"
 									/>
 								</div>
 							)}
 						</div>
 
 					</div>
-					<div className="flex-1 pattern-bg-dots-darkthick  z-3"></div>
+					<div className="flex-1 pattern-bg-dots-darkthick opacity-20 z-3"></div>
 				</div>
 
 			</div>
 
+
 			{/* Body */}
 			<div className=" relative">
 				{/*<div className="bg-gradient-to-b from-transparent to-gray-200 top-0 left-0 h-[100%] w-[100%] absolute z-1"></div>*/}
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 bg-gray-50 lg:px-8">
+				<div className="max-w-7xl min-h-[300px] mx-auto bg-[#f2F2FA44]  inset-shadow-xs inset-shadow-gray-50 shadow-xl" >
+					<div className="bg-wsm-mountain h-6"></div>
 					{bodyType === "HTML" && hasHtml ? (
 						<div
-							className="prose prose-lg max-w-none"
+							className="prose prose-lg max-w-none px-2"
 							dangerouslySetInnerHTML={{ __html: article.html_body! }}
 						/>
 					) : bodyType === "Rich Text" && hasBody ? (
 						<div
-							className="prose prose-lg max-w-none"
+							className="prose prose-lg max-w-none px-2"
 							dangerouslySetInnerHTML={{ __html: article.article_body! }}
 						/>
-					) : bodyType === "MD" && hasHtml ? (
+					) : (bodyType === "MD" || bodyType === "Markdown") && hasHtml ? (
 						<div
-							className="prose prose-lg max-w-none"
+							className="prose prose-lg max-w-none px-2"
 							dangerouslySetInnerHTML={{ __html: markdownToHtml(article.html_body!) }}
 						/>
 					) : hasHtml ? (
 						<div
-							className="prose prose-lg max-w-none"
+							className="prose prose-lg max-w-none px-2"
 							dangerouslySetInnerHTML={{ __html: article.html_body! }}
 						/>
 					) : hasBody ? (
 						<div
-							className="prose prose-lg max-w-none"
+							className="prose prose-lg max-w-none px-2"
 							dangerouslySetInnerHTML={{ __html: article.article_body! }}
 						/>
 					) : (
 						<p className="text-gray-500 italic">Full content coming soon.</p>
 					)}
+					<div className="bg-wsm-victory h-6"></div>
 				</div>
 
 			</div>
+			{/* Transition */}
+			{relatedArticles.length > 0 && (
+			<Transition
+				type="mountains"
+				bgtop="transparent"
+				mountaincolor="#6c707a"
+				mountaincolor2="#000000"
+			/>
+			)}
+
 			{/* Related Articles */}
 			{relatedArticles.length > 0 && (
 				<ArticleCardSection

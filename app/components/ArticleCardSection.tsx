@@ -16,6 +16,7 @@ interface ArticleCardSectionProps {
 	id?: string;
 	trail?: string;
 	tag?: string;
+	cardType?: string;
 }
 
 const themeStyles: Record<Theme, {
@@ -29,7 +30,7 @@ const themeStyles: Record<Theme, {
 	empty: string;
 }> = {
 	dark: {
-		wrapper: "bg-wsm-dark",
+		wrapper: "bg-[#000000]",
 		outerBorder: "border-[#ffffff22] ",
 		header: "bg-wsm-dark border-[#ffffff22]",
 		grid: "",
@@ -43,7 +44,7 @@ const themeStyles: Record<Theme, {
 		empty: "text-gray-500",
 	},
 	blue: {
-		wrapper: "bg-[#036588]",
+		wrapper: "bg-[#101622]",
 		outerBorder: "border-[#ffffff33] ",
 		header: "bg-[#03658844] border-[#ffffff33]",
 		grid: "",
@@ -62,6 +63,7 @@ export default function ArticleCardSection({
 	id,
 	trail,
 	tag,
+	cardType = "regular",
 }: ArticleCardSectionProps) {
 	const s = themeStyles[theme];
 	const dotsClass = dots
@@ -80,23 +82,21 @@ export default function ArticleCardSection({
 					<div className={`flex-1 ${dotsClass}`}>
 
 					</div>
-					<div className="max-w-7xl">
-						<div className="">
-
-						</div>
+					<div className="max-w-7xl w-[100vw]">
 						<div className="relative">
 							<Tag text={tag} theme={theme} />
-							<div className={` p-4  bg-fixed`}>
+							<div className={` p-4 bg-fixed`}>
 								{articles.length === 0 ? (
 									<p className={`${s.empty} italic p-6`}>{emptyText}</p>
 								) : (
-									<div className={`flex flex-wrap justify-center ${s.grid} `}>
+									<div className={`flex flex-wrap justify-center gap-2 ${s.grid} `}>
 										{articles.map((article) => (
 											<ArticleLinkCard
 												key={article.sf_id}
 												article={article}
 												theme={theme}
 												trail={trail}
+												cardType={cardType}
 											/>
 										))}
 									</div>

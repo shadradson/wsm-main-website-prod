@@ -6,7 +6,8 @@ import { div } from "three/tsl";
 import Transition from "~/components/Transition";
 import SplashSection from "~/components/SplashSection";
 import ProcessSection from "~/components/ProcessSection";
-import Tag from  "~/components/Tag";
+import SimplePillSection from "~/components/SimplePillSection";
+import Tag from "~/components/Tag";
 
 const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
 const DESCRIPTION =
@@ -86,7 +87,7 @@ export default function Expertise() {
 						haslink: true,
 						buttontext: "FULL SEND SALESFORCE",
 						linkUrl: "/mountain-guide-services",
-						tag: "SALESFORCE EXPERTS",	
+						tag: "SALESFORCE EXPERTS",
 						infotype: "tags",
 						infotext: "Agentforce Integration,Sales Cloud & Service Cloud,Experience Cloud & Communities,Business Process Implementation,Mulesoft,API Automation,User Training & Adoption,Continuous Growth"
 					},
@@ -115,12 +116,12 @@ export default function Expertise() {
 				]}
 			/>
 			<Transition
-							type="text"
-							text="PROCESS"
-							textpos="bot"
-							textcolor="#112C3C"
-							bgtop="#F9FAFB"
-						/>
+				type="text"
+				text="PROCESS"
+				textpos="bot"
+				textcolor="#112C3C"
+				bgtop="#F9FAFB"
+			/>
 
 			<ProcessSection
 				tag="PROCESS"
@@ -154,7 +155,33 @@ export default function Expertise() {
 					},
 				]}
 			/>
-			<TechStack />
+			<SimplePillSection
+				pills={[
+					{ "buttontext": "AgenticWorkflows" },
+					{ "buttontext": "Salesforce" },
+					{ "buttontext": "Lightning Web Components" },
+					{ "buttontext": "Apex" },
+					{ "buttontext": "Einstein AI" },
+					{ "buttontext": "Agentforce" },
+					{ "buttontext": "MuleSoft" },
+					{ "buttontext": "React" },
+					{ "buttontext": "Node.js" },
+					{ "buttontext": "Cloudflare" },
+					{ "buttontext": "REST APIs" },
+					{ "buttontext": "n8n" },
+					{ "buttontext": "Payment Systems" },
+					{ "buttontext": "Credit Scoring" },
+					{ "buttontext": "AI Data Tools" },
+					{ "buttontext": "make.com" },
+				]}
+				title1="TECH WE"
+				title2="SUMMIT"
+				subtitle="We leverage the best tools and platforms to deliver exceptional results."
+				tag=""
+				type="pills"
+			theme= "light"
+			dots="true"
+			/>
 		</>
 	);
 }
@@ -209,60 +236,6 @@ function PageHero() {
 }
 
 
-function TechStack() {
-	const technologies = [
-		"Agentic Workflows",
-
-		"Salesforce",
-		"Lightning Web Components",
-		"Apex",
-		"Einstein AI",
-		"Agentforce",
-		"MuleSoft",
-		"React",
-		"Node.js",
-		"Cloudflare",
-		"REST APIs",
-		"n8n",
-		"Payment Systems",
-		"Credit Scoring",
-		"AI Data Tools",
-		"make.com",
-		"Claude",
-		"Gemini",
-	];
-
-	return (
-		<section id="expertise-tech-stack" className="bg-gray-50 flex">
-			<div className="border-r-1 border-r-solid border-r-gray-300 flex-1"></div>
-			<div className="py-20 lg:py-28">
-				<div className="max-w-7xl mx-auto py-8 border-y-1 border-y-solid border-y-gray-300 relative">
-					<Tag text="PROFICIENCY" theme="light" />
-					<h2 className="text-3xl sm:text-4xl text-center font-bold text-gray-900 mb-4">
-						Technologies We Work With
-					</h2>
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-						We leverage the best tools and platforms to deliver
-						exceptional results.
-					</p>
-					<div className="flex flex-wrap justify-center">
-						{technologies.map((tech) => (
-							<div key={tech}
-								className="p-2.5 border border-gray-300 bg-[#eee] flex-1 flex justify-center">
-								<div className="px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm h-[100%] flex items-center justify-center w-fit min-w-[120px]">
-									<span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
-										{tech}
-									</span>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-			<div className="border-l-1 border-l-solid border-l-gray-300 flex-1"></div>
-		</section>
-	);
-}
 
 
 

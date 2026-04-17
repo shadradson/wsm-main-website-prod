@@ -52,7 +52,8 @@ export default function SuccessStories() {
 			<PageHero />
 			<ArticleCardSection
 				id="stories-grid"
-				title1="Client Success Stories"
+				title1="OUR CLIENT'S"
+				title2="SUCCESS STORIES"
 				subtitle="Hear directly from the clients we've helped achieve their goals."
 				articles={articles}
 				emptyText="No success stories yet."
@@ -62,8 +63,9 @@ export default function SuccessStories() {
 			/>
 			<ArticleCardSection
 				id="implementations-grid"
-				title1="Successful Implementations"
-				subtitle="See the solutions we've delivered — built right, on time, and built to last."
+				title1="SUCCESSFUL"
+				title2="IMPLEMENTATIONS"
+				subtitle="See the solutions we've delivered! Built right, on time, and built to last."
 				articles={implArticles}
 				emptyText="No implementation stories yet."
 				theme="dark"

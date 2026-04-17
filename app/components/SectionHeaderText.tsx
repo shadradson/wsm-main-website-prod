@@ -87,7 +87,11 @@ export default function SectionHeaderText({ title1, title2, subtitle, theme = "d
 	return (
 		<div className={`${outerPaddingClass} flex-col ${vertalignClass}`}>
 			<h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl h-[content] font-[900] ${multilineClass} ${spacingClassh1} ${horzAlignClass}`}>
-				<span className={` ${topColor}`}>{title1}</span>
+				<span className={` ${topColor}`}>{title1}</span>{titlemultiline ? (
+					<span> </span>
+				) : (
+					<span></span>
+				)}
 				<span className={`${gradientColors} text-transparent bg-clip-text`}>{title2}</span>
 			</h2>
 			{subtitle && (

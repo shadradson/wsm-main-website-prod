@@ -204,3 +204,6 @@ dist
 
 ### Dev seed data (contains real client data) ###
 scripts/dev-seed.sql
+
+### Salesforce ###
+.sfdx/

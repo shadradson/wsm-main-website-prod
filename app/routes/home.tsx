@@ -195,7 +195,7 @@ export default function Home() {
 			{testimonials.length > 0 && (
 				<ArticleCardSection
 					id="home-testimonials"
-					title1="CLIENT "
+					title1="CLIENT"
 					title2="TESTIMONIALS"
 					subtitle="Hear what our clients have to say about working with us."
 					articles={testimonials}
@@ -207,7 +207,7 @@ export default function Home() {
 
 			<CsatCardSection
 				surveys={csatSurveys}
-				title1="CLIENT "
+				title1="CLIENT"
 				title2="SATISFACTION"
 				subtitle="Real feedback from the people at the tops of their mountains."
 				id="home-csat"
@@ -379,7 +379,7 @@ function ServicesOverview() {
 								to={service.href}
 								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
 							>
-								<div className="w-14 h-14 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+								<div className="w-14 h-14 bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
 									{service.icon}
 								</div>
 								<h3 className="text-xl font-bold text-white mb-3">

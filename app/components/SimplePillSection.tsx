@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useEffect, useRef } from "react";
 import SectionHeaderText from "./SectionHeaderText";
 import Tag from "./Tag";
+import { div } from "three/tsl";
 
 interface Pill {
     linkUrl?: string;
@@ -14,13 +15,15 @@ interface SimplePillSectionProps {
     title2?: string;
     subtitle?: string;
     imageUrl?: string;
+    imageAlt?: string;
+    imageShadow?: string;
     tag?: string;
     type?: "pills" | "imgpills";
     theme?: "light" | "dark" | "blue";
     dots?: string;
 }
 
-export default function SimplePillSection({ pills, title1, title2, tag, subtitle, imageUrl, type, theme = "dark", dots }: SimplePillSectionProps) {
+export default function SimplePillSection({ pills, title1, title2, tag, subtitle, imageUrl, imageAlt, imageShadow = "false", type, theme = "dark", dots }: SimplePillSectionProps) {
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -44,6 +47,19 @@ export default function SimplePillSection({ pills, title1, title2, tag, subtitle
         dotsclass = theme === "light" ? "pattern-bg-dots-light" : "pattern-bg-dots";
     }
 
+    let hasImage = false;
+    if (imageUrl) {
+        hasImage = true;
+    }
+    // image stuff
+    if (imageAlt === null || imageAlt === undefined) {
+        imageAlt = `${title1}  ${title2}`;
+    };
+    let imageShadowClass = "";
+    if (imageShadow === "true") {
+        imageShadowClass = "drop-shadow-[3px_3px_3px_rgba(0,0,0,0.25)]"
+    }
+
     const isDark = theme === "dark";
     const isBlue = theme === "blue";
     const bgClass = isDark ? "bg-black" : isBlue ? "bg-[#036588]" : "bg-gray-100";
@@ -65,36 +81,31 @@ export default function SimplePillSection({ pills, title1, title2, tag, subtitle
                     <div className="py-20 lg:py-28">
                         <div className="max-w-7xl mx-auto py-8 relative">
                             <div className="flex flex-row flex-wrap">
-                                <SectionHeaderText
-                                    title1={title1}
-                                    title2={title2}
-                                    subtitle={subtitle}
-                                    theme={theme}
-                                    titlemultiline="true"
-                                />
-                                <div className="flex-1">
-                                    {/* Salesforce Partner Badge */}
-                                    <div className="flex justify-center mb-12">
-                                        <div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
-                                            <div className="w-4/5">
-                                                <img src="/images/Salesforce logo.svg" alt="Salesforce" />
-                                            </div>
-                                            <div className="text-center text-wsm-dark">
-                                                <p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
-                                            </div>
-                                            <div className="text-center text-wsm-dark">
-                                                <p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
-                                            </div>
+                                <div className="flex-1 max-w-[70%]">
+                                    <SectionHeaderText
+                                        title1={title1}
+                                        title2={title2}
+                                        subtitle={subtitle}
+                                        theme={theme}
+                                        titlemultiline="true"
+                                    />
+                                </div>
+                                {/* Image */}
+                                {imageUrl ? (
+                                    <div className="flex-1 max-w-full sm:max-w-[30%]">
+                                        <div className={`flex justify-end p-4`}>
+                                            <img src={imageUrl} alt={imageAlt} className={`max-w-[200px] max-h-[200px] min-h-[80px] ${imageShadowClass}`} />
                                         </div>
                                     </div>
-                                </div>
+                                ) : (
+                                    <div />
+                                )}
                             </div>
 
                             <div className="flex flex-wrap justify-center">
                                 {pills.map((pill) => (
-                                    <div key={pill.buttontext}
-                                        className="p-2.5  flex-1 flex justify-center">
-                                        <div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-fit min-w-[120px]">
+                                    <div key={pill.buttontext} className="p-1 sm:p-2 flex-1 flex justify-center min-w-[360px] sm:min-w-auto">
+                                        <div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-full sm:w-fit min-w-[120px]">
                                             <span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
                                                 {pill.buttontext}
                                             </span>

@@ -4,6 +4,7 @@ import { buildMeta, SITE_URL } from "~/lib/seo";
 import Transition from "~/components/Transition";
 import SimpleTextSection from "~/components/SimpleTextSection";
 import SectionHeaderText from "~/components/SectionHeaderText";
+import SimplePillSection from "~/components/SimplePillSection";
 import Stats from "~/components/StatSection";
 
 interface TeamMember {
@@ -113,7 +114,30 @@ export default function OurTeam() {
 				bgtop="#000000"
 				dots="true"
 			/>
-			<CertificationsSection />
+			<SimplePillSection
+				pills={[
+					{ "buttontext": "Salesforce Certified Administrator" },
+					{ "buttontext": "Salesforce Sales Cloud Consultant" },
+					{ "buttontext": "Salesforce Platform Developer I" },
+					{ "buttontext": "Salesforce Service Cloud Consultant" },
+					{ "buttontext": "Salesforce Digital Experience Consultant" },
+					{ "buttontext": "Salesforce Platform App Builder" },
+					{ "buttontext": "Salesforce Data Architect" },
+					{ "buttontext": "Salesforce Sharing and Visbility Designer" },
+					{ "buttontext": "Salesforce CPQ Certified Administrator" },
+					{ "buttontext": "Salesforce Business Analyst" },
+				]}
+				title1="CERTIFIED"
+				title2="PROFESSIONALS"
+				subtitle="Our team maintains the industry's most respected certifications to deliver the highest quality solutions."
+				tag=""
+				type="pills"
+				theme="light"
+				dots="true"
+				imageUrl="/images/Salesforce_Partner_cert_shield.svg"
+				imageAlt="Salesforce Certified Partner"
+				imageShadow="true"
+			/>
 			<Transition
 				type="text"
 				text="OUR"
@@ -131,7 +155,7 @@ export default function OurTeam() {
 			<SimpleTextSection
 				theme="blue"
 				type="2bar"
-				title1="THE WSM "
+				title1="THE WSM"
 				title2="MISSION"
 				tag="TRUE NORTH"
 				subtitle="is to give people the foundations to grow themselves and their companies by improving communication interpersonally, interdepartmentally, and with software. We will learn to cultivate the best in ourselves, and in each other as we stride toward the top of each mountain. Our knowledge is shared so that we can all grow greater than any one of us."
@@ -147,7 +171,7 @@ export default function OurTeam() {
 			<SimpleTextSection
 				theme="light"
 				type="VCards"
-				title1="OUR CORE VALUES "
+				title1="OUR CORE VALUES"
 				title2="THAT DRIVE US"
 				subtitle="These principles guide everything we do and every solution we build."
 				cards={[
@@ -379,70 +403,6 @@ function TeamGrid() {
 			</div>
 		</section>
 
-	);
-}
-
-function CertificationsSection() {
-	const sfcertifications = [
-		"Salesforce Certified Administrator",
-		"Salesforce Sales Cloud Consultant",
-		"Salesforce Platform Developer I",
-		"Salesforce Service Cloud Consultant",
-		"Salesforce Digital Experience Consultant",
-		"Salesforce Platform App Builder",
-		"Salesforce Data Architect",
-		"Salesforce Sharing and Visbility Designer",
-		"Salesforce CPQ Certified Administrator",
-		"Salesforce Business Analyst",
-	];
-
-	return (
-		<section id="team-certifications" className="bg-gradient-to-b from-gray-100 to-gray-300 flex">
-			<div className="flex flex-col flex-1">
-				<div className="py-20 lg:py-28">
-					<div className="max-w-7xl mx-auto py-8 relative">
-						<div className="flex flex-row flex-wrap">
-							<SectionHeaderText
-								title1="CERTIFIED"
-								title2="PROFESSIONALS"
-								subtitle="Our team maintains the industry's most respected certifications to deliver the highest quality solutions."
-								theme="light"
-								titlemultiline="true"
-							/>
-							<div className="flex-1">
-								{/* Salesforce Partner Badge */}
-								<div className="flex justify-center mb-12">
-									<div className="p-4 rounded-[20px] w-full max-w-[200px] flex flex-col justify-between items-center gap-4 shadow-[6px_6px_3px_rgba(0,0,0,0.15)] bg-wsm-light-blue">
-										<div className="w-4/5">
-											<img src="/images/Salesforce logo.svg" alt="Salesforce" />
-										</div>
-										<div className="text-center text-wsm-dark">
-											<p className="text-[2rem] font-black leading-[2rem]">PARTNER</p>
-										</div>
-										<div className="text-center text-wsm-dark">
-											<p className="text-[1.75rem] font-bold leading-[1.75rem]">SINCE 2023</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div className="flex flex-wrap justify-center">
-							{sfcertifications.map((cert) => (
-								<div key={cert}
-									className="p-2.5  flex-1 flex justify-center">
-									<div className="px-5 py-2.5 bg-gray-50 rounded-full shadow-md shadow-md h-[100%] flex items-center justify-center w-fit min-w-[120px]">
-										<span className="text-sm font-[700] text-gray-700 whitespace-nowrap">
-											{cert}
-										</span>
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
 	);
 }
 

@@ -98,6 +98,7 @@ function WhatWeDoSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 								articles={articleRefs.map(articleRefToCardData)}
 								theme="light"
 								trail="ai-consulting"
+								cardType="compact"
 							/>
 						</div>
 					</div>

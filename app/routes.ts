@@ -26,6 +26,8 @@ export default [
 	route("api/lead", "routes/api.lead.ts"),
 	route("api/sync", "routes/api.sync.ts"),
 	route("api/assets/*", "routes/api.assets.$.ts"),
+	route("api/article-image/:id", "routes/api.article-image.$id.ts"),
 	route("api/debug", "routes/api.debug.ts"),
+	route("api/debug-article-image", "routes/api.debug-article-image.ts"),
 	route("ai-scrape-test", "routes/ai-scrape-test.tsx"),
 ] satisfies RouteConfig;

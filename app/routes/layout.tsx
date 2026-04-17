@@ -96,7 +96,7 @@ function Header() {
 									end={link.to === "/"}
 									onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
 									className={({ isActive }) =>
-										`flex-1 block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
+										`flex-1 block px-4 py-3 text-sm font-medium transition-colors ${isActive
 											? "text-brand-sky bg-white/10"
 											: "text-gray-300 hover:text-white hover:bg-white/5"
 										}`
@@ -123,7 +123,7 @@ function Header() {
 											to={child.to}
 											onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
 											className={({ isActive }) =>
-												`block px-4 py-2 rounded-lg text-sm transition-colors ${isActive
+												`block px-4 py-2 text-sm transition-colors ${isActive
 													? "text-brand-sky bg-white/10"
 													: "text-gray-400 hover:text-white hover:bg-white/5"
 												}`
@@ -138,7 +138,7 @@ function Header() {
 					))}
 					<button
 						onClick={handleGetClimbing}
-						className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+						className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
 					>
 						Get Climbing
 					</button>
