@@ -11,4 +11,10 @@ export default defineConfig({
 		reactRouter(),
 		tsconfigPaths(),
 	],
+	css: {
+		// Disable Lightning CSS transformer — it strips newer properties like
+		// animation-timeline: view() and animation-range that scroll-driven
+		// animations rely on.
+		transformer: "postcss",
+	},
 });
