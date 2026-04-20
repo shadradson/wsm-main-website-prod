@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { buildMeta, SITE_URL } from "~/lib/seo";
 import ArticleCardSection from "~/components/ArticleCardSection";
 import { PAGE_CRUMBS, MAX_TRAIL_DEPTH, buildTrailParam } from "~/lib/types";
+import { getRelatedArticles } from "~/lib/relatedArticles.server";
 import { div } from "three/tsl";
 import Transition from "~/components/Transition"
 
@@ -43,16 +44,6 @@ interface Article {
 	admin_approval: number;
 }
 
-interface RelatedArticle {
-	sf_id: string;
-	name: string;
-	subtitle: string | null;
-	short_description: string | null;
-	subcategory: string | null;
-	vertical_product: string | null;
-	splash_image_url: string | null;
-	relationship_type: string | null;
-}
 
 export function meta({ data }: Route.MetaArgs) {
 	if (!data?.article) {
@@ -90,21 +81,7 @@ export async function loader({ context, params, request }: Route.LoaderArgs) {
 		throw new Response("Not Found", { status: 404 });
 	}
 
-	const { results: relatedArticles } = await db.prepare(
-		`SELECT a.sf_id, a.name, a.subtitle, a.short_description,
-			a.subcategory, a.vertical_product, a.splash_image_url, ar.relationship_type
-		FROM article_references ar
-		JOIN articles a ON a.sf_id = ar.child_article_id
-		WHERE ar.parent_or_primary_id = ?
-			AND a.admin_approval = 1 AND a.publish_status = 'Published'
-		UNION
-		SELECT a.sf_id, a.name, a.subtitle, a.short_description,
-			a.subcategory, a.vertical_product, a.splash_image_url, ar.relationship_type
-		FROM article_references ar
-		JOIN articles a ON a.sf_id = ar.parent_or_primary_id
-		WHERE ar.child_article_id = ?
-			AND a.admin_approval = 1 AND a.publish_status = 'Published'`
-	).bind(id, id).all<RelatedArticle>();
+	const relatedGroups = await getRelatedArticles(db, id, article.name, article.article_category);
 
 	// Resolve breadcrumb trail — fetch article names for sf_ids in the trail
 	const trailParts = trailParam ? trailParam.split(",").slice(-MAX_TRAIL_DEPTH) : [];
@@ -148,7 +125,7 @@ export async function loader({ context, params, request }: Route.LoaderArgs) {
 
 	return {
 		article,
-		relatedArticles: relatedArticles ?? [],
+		relatedGroups,
 		breadcrumbs,
 		trail: trailParam,
 		nextTrail,
@@ -156,7 +133,7 @@ export async function loader({ context, params, request }: Route.LoaderArgs) {
 }
 
 export default function ArticlePage() {
-	const { article, relatedArticles, breadcrumbs, nextTrail } = useLoaderData<typeof loader>();
+	const { article, relatedGroups, breadcrumbs, nextTrail } = useLoaderData<typeof loader>();
 
 	const bodyType = article.body_type?.trim() ?? "";
 	const hasHtml = !!article.html_body?.trim();
@@ -367,7 +344,7 @@ export default function ArticlePage() {
 
 			</div>
 			{/* Transition */}
-			{relatedArticles.length > 0 && (
+			{relatedGroups.length > 0 && (
 			<Transition
 				type="mountains"
 				bgtop="transparent"
@@ -376,17 +353,18 @@ export default function ArticlePage() {
 			/>
 			)}
 
-			{/* Related Articles */}
-			{relatedArticles.length > 0 && (
+			{/* Related Articles — grouped by relationship type */}
+			{relatedGroups.map((group, i) => (
 				<ArticleCardSection
-					id="related-articles"
-					title1="RELATED ARTICLES"
-					articles={relatedArticles}
+					key={i}
+					id={`related-${i}`}
+					title1={group.title.toUpperCase()}
+					articles={group.articles}
 					theme="dark"
 					dots
 					trail={nextTrail}
 				/>
-			)}
+			))}
 
 		</div>
 	);

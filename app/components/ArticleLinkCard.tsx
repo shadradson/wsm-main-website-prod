@@ -102,7 +102,7 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 					{/* Inner Box */}
 					<div className={`${s.cardInner} rounded-sm flex flex-col justify-between gap-4 h-full relative z-10 transition-colors`}>
 						{/* Header (Only Image and number) */}
-						<div className="relative flex pt-8 flex-col justify-center flex-1">
+						<div className="relative flex pt-8 px-8 flex-col justify-center flex-1">
 							{/* Image or initials box */}
 							{article.splash_image_url ? (
 								<img
