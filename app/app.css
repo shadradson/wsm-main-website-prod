@@ -1503,7 +1503,7 @@ div.section_outer {
     justify-content: space-between;
     flex-direction: column;
     gap: 1rem;
-	background: #e7e7e7;
+	background: linear-gradient(90deg, #dddddd, #e2d1eb);
     box-shadow: 3px 3px 3px #777777;
 	flex-grow: 1;
     flex-basis: 0;
@@ -1540,12 +1540,12 @@ ol.stacked_list {
     padding: 0.25rem;
 }
 ol.stacked_list>li {
-    background-color: #f5f5f5;
+    background: linear-gradient(90deg, #dddddd, #e2d1eb);
     border-left: 12px solid #51bee7;
-    border-radius: 0;
+    border-radius: 0 2.5rem 2.5rem 0;
     padding: .5rem .75rem;
     display: block;
-    box-shadow: 3px 3px 4px #00000044;
+    box-shadow: 2px 2px 4px #00000044;
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Links <<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -1654,9 +1654,13 @@ ol.stacked_list>li {
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Moutain Transition <<<<<<<<<<<<<<<<<<<<<<<<<*/
 @keyframes mount_pop_up1 {
 	0% {transform: translatey(0vw);}
-	100% {transform: translatey(40vh);}
+	100% {transform: translatey(60vh);}
   }
   @keyframes mount_pop_up2 {
+	0% {transform: translatey(0vw);}
+	100% {transform: translatey(30vh);}
+  }
+  @keyframes mount_pop_up3 {
 	0% {transform: translatey(0vh);}
 	100% {transform: translatey(0vh);}
   }
@@ -1701,12 +1705,26 @@ ol.stacked_list>li {
 	bottom: 0;
 	z-index: 2;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
 	transform: scale(1.2);
 	animation: mount_pop_up2 linear;
 	animation-timeline: view();
-	animation-range-start: 120vh;
-	animation-range-end: 0vh;
+	animation-range-start: entry 0%;
+	animation-range-end: exist 100%;
 }
+.splash_mountain3 {
+	position: absolute;
+	bottom: 0;
+	z-index: 3;
+	width: 100%;
+	transform: scale(1.2);
+	animation: mount_pop_up3 linear;
+	animation-timeline: view();
+	animation-range-start: entry 0%;
+	animation-range-end: exist 100%;
+}
+
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Markdown Styles <<<<<<<<<<<<<<<<<<<<<<<<<*/
 /* Base markdown element */

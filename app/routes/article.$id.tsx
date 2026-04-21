@@ -200,7 +200,7 @@ export default function ArticlePage() {
 	}, [article.sf_id]);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-[#e3E5EA] to-[#bdBFC5] relative">
+		<div className="min-h-screen bg-gray-400 relative">
 			<div className="absolute bottom-200 -left-40 rotate-90">
 				<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10rem" height="" version="1.1" viewBox="0 0 13275 3982" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<g>
@@ -211,7 +211,7 @@ export default function ArticlePage() {
 
 			{/* Hero */}
 			<div
-				className="pt-10 lg:pt-18 pb-2 lg:pb-8 flex flex-col relative"
+				className="pt-10 lg:pt-18 pb-2 lg:pb-8 flex flex-col relative bg-gradient-to-b from-[#e3E5EA] to-[#e3E5EA00] z-2"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
 
@@ -308,7 +308,7 @@ export default function ArticlePage() {
 			{/* Body */}
 			{(hasHtml || hasBody) && (
 				<div className=" relative">
-					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#eeeefb]  inset-shadow-xs inset-shadow-gray-50 shadow-xl" >
+					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#cfcfdd] inset-shadow-xs inset-shadow-gray-50 shadow-xl shadow-gray-500" >
 						<div className="bg-gradient-to-r from-[#a365c1] to-wsm-mountain h-3"></div>
 						{bodyType === "HTML" && hasHtml ? (
 							<div
@@ -348,7 +348,8 @@ export default function ArticlePage() {
 					type="mountains"
 					bgtop="transparent"
 					mountaincolor="#6c707a"
-					mountaincolor2="#000000"
+					mountaincolor2="#383b44"
+					mountaincolor3="#000000"
 				/>
 			)}
 
@@ -366,7 +367,6 @@ export default function ArticlePage() {
 					cardType="regular_no_img"
 				/>
 			))}
-
 		</div>
 	);
 }
