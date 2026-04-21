@@ -91,91 +91,91 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 		? `/article/${article.sf_id}?trail=${encodeURIComponent(trail)}`
 		: `/article/${article.sf_id}`;
 
-		if (cardType === "regular") {
-			return (
-				<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
-					{/* Outer Box */}
-					<div className={`${s.cardOuter} p-1 aspect-[2/1] relative rounded-lg`}>
-						{/* Hover gradient overlay */}
-						<div className={`${s.cardHoverGradient} absolute inset-0 opacity-0 rounded-lg group-hover:opacity-100 transition-opacity duration-200`} />
-	
-						{/* Inner Box */}
-						<div className={`${s.cardInner} rounded-sm flex flex-col justify-between gap-4 h-full relative z-10 transition-colors`}>
-							{/* Header (Only Image and number) */}
-							<div className="relative flex pt-8 px-8 flex-col justify-center flex-1">
-								{/* Image or initials box */}
-								{article.splash_image_url ? (
-									<img
-										src={article.splash_image_url}
-										alt={article.name}
-										className="aspect-square max-h-[40px] object-contain h-[20vw] "
-									/>
-								) : (
-									<img
-										src={"images/WSM_LOGO_V2_Norm_Wht.svg"}
-										alt={article.name}
-										className="aspect-square max-h-[40px] object-contain "
-									/>
+	if (cardType === "regular") {
+		return (
+			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
+				{/* Outer Box */}
+				<div className={`${s.cardOuter} p-1 aspect-[2/1] relative rounded-lg`}>
+					{/* Hover gradient overlay */}
+					<div className={`${s.cardHoverGradient} absolute inset-0 opacity-0 rounded-lg group-hover:opacity-100 transition-opacity duration-200`} />
+
+					{/* Inner Box */}
+					<div className={`${s.cardInner} rounded-sm flex flex-col justify-between gap-4 h-full relative z-10 transition-colors`}>
+						{/* Header (Only Image and number) */}
+						<div className="relative flex pt-8 px-8 flex-col justify-center flex-1">
+							{/* Image or initials box */}
+							{article.splash_image_url ? (
+								<img
+									src={article.splash_image_url}
+									alt={article.name}
+									className="aspect-square max-h-[40px] object-contain h-[20vw] "
+								/>
+							) : (
+								<img
+									src={"images/WSM_LOGO_V2_Norm_Wht.svg"}
+									alt={article.name}
+									className="aspect-square max-h-[40px] object-contain "
+								/>
+							)}
+							{article.vertical_product && (
+								<span className={`text-xs text-center font-medium ${s.productText} ${s.productBg} flex-1 px-2 py-1 absolute right-0 top-0 `}>
+									{article.vertical_product}
+								</span>
+							)}
+						</div>
+
+						{/* Body */}
+						<div className="p-2 ">
+							{/* Image or initials box */}
+							<div className="text-center sm:text-left w-[100%] h-[100%] flex flex-col justify-between relative">
+
+
+								<h3 className={`text-lg font-bold ${s.title} leading-snug`}>
+									{article.name}
+								</h3>
+								{article.subtitle && (
+									<p className={`${s.subtitle} text-sm text-[0.75rem] font-medium`}>
+										{article.subtitle}
+									</p>
 								)}
-								{article.vertical_product && (
-									<span className={`text-xs text-center font-medium ${s.productText} ${s.productBg} flex-1 px-2 py-1 absolute right-0 top-0 `}>
-										{article.vertical_product}
-									</span>
+								{article.author_first_name && (
+									<p className={`text-xs ${s.author}`}>
+										By {article.author_first_name} {article.author_last_name}
+										{article.author_title && ` — ${article.author_title}`}
+									</p>
 								)}
-							</div>
-	
-							{/* Body */}
-							<div className="p-2 ">
-								{/* Image or initials box */}
-								<div className="text-center sm:text-left w-[100%] h-[100%] flex flex-col justify-between relative">
-	
-	
-									<h3 className={`text-lg font-bold ${s.title} leading-snug`}>
-										{article.name}
-									</h3>
-									{article.subtitle && (
-										<p className={`${s.subtitle} text-sm text-[0.75rem] font-medium`}>
-											{article.subtitle}
-										</p>
-									)}
-									{article.author_first_name && (
-										<p className={`text-xs ${s.author}`}>
-											By {article.author_first_name} {article.author_last_name}
-											{article.author_title && ` — ${article.author_title}`}
-										</p>
-									)}
-									{/*article.short_description && (
+								{/*article.short_description && (
 									<p className={`${s.description} text-sm leading-relaxed mt-2 line-clamp-3`}>
 										{article.short_description}
 									</p>
 								)*/}
-									<div className="flex flex-wrap justify-center sm:justify-start">
-										{/*article.subcategory && (
+								<div className="flex flex-wrap justify-center sm:justify-start">
+									{/*article.subcategory && (
 								<span className={`text-xs font-semibold ${s.tagText} ${s.tagBg} border px-2 py-1`}>
 									{article.subcategory}
 								</span>
 							)*/}
-									</div>
-	
 								</div>
+
 							</div>
 						</div>
-	
 					</div>
-				</Link >
-			);
-		}
-		if (cardType === "regular_no_img") {
-			return (
-				<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] min-h-20 grow group p-0" >
-					{/* Outer Box */}
-					<div className={`${s.cardOuter} h-full p-1 relative rounded-lg`}>
-						{/* Hover gradient overlay */}
-						<div className={`${s.cardHoverGradient} absolute inset-0 opacity-0 rounded-lg group-hover:opacity-100 transition-opacity duration-200`} />
-	
-						{/* Inner Box */}
-						<div className={`${s.cardInner} rounded-sm flex flex-col justify-between gap-4 h-full relative z-10 transition-colors`}>
-							{/* Header (Only Image and number) 
+
+				</div>
+			</Link >
+		);
+	}
+	if (cardType === "regular_no_img") {
+		return (
+			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] min-h-20 grow group p-0" >
+				{/* Outer Box */}
+				<div className={`${s.cardOuter} h-full p-1 relative rounded-lg`}>
+					{/* Hover gradient overlay */}
+					<div className={`${s.cardHoverGradient} absolute inset-0 opacity-0 rounded-lg group-hover:opacity-100 transition-opacity duration-200`} />
+
+					{/* Inner Box */}
+					<div className={`${s.cardInner} rounded-sm flex flex-col justify-between gap-4 h-full relative z-10 transition-colors`}>
+						{/* Header (Only Image and number) 
 							<div className="relative flex pt-8 px-8 flex-col justify-center flex-1">
 								{article.vertical_product && (
 									<span className={`text-xs text-center font-medium ${s.productText} ${s.productBg} flex-1 px-2 py-1 absolute right-0 top-0 `}>
@@ -183,48 +183,48 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 									</span>
 								)}
 							</div>*/}
-	
-							{/* Body */}
-							<div className="p-2 ">
-								{/* Image or initials box */}
-								<div className="text-center w-[100%] h-[100%] flex flex-col justify-between relative">
-	
-	
-									<h3 className={`text-lg font-bold ${s.title} leading-snug`}>
-										{article.name}
-									</h3>
-									{article.subtitle && (
-										<p className={`${s.subtitle} text-sm text-[0.75rem] font-medium`}>
-											{article.subtitle}
-										</p>
-									)}
-									{article.author_first_name && (
-										<p className={`text-xs ${s.author}`}>
-											By {article.author_first_name} {article.author_last_name}
-											{article.author_title && ` — ${article.author_title}`}
-										</p>
-									)}
-									{/*article.short_description && (
+
+						{/* Body */}
+						<div className="p-4 h-full">
+							{/* Image or initials box */}
+							<div className="text-left w-[100%] h-[100%] flex flex-col justify-between relative">
+
+
+								<h3 className={`text-[1.15rem] font-bold ${s.title} leading-snug`}>
+									{article.name}
+								</h3>
+								{article.subtitle && (
+									<p className={`${s.subtitle} text-sm text-[0.75rem] font-regular`}>
+										{article.subtitle}
+									</p>
+								)}
+								{article.author_first_name && (
+									<p className={`text-xs ${s.author}`}>
+										By {article.author_first_name} {article.author_last_name}
+										{article.author_title && ` — ${article.author_title}`}
+									</p>
+								)}
+								{/*article.short_description && (
 									<p className={`${s.description} text-sm leading-relaxed mt-2 line-clamp-3`}>
 										{article.short_description}
 									</p>
 								)*/}
-									<div className="flex flex-wrap justify-center sm:justify-start">
-										{/*article.subcategory && (
-								<span className={`text-xs font-semibold ${s.tagText} ${s.tagBg} border px-2 py-1`}>
-									{article.subcategory}
-								</span>
-							)*/}
-									</div>
-	
-								</div>
+									{/*<div className="flex flex-wrap justify-center sm:justify-start">
+										article.subcategory && (
+										<span className={`text-xs font-semibold ${s.tagText} ${s.tagBg} border px-2 py-1`}>
+											{article.subcategory}
+										</span>
+									)}
+									</div>*/}
+
 							</div>
 						</div>
-	
 					</div>
-				</Link >
-			);
-		}
+
+				</div>
+			</Link >
+		);
+	}
 	else if (cardType === "compact") {
 		return (
 			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
