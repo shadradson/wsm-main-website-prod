@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { useEffect, useRef } from "react";
 import SectionHeaderText from "./SectionHeaderText";
 import Tag from "./Tag";
-import { div } from "three/tsl";
 
 interface Pill {
     linkUrl?: string;

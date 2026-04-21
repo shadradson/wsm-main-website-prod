@@ -1666,7 +1666,7 @@ ol.stacked_list>li {
 	100% {transform: translatey(0vh); background: #ffffff  ;}
   }
 .splash_mountains {
-	min-height: 240px;
+	min-height: 300px;
 	position: relative;
 	overflow: clip;
 }
@@ -1675,13 +1675,13 @@ ol.stacked_list>li {
 	position: absolute;
 	z-index: 0;
 	border-radius: 100%;
-	height: 130px;
+	height: 120px;
 	width: 120px;
 	background:#eeeeee;
 	animation: sun_pop_up linear;
 	animation-timeline: view();
-	animation-range-start: 120vh;
-	animation-range-end: 0vh;
+	animation-range-start: entry 0%;
+	animation-range-end: exist 100%;
 }
 .splash_mountain1 {
 	position: absolute;
@@ -1692,8 +1692,8 @@ ol.stacked_list>li {
 	flex-direction: column;
 	animation: mount_pop_up1 linear;
 	animation-timeline: view();
-	animation-range-start: 120vh;
-	animation-range-end: 0vh;
+	animation-range-start: entry 0%;
+	animation-range-end: exist 100%;
 	}
 	/* absolute bottom-0 z-2 w-full scale-120*/
 .splash_mountain2 {

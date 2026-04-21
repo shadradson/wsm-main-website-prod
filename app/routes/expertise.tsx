@@ -2,7 +2,6 @@ import type { Route } from "./+types/expertise";
 import Hexagons from "~/components/Hexagons";
 import { MOUNTAIN_POINTS_PATH } from "~/lib/svgPaths";
 import { buildMeta, SITE_URL } from "~/lib/seo";
-import { div } from "three/tsl";
 import Transition from "~/components/Transition";
 import SplashSection from "~/components/SplashSection";
 import ProcessSection from "~/components/ProcessSection";
