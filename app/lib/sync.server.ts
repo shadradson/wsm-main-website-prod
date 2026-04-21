@@ -27,6 +27,7 @@ interface SFContact {
 	Date_Started_At_WSM__c: string | null;
 	Years_At_WSM__c: number | null;
 	WSM_Website_Photo_1__c: string | null;
+	Bio__c: string | null;
 }
 
 const CONTACT_QUERY = `
@@ -35,7 +36,7 @@ const CONTACT_QUERY = `
 		Trailblazer_Account_URL__c, Linked_In_URL__c,
 		Date_Started_In_Industry__c, Time_In_Industry_In_Years__c,
 		Date_Started_At_WSM__c, Years_At_WSM__c,
-		WSM_Website_Photo_1__c
+		WSM_Website_Photo_1__c, Bio__c
 	FROM Contact
 	WHERE zbe_AboutUsSortOrder__c != null
 		AND Contact_Status__c = 'WSM - Actively Employed'
@@ -197,8 +198,8 @@ export async function runSync(env: SyncEnv): Promise<{
 			);
 
 			await env.DB.prepare(`
-				INSERT INTO contacts (sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key, synced_at)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+				INSERT INTO contacts (sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key, bio_article_id, synced_at)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
 				ON CONFLICT(sf_id) DO UPDATE SET
 					first_name = excluded.first_name,
 					last_name = excluded.last_name,
@@ -212,6 +213,7 @@ export async function runSync(env: SyncEnv): Promise<{
 					date_started_at_wsm = excluded.date_started_at_wsm,
 					years_at_wsm = excluded.years_at_wsm,
 					photo_r2_key = excluded.photo_r2_key,
+					bio_article_id = excluded.bio_article_id,
 					synced_at = excluded.synced_at
 			`).bind(
 				c.Id, c.FirstName, c.LastName, c.Title,
@@ -219,6 +221,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				c.Trailblazer_Account_URL__c, c.Linked_In_URL__c,
 				c.Date_Started_In_Industry__c, c.Time_In_Industry_In_Years__c,
 				c.Date_Started_At_WSM__c, c.Years_At_WSM__c, photoKey,
+				c.Bio__c,
 			).run();
 		}
 

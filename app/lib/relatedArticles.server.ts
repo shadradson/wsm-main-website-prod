@@ -62,7 +62,7 @@ function makeRelatedTitlesAndSubtitles(
 		case "Customer Success Story":
 			if (currentArticleCategory === "Case Study") {
 				title = `${articleName} Customer Success Stories`;
-				subtitle = `Clients We Have Summited ${articleName} With`;
+				subtitle = `Clients We Have Overcome ${articleName} With`;
 			} else if (currentArticleCategory === "Customer Success Story") {
 				title = "Related Customer Success Stories";
 				subtitle = `Other clients We Have Summited Mountains With`;

@@ -21,6 +21,7 @@ interface TeamMember {
 	date_started_at_wsm: string | null;
 	years_at_wsm: number | null;
 	photo_r2_key: string | null;
+	bio_article_id: string | null;
 }
 
 const TITLE = "About Us | We Summit Mountains | Dallas Salesforce & AI Consultants";
@@ -51,7 +52,7 @@ export function meta({ }: Route.MetaArgs) {
 export async function loader({ context }: Route.LoaderArgs) {
 	const db = context.cloudflare.env.DB;
 	const { results } = await db.prepare(
-		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key FROM contacts ORDER BY about_us_sort_order ASC",
+		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key, bio_article_id FROM contacts ORDER BY about_us_sort_order ASC",
 	).all<TeamMember>();
 
 	const team = results ?? [];
@@ -310,8 +311,19 @@ function TeamGrid() {
 							<div className="flex flex-wrap justify-center">
 								{team.map((member: TeamMember) => {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
+									const Wrapper = member.bio_article_id
+										? ({ children }: { children: React.ReactNode }) => (
+											<Link to={`/article/${member.bio_article_id}?trail=our-team`} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] hover:border-[#ffffff77] transition-all cursor-pointer no-underline text-inherit">
+												{children}
+											</Link>
+										)
+										: ({ children }: { children: React.ReactNode }) => (
+											<div className="w-full sm:w-[calc(50%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] transition-all">
+												{children}
+											</div>
+										);
 									return (
-										<div key={member.sf_id} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] hover-border-[#ffffff77] transition-all cursor-pointer">
+										<Wrapper key={member.sf_id}>
 											<div className="flex flex-col h-full relative z-10">
 												{/* Top row: photo left, name/title right */}
 												<div className="flex items-center sm:items-start flex-col sm:flex-row">
@@ -386,7 +398,7 @@ function TeamGrid() {
 													</div>
 												)}
 											</div>
-										</div>
+										</Wrapper>
 									);
 								})}
 							</div>

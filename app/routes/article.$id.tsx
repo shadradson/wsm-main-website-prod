@@ -203,12 +203,12 @@ export default function ArticlePage() {
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-[#e3E5EA] to-[#bdBFC5] relative">
 			<div className="absolute bottom-200 -left-40 rotate-90">
-					<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10rem" height="" version="1.1" viewBox="0 0 13275 3982" xmlns:xlink="http://www.w3.org/1999/xlink">
-						<g>
-							<path fill="white" d="M3319 3319l0 -3319 663 0 0 3982 -3982 0 0 -3982 664 0 0 3319 995 0 0 -3319 664 0 0 3319 996 0zm4722 -3319l0 664 -2731 0 0 995 3318 0 0 2323 -3982 0 0 -663 3319 0 0 -996 -3319 0 0 -2323 3395 0zm5234 3982l-664 0 0 -3318 -996 0 0 3318 -663 0 0 -3318 -996 0 0 3318 -664 0 0 -3982 3983 0 0 3982z" />
-						</g>
-					</svg>
-				</div>
+				<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10rem" height="" version="1.1" viewBox="0 0 13275 3982" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<g>
+						<path fill="white" d="M3319 3319l0 -3319 663 0 0 3982 -3982 0 0 -3982 664 0 0 3319 995 0 0 -3319 664 0 0 3319 996 0zm4722 -3319l0 664 -2731 0 0 995 3318 0 0 2323 -3982 0 0 -663 3319 0 0 -996 -3319 0 0 -2323 3395 0zm5234 3982l-664 0 0 -3318 -996 0 0 3318 -663 0 0 -3318 -996 0 0 3318 -664 0 0 -3982 3983 0 0 3982z" />
+					</g>
+				</svg>
+			</div>
 
 			{/* Hero */}
 			<div
@@ -307,50 +307,50 @@ export default function ArticlePage() {
 
 
 			{/* Body */}
-			<div className=" relative">
-				{/*<div className="bg-gradient-to-b from-transparent to-gray-200 top-0 left-0 h-[100%] w-[100%] absolute z-1"></div>*/}
-				<div className="max-w-7xl min-h-[300px] mx-auto bg-[#f2F2FA44]  inset-shadow-xs inset-shadow-gray-50 shadow-xl" >
-					<div className="bg-wsm-mountain h-6"></div>
-					{bodyType === "HTML" && hasHtml ? (
-						<div
-							className="prose prose-lg max-w-none px-2"
-							dangerouslySetInnerHTML={{ __html: article.html_body! }}
-						/>
-					) : bodyType === "Rich Text" && hasBody ? (
-						<div
-							className="prose prose-lg max-w-none px-2"
-							dangerouslySetInnerHTML={{ __html: article.article_body! }}
-						/>
-					) : (bodyType === "MD" || bodyType === "Markdown") && hasHtml ? (
-						<div
-							className="prose prose-lg max-w-none px-2"
-							dangerouslySetInnerHTML={{ __html: markdownToHtml(article.html_body!) }}
-						/>
-					) : hasHtml ? (
-						<div
-							className="prose prose-lg max-w-none px-2"
-							dangerouslySetInnerHTML={{ __html: article.html_body! }}
-						/>
-					) : hasBody ? (
-						<div
-							className="prose prose-lg max-w-none px-2"
-							dangerouslySetInnerHTML={{ __html: article.article_body! }}
-						/>
-					) : (
-						<p className="text-gray-500 italic">Full content coming soon.</p>
-					)}
-					<div className="bg-wsm-victory h-6"></div>
+			{(hasHtml || hasBody) && (
+				<div className=" relative">
+					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#f2F2FA44]  inset-shadow-xs inset-shadow-gray-50 shadow-xl" >
+						<div className="bg-wsm-mountain h-6"></div>
+						{bodyType === "HTML" && hasHtml ? (
+							<div
+								className="prose prose-lg max-w-none px-2"
+								dangerouslySetInnerHTML={{ __html: article.html_body! }}
+							/>
+						) : bodyType === "Rich Text" && hasBody ? (
+							<div
+								className="prose prose-lg max-w-none px-2"
+								dangerouslySetInnerHTML={{ __html: article.article_body! }}
+							/>
+						) : (bodyType === "MD" || bodyType === "Markdown") && hasHtml ? (
+							<div
+								className="prose prose-lg max-w-none px-2"
+								dangerouslySetInnerHTML={{ __html: markdownToHtml(article.html_body!) }}
+							/>
+						) : hasHtml ? (
+							<div
+								className="prose prose-lg max-w-none px-2"
+								dangerouslySetInnerHTML={{ __html: article.html_body! }}
+							/>
+						) : hasBody ? (
+							<div
+								className="prose prose-lg max-w-none px-2"
+								dangerouslySetInnerHTML={{ __html: article.article_body! }}
+							/>
+						) : (
+							<p className="text-gray-500 italic">Full content coming soon.</p>
+						)}
+						<div className="bg-wsm-victory h-6"></div>
+					</div>
 				</div>
-
-			</div>
+			)}
 			{/* Transition */}
 			{relatedGroups.length > 0 && (
-			<Transition
-				type="mountains"
-				bgtop="transparent"
-				mountaincolor="#6c707a"
-				mountaincolor2="#000000"
-			/>
+				<Transition
+					type="mountains"
+					bgtop="transparent"
+					mountaincolor="#6c707a"
+					mountaincolor2="#000000"
+				/>
 			)}
 
 			{/* Related Articles — grouped by relationship type */}
@@ -359,10 +359,12 @@ export default function ArticlePage() {
 					key={i}
 					id={`related-${i}`}
 					title1={group.title.toUpperCase()}
+					subtitle={group.subtitle}
 					articles={group.articles}
 					theme="dark"
 					dots
 					trail={nextTrail}
+					cardType="regular_no_img"
 				/>
 			))}
 
