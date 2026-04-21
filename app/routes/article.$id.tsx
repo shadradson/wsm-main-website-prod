@@ -277,7 +277,7 @@ export default function ArticlePage() {
 									{article.author_first_name && (
 										<p className="text-sm text-gray-900 ">
 											By {article.author_first_name} {article.author_last_name}
-											{article.author_title && ` — ${article.author_title}`}
+											{article.author_title && ` - ${article.author_title}`}
 										</p>
 									)}
 								</div>
@@ -292,7 +292,7 @@ export default function ArticlePage() {
 									<img
 										src={article.splash_image_url}
 										alt={article.name}
-										className="object-contain hidden sm:block w-[20vw] max-w-[360px]"
+										className="object-contain hidden sm:block w-[20vw] max-w-[300px]"
 									/>
 								</div>
 							)}
@@ -308,8 +308,8 @@ export default function ArticlePage() {
 			{/* Body */}
 			{(hasHtml || hasBody) && (
 				<div className=" relative">
-					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#f2F2FA44]  inset-shadow-xs inset-shadow-gray-50 shadow-xl" >
-						<div className="bg-wsm-mountain h-6"></div>
+					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#eeeefb]  inset-shadow-xs inset-shadow-gray-50 shadow-xl" >
+						<div className="bg-gradient-to-r from-[#a365c1] to-wsm-mountain h-3"></div>
 						{bodyType === "HTML" && hasHtml ? (
 							<div
 								className="prose prose-lg max-w-none px-2"
@@ -338,7 +338,7 @@ export default function ArticlePage() {
 						) : (
 							<p className="text-gray-500 italic">Full content coming soon.</p>
 						)}
-						<div className="bg-wsm-victory h-6"></div>
+						<div className="bg-gradient-to-r from-[#a365c1] to-wsm-victory h-3"></div>
 					</div>
 				</div>
 			)}
