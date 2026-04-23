@@ -14,6 +14,8 @@ export interface RelatedArticle {
 	relationship_type: string | null;
 	parent_relationship_type: string | null;
 	child_relationship_type: string | null;
+	parent_subcategory_type: string | null;
+	child_subcategory_type: string | null;
 	direction: string;
 }
 
@@ -27,6 +29,8 @@ function makeRelatedTitlesAndSubtitles(
 	currentArticleCategory: string | null,
 	relatedArticleCategory: string | null,
 	articleName: string,
+	currentArticleSubcategory: string | null,
+	relatedArticleSubcategory: string | null,
 ): { title: string; subtitle: string } {
 	let title = "";
 	let subtitle = ``;
@@ -34,6 +38,10 @@ function makeRelatedTitlesAndSubtitles(
 	switch (relatedArticleCategory) {
 		case "Case Study":
 			if (currentArticleCategory === "Case Study") {
+				if (currentArticleSubcategory == "" && relatedArticleSubcategory) {
+					title = `${articleName} ${relatedArticleSubcategory} Case Studies`;
+					subtitle = `Similar ${relatedArticleSubcategory} case studies to ${articleName}.`;
+				}
 				title = "Related Case Studies";
 				subtitle = `Similar studies to ${articleName}`;
 			} else if (currentArticleCategory === "Customer Success Story") {
@@ -240,6 +248,7 @@ export async function getRelatedArticles(
 		`SELECT a.sf_id, a.name, a.subtitle, a.short_description,
 			a.subcategory, a.vertical_product, a.splash_image_url, a.article_category,
 			ar.relationship_type, ar.parent_relationship_type, ar.child_relationship_type,
+			ar.parent_subcategory_type, ar.child_subcategory_type,
 			'children' AS direction
 		FROM article_references ar
 		JOIN articles a ON a.sf_id = ar.child_article_id
@@ -249,6 +258,7 @@ export async function getRelatedArticles(
 		SELECT a.sf_id, a.name, a.subtitle, a.short_description,
 			a.subcategory, a.vertical_product, a.splash_image_url, a.article_category,
 			ar.relationship_type, ar.parent_relationship_type, ar.child_relationship_type,
+			ar.parent_subcategory_type, ar.child_subcategory_type,
 			'parents' AS direction
 		FROM article_references ar
 		JOIN articles a ON a.sf_id = ar.parent_or_primary_id
@@ -259,10 +269,23 @@ export async function getRelatedArticles(
 	const groupMap = new Map<string, { subtitle: string; articles: RelatedArticle[] }>();
 	for (const ra of results ?? []) {
 		const relatedArticleCategory = ra.article_category;
+		// When direction is 'children', the current article is the parent of the
+		// relationship, so parent_subcategory_type describes the current article
+		// and child_subcategory_type describes the related article. For 'parents'
+		// it is reversed.
+		const currentArticleSubcategory = ra.direction === "children"
+			? ra.parent_subcategory_type
+			: ra.child_subcategory_type;
+		const relatedArticleSubcategory = ra.direction === "children"
+			? ra.child_subcategory_type
+			: ra.parent_subcategory_type;
+
 		const titles = makeRelatedTitlesAndSubtitles(
 			articleCategory,
 			relatedArticleCategory,
 			articleName,
+			currentArticleSubcategory,
+			relatedArticleSubcategory,
 		);
 
 		if (!groupMap.has(titles.title)) {

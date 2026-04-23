@@ -1512,13 +1512,19 @@ div.section_outer {
 /*---------- Subsection ----------*/
 .sub_section_outer {
     padding: 1rem 0;
+	border: 1px solid #eeeeee;
 }
 .sub_section_header {
     padding: 0.75rem 0;
+	display: flex;
+	position: relative;
 }
+
 h3.sub_section_title {
     font-size: 1.25rem;
     font-weight: 700;
+    background: linear-gradient(90deg, #dddddd, #e2d1eb);
+    padding: 1rem;
 }
 .sub_section_body {
     display: flex;
@@ -1541,7 +1547,7 @@ ol.stacked_list {
 }
 ol.stacked_list>li {
     background: linear-gradient(90deg, #dddddd, #e2d1eb);
-    border-left: 12px solid #51bee7;
+    border-left: 2px solid #51bee7;
     border-radius: 0 2.5rem 2.5rem 0;
     padding: .5rem .75rem;
     display: block;
@@ -1559,10 +1565,10 @@ ol.stacked_list>li {
     transition: 0.2s;
     outline: 0px solid #2b6486;
     outline-offset: 0px;
-    padding: .25rem 0.75rem;
-    border-radius: 0.5rem;
+    padding: .5rem 1rem;
+    border-radius: 0.25rem;
     text-align: center;
-    margin: 0.75rem;
+    margin: 0.25rem;
 }
 .section_body a:hover {
     background-color: #4584a8;

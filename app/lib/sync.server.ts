@@ -124,12 +124,15 @@ interface SFArticleReference {
 	WSM_Contract__c: string | null;
 	Parent_Relationship_Type__c: string | null;
 	Child_Relationship_Type__c: string | null;
+	Parent_Subcategory_Type__c: string | null;
+	Child_Subcategory_Type__c: string | null;
 }
 
 const ARTICLE_REFERENCE_QUERY = `
 	SELECT Id, Name, Child_Article__c, Parent_Or_Primary2__c,
 		CSAT_Survey__c, Relationship_Type__c, WSM_Contract__c,
-		Parent_Relationship_Type__c, Child_Relationship_Type__c
+		Parent_Relationship_Type__c, Child_Relationship_Type__c,
+		Parent_Subcategory_Type__c, Child_Subcategory_Type__c
 	FROM Article_Reference__c
 `;
 
@@ -316,8 +319,9 @@ export async function runSync(env: SyncEnv): Promise<{
 			await env.DB.prepare(`
 				INSERT INTO article_references (sf_id, name, child_article_id, parent_or_primary_id,
 					csat_survey_id, relationship_type, wsm_contract_id,
-					parent_relationship_type, child_relationship_type, synced_at)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+					parent_relationship_type, child_relationship_type,
+					parent_subcategory_type, child_subcategory_type, synced_at)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
 				ON CONFLICT(sf_id) DO UPDATE SET
 					name = excluded.name,
 					child_article_id = excluded.child_article_id,
@@ -327,11 +331,14 @@ export async function runSync(env: SyncEnv): Promise<{
 					wsm_contract_id = excluded.wsm_contract_id,
 					parent_relationship_type = excluded.parent_relationship_type,
 					child_relationship_type = excluded.child_relationship_type,
+					parent_subcategory_type = excluded.parent_subcategory_type,
+					child_subcategory_type = excluded.child_subcategory_type,
 					synced_at = excluded.synced_at
 			`).bind(
 				r.Id, r.Name, r.Child_Article__c, r.Parent_Or_Primary2__c,
 				r.CSAT_Survey__c, r.Relationship_Type__c, r.WSM_Contract__c,
 				r.Parent_Relationship_Type__c, r.Child_Relationship_Type__c,
+				r.Parent_Subcategory_Type__c, r.Child_Subcategory_Type__c,
 			).run();
 		}
 
