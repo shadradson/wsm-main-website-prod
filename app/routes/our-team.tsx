@@ -305,98 +305,69 @@ function TeamGrid() {
 
 					</div>
 					<div className="">
-						<div className="relative max-w-7xl mx-auto">
+						<div className="relative max-w-7xl mx-auto flex flex-col gap-10">
 							{/*<div className="absolute top-0 -left-10 w-10 h-[100%] border-2 border-2 border-solid border-[#ffffff22] bg-[image:repeating-linear-gradient(315deg,_#ffffff44,_#ffffff44_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/15"></div>*/}
 							<SectionHeaderText title1="THE HUMANS WHO" title2="SUMMIT MOUNTAINS" theme="dark" titlemultiline="true" />
-							<div className="flex flex-wrap justify-center">
+							<div className="flex flex-wrap justify-center gap-8">
 								{team.map((member: TeamMember) => {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
 									const Wrapper = member.bio_article_id
 										? ({ children }: { children: React.ReactNode }) => (
-											<Link to={`/article/${member.bio_article_id}?trail=our-team`} className="w-full sm:w-[calc(50%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] hover:border-[#ffffff77] transition-all cursor-pointer no-underline text-inherit">
+											<Link to={`/article/${member.bio_article_id}?trail=our-team`} className="w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33%-1.5rem)] min-w-[340px] group">
 												{children}
 											</Link>
 										)
 										: ({ children }: { children: React.ReactNode }) => (
-											<div className="w-full sm:w-[calc(50%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] transition-all">
+											<div className="w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33%-1.5rem)] min-w-[340px] grow group border-x-0 sm:border-x-4 border-y-4 border-solid border-[#ffffff22] transition-all">
 												{children}
 											</div>
 										);
 									return (
 										<Wrapper key={member.sf_id}>
-											<div className="flex flex-col h-full relative z-10">
-												{/* Top row: photo left, name/title right */}
-												<div className="flex items-center sm:items-start flex-col sm:flex-row">
-													{member.photo_r2_key ? (
-														<img
-															src={`/api/assets/${member.photo_r2_key}`}
-															alt={`${member.first_name} ${member.last_name}`}
-															className="w-1/1 sm:w-1/3 aspect-square object-cover flex-shrink-0"
-														/>
-													) : (
-														<div className="w-1/1 sm:w-1/3 aspect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
-															{initials}
-														</div>
-													)}
-													<div className="text-center sm:text-left p-2 sm:p-4 md:p-6 w-1/1 sm:w-2/3">
-														<h3 className="text-lg font-bold text-white">
-															{member.first_name} {member.last_name}
-														</h3>
-														{member.title && (
-															<p className="text-center sm:text-left text-wsm-glacier text-sm font-medium mt-1">
-																{member.title}
-															</p>
-														)}
-														{/* Certifications */}
-														{member.certifications && (
-															<div
-																className="text-center sm:text-left text-gray-200 text-sm leading-relaxed flex-grow p-2"
-																dangerouslySetInnerHTML={{ __html: member.certifications }}
+											<div className="h-full rounded-[2rem] border-x-0 sm:border-x-4 border-y-4 border-solid border-[#6DE4F600] hover:border-[#6DE4F6ff] transition-all cursor-pointer no-underline text-inherit p-4">
+												<div className="flex flex-col h-full relative z-10">
+													{/* Top row: photo left, name/title right */}
+													<div className="flex items-center flex-col">
+														{member.photo_r2_key ? (
+															<img
+																src={`/api/assets/${member.photo_r2_key}`}
+																alt={`${member.first_name} ${member.last_name}`}
+																className="aspect-square w-1/1 rounded-[1rem] object-cover flex-shrink-0 bg-black"
 															/>
-														)}
-														{/* Career stats */}
-														{(member.years_at_wsm != null || member.time_in_industry != null) && (
-															<div className="text-center flex gap-2 flex-wrap width-[100%] justify-center sm:justify-start">
-																{member.years_at_wsm != null && (
-																	<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
-																		{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
-																	</span>
-																)}
+														) : (
+															<div className="w-1/1 aspect-square rounded-full bg-gradient-to-br from-brand-sky to-brand-teal text-white flex items-center justify-center text-xl font-bold flex-shrink-0">
+																{initials}
 															</div>
 														)}
+														<div className="text-center sm:text-left p-2 w-1/1">
+															<h3 className="text-lg font-bold text-white">
+																{member.first_name} {member.last_name}
+															</h3>
+															{member.title && (
+																<p className="text-center sm:text-left text-wsm-glacier text-sm font-medium mt-1">
+																	{member.title}
+																</p>
+															)}
+															{/* Certifications */}
+															{member.certifications && (
+																<div
+																	className="text-center sm:text-left text-gray-200 text-sm leading-relaxed flex-grow p-2"
+																	dangerouslySetInnerHTML={{ __html: member.certifications }}
+																/>
+															)}
+															{/* Career stats */}
+															{(member.years_at_wsm != null || member.time_in_industry != null) && (
+																<div className="text-center flex gap-2 flex-wrap width-[100%] justify-center sm:justify-start">
+																	{member.years_at_wsm != null && (
+																		<span className="text-xs font-bold text-[#111513] bg-[#EDC098] px-2 py-1">
+																			{Math.round(member.years_at_wsm)} YR{Math.round(member.years_at_wsm) !== 1 ? "S" : ""} AT WSM
+																		</span>
+																	)}
+																</div>
+															)}
+														</div>
 													</div>
 												</div>
-												{/* Buttons */}
-												{(member.linkedin_url || member.trailblazer_url) && (
-													<div className="flex justify-center gap-3 mt-auto border-t border-gray-500 p-2">
-														{member.linkedin_url && (
-															<a
-																href={member.linkedin_url}
-																target="_blank"
-																rel="noreferrer"
-																className="relative z-10 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#0A66C2] rounded hover:bg-[#004182] transition-colors"
-															>
-																<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-																	<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-																</svg>
-																LinkedIn
-															</a>
-														)}
-														{member.trailblazer_url && (
-															<a
-																href={member.trailblazer_url}
-																target="_blank"
-																rel="noreferrer"
-																className="relative z-10 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#00A1E0] hover:bg-[#0082b4] transition-colors"
-															>
-																<svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 200 140">
-																	<path fill="#ffffff" d="M 83.226562 15.273438 C 89.679688 8.554688 98.660156 4.382812 108.589844 4.382812 C 121.792969 4.382812 133.308594 11.746094 139.445312 22.675781 C 144.773438 20.292969 150.675781 18.96875 156.882812 18.96875 C 180.695312 18.96875 200 38.441406 200 62.460938 C 200 86.484375 180.695312 105.957031 156.882812 105.957031 C 154.03125 105.957031 151.1875 105.675781 148.390625 105.109375 C 142.988281 114.746094 132.695312 121.257812 120.878906 121.257812 C 115.933594 121.257812 111.257812 120.113281 107.089844 118.082031 C 101.617188 130.960938 88.859375 139.992188 73.988281 139.992188 C 58.503906 139.992188 45.308594 130.195312 40.242188 116.457031 C 38.027344 116.925781 35.734375 117.171875 33.382812 117.171875 C 14.945312 117.171875 0 102.070312 0 83.441406 C 0 70.957031 6.714844 60.058594 16.691406 54.226562 C 14.636719 49.5 13.496094 44.28125 13.496094 38.796875 C 13.496094 17.375 30.890625 0.00390625 52.34375 0.00390625 C 64.9375 0.00390625 76.132812 5.996094 83.226562 15.273438 "></path>
-																</svg>
-																Trailhead Account
-															</a>
-														)}
-													</div>
-												)}
 											</div>
 										</Wrapper>
 									);

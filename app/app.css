@@ -1456,7 +1456,7 @@ a.nav_item_cover { position: absolute; top: 0; left: 0; height: 100%; width: 100
 /*>>>>>>>>>>>>>>>>>>>>>>>>> Sections <<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 div.section_outer {
-    padding: 1rem;
+
     margin-bottom: 1rem;
 }
 
@@ -1512,7 +1512,6 @@ div.section_outer {
 /*---------- Subsection ----------*/
 .sub_section_outer {
     padding: 1rem 0;
-	border: 1px solid #eeeeee;
 }
 .sub_section_header {
     padding: 0.75rem 0;

@@ -288,13 +288,24 @@ export default function ArticlePage() {
 						{/*image Box*/}
 						<div className="flex ">
 							{article.splash_image_url && (
-								<div className="opacity-80 z-1 flex items-center justify-center">
-									<img
-										src={article.splash_image_url}
-										alt={article.name}
-										className="object-contain hidden sm:block w-[20vw] max-w-[300px]"
-									/>
-								</div>
+
+								article.article_category === "Bio" ? (
+									<div className=" z-1 flex items-center justify-center">
+										<img
+											src={article.splash_image_url}
+											alt={article.name}
+											className="rounded-lg object-contain hidden sm:block w-[20vw] max-w-[300px] border-4 border-gray-900"
+										/>
+									</div>
+								) : (
+									<div className="opacity-80 z-1 flex items-center justify-center">
+										<img
+											src={article.splash_image_url}
+											alt={article.name}
+											className="object-contain hidden sm:block w-[20vw] max-w-[300px]"
+										/>
+									</div>
+								)
 							)}
 						</div>
 
@@ -312,27 +323,27 @@ export default function ArticlePage() {
 						<div className="bg-gradient-to-r from-[#a365c1] to-wsm-mountain h-3"></div>
 						{bodyType === "HTML" && hasHtml ? (
 							<div
-								className="prose prose-lg max-w-none px-2"
+								className="prose prose-lg max-w-none px-4"
 								dangerouslySetInnerHTML={{ __html: article.html_body! }}
 							/>
 						) : bodyType === "Rich Text" && hasBody ? (
 							<div
-								className="prose prose-lg max-w-none px-2"
+								className="prose prose-lg max-w-none px-4"
 								dangerouslySetInnerHTML={{ __html: article.article_body! }}
 							/>
 						) : (bodyType === "MD" || bodyType === "Markdown") && hasHtml ? (
 							<div
-								className="prose prose-lg max-w-none px-2"
+								className="prose prose-lg max-w-none px-4"
 								dangerouslySetInnerHTML={{ __html: markdownToHtml(article.html_body!) }}
 							/>
 						) : hasHtml ? (
 							<div
-								className="prose prose-lg max-w-none px-2"
+								className="prose prose-lg max-w-none px-4"
 								dangerouslySetInnerHTML={{ __html: article.html_body! }}
 							/>
 						) : hasBody ? (
 							<div
-								className="prose prose-lg max-w-none px-2"
+								className="prose prose-lg max-w-none px-4"
 								dangerouslySetInnerHTML={{ __html: article.article_body! }}
 							/>
 						) : (

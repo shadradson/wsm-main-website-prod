@@ -95,7 +95,7 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 		return (
 			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
 				{/* Outer Box */}
-				<div className={`${s.cardOuter} p-1 aspect-[2/1] relative rounded-lg`}>
+				<div className={`${s.cardOuter} p-1 aspect-[3/2] relative rounded-lg`}>
 					{/* Hover gradient overlay */}
 					<div className={`${s.cardHoverGradient} absolute inset-0 opacity-0 rounded-lg group-hover:opacity-100 transition-opacity duration-200`} />
 

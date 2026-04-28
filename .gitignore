@@ -207,3 +207,6 @@ scripts/dev-seed.sql
 
 ### Salesforce ###
 .sfdx/
+
+### Claude Code ###
+.claude/
