@@ -4,6 +4,21 @@
  */
 import { getAccessToken, soqlQuery, fetchImage } from "./salesforce.server";
 
+// Removes rows whose sf_id is no longer present in Salesforce. Skipped when
+// the returned set is empty so a transient SOQL failure can't wipe a table.
+async function reconcileDeletes(
+	db: D1Database,
+	table: "contacts" | "articles" | "csat_surveys" | "article_references",
+	keepIds: string[],
+): Promise<number> {
+	if (keepIds.length === 0) return 0;
+	const placeholders = keepIds.map(() => "?").join(",");
+	const result = await db.prepare(
+		`DELETE FROM ${table} WHERE sf_id NOT IN (${placeholders})`,
+	).bind(...keepIds).run();
+	return result.meta.changes ?? 0;
+}
+
 interface SyncEnv {
 	DB: D1Database;
 	ASSETS_BUCKET: R2Bucket;
@@ -227,6 +242,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				c.Bio__c,
 			).run();
 		}
+		await reconcileDeletes(env.DB, "contacts", contacts.map((c) => c.Id));
 
 		// ── Sync Articles ─────────────────────────────────────────────
 		const articles = await soqlQuery<SFArticle>(token, ARTICLE_QUERY);
@@ -274,6 +290,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				a.Admin_Approval__c ? 1 : 0,
 			).run();
 		}
+		await reconcileDeletes(env.DB, "articles", articles.map((a) => a.Id));
 
 		// ── Sync CSAT Surveys ─────────────────────────────────────────
 		const csatSurveys = await soqlQuery<SFCSATSurvey>(token, CSAT_SURVEY_QUERY);
@@ -311,6 +328,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				s.Website_Testimonial_Blurb__c, s.WSM_Response__c,
 			).run();
 		}
+		await reconcileDeletes(env.DB, "csat_surveys", csatSurveys.map((s) => s.Id));
 
 		// ── Sync Article References ───────────────────────────────────
 		const articleRefs = await soqlQuery<SFArticleReference>(token, ARTICLE_REFERENCE_QUERY);
@@ -341,6 +359,7 @@ export async function runSync(env: SyncEnv): Promise<{
 				r.Parent_Subcategory_Type__c, r.Child_Subcategory_Type__c,
 			).run();
 		}
+		await reconcileDeletes(env.DB, "article_references", articleRefs.map((r) => r.Id));
 
 		// Update sync log
 		if (logId) {
