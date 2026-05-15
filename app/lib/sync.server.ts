@@ -411,6 +411,9 @@ interface SyncResult {
 	articlesDeleted: number;
 	csatSurveysDeleted: number;
 	articleRefsDeleted: number;
+	contactsSyncedDetails: { FirstName: string; LastName: string }[];
+	articlesSyncedDetails: { Name: string }[];
+	csatSyncedDetails: { Name: string }[];
 	mode: "full" | "delta";
 }
 
@@ -460,6 +463,9 @@ export async function runSync(
 		let articlesDeleted = 0;
 		let csatSurveysDeleted = 0;
 		let articleRefsDeleted = 0;
+		let contactsSyncedDetails: { FirstName: string; LastName: string }[] = [];
+		let articlesSyncedDetails: { Name: string }[] = [];
+		let csatSyncedDetails: { Name: string }[] = [];
 
 		if (mode === "full") {
 			// ── Full sync: pull everything, reconcile deletes via diff ───
@@ -467,16 +473,19 @@ export async function runSync(
 			for (const c of contacts) await upsertContact(env, token, c);
 			contactsDeleted = await reconcileDeletes(env.DB, "contacts", contacts.map((c) => c.Id));
 			contactsSynced = contacts.length;
+			contactsSyncedDetails = contacts.map((c) => ({ FirstName: c.FirstName, LastName: c.LastName }));
 
 			const articles = await soqlQuery<SFArticle>(token, ARTICLE_QUERY_FULL);
 			for (const a of articles) await upsertArticle(env, a);
 			articlesDeleted = await reconcileDeletes(env.DB, "articles", articles.map((a) => a.Id));
 			articlesSynced = articles.length;
+			articlesSyncedDetails = articles.map((a) => ({ Name: a.Name }));
 
 			const csatSurveys = await soqlQuery<SFCSATSurvey>(token, CSAT_SURVEY_QUERY_FULL);
 			for (const s of csatSurveys) await upsertCsatSurvey(env, s);
 			csatSurveysDeleted = await reconcileDeletes(env.DB, "csat_surveys", csatSurveys.map((s) => s.Id));
 			csatSurveysSynced = csatSurveys.length;
+			csatSyncedDetails = csatSurveys.map((s) => ({ Name: s.Name }));
 
 			const articleRefs = await soqlQuery<SFArticleReference>(token, ARTICLE_REFERENCE_QUERY_FULL);
 			for (const r of articleRefs) await upsertArticleReference(env, r);
@@ -491,6 +500,7 @@ export async function runSync(
 			const contacts = await soqlQueryByIds<SFContact>(token, CONTACT_QUERY_BY_IDS, contactUpdatedIds);
 			for (const c of contacts) await upsertContact(env, token, c);
 			contactsSynced = contacts.length;
+			contactsSyncedDetails = contacts.map((c) => ({ FirstName: c.FirstName, LastName: c.LastName }));
 			const contactDeletedIds = await getDeletedIds(token, "Contact", start, deltaEnd);
 			contactsDeleted = await deleteByIds(env.DB, "contacts", contactDeletedIds);
 
@@ -499,6 +509,7 @@ export async function runSync(
 			const articles = await soqlQueryByIds<SFArticle>(token, ARTICLE_QUERY_BY_IDS, articleUpdatedIds);
 			for (const a of articles) await upsertArticle(env, a);
 			articlesSynced = articles.length;
+			articlesSyncedDetails = articles.map((a) => ({ Name: a.Name }));
 			const articleDeletedIds = await getDeletedIds(token, "Article__c", start, deltaEnd);
 			articlesDeleted = await deleteByIds(env.DB, "articles", articleDeletedIds);
 
@@ -507,6 +518,7 @@ export async function runSync(
 			const csatSurveys = await soqlQueryByIds<SFCSATSurvey>(token, CSAT_SURVEY_QUERY_BY_IDS, csatUpdatedIds);
 			for (const s of csatSurveys) await upsertCsatSurvey(env, s);
 			csatSurveysSynced = csatSurveys.length;
+			csatSyncedDetails = csatSurveys.map((s) => ({ Name: s.Name }));
 			const csatDeletedIds = await getDeletedIds(token, "CSAT_Survey__c", start, deltaEnd);
 			csatSurveysDeleted = await deleteByIds(env.DB, "csat_surveys", csatDeletedIds);
 
@@ -535,6 +547,9 @@ export async function runSync(
 			articlesDeleted,
 			csatSurveysDeleted,
 			articleRefsDeleted,
+			contactsSyncedDetails,
+			articlesSyncedDetails,
+			csatSyncedDetails,
 			mode,
 		};
 	} catch (error) {
