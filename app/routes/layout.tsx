@@ -153,6 +153,7 @@ function Header() {
 					<Link
 						to="/"
 						id="header-logo-link"
+						aria-label="We Summit Mountains home"
 						className="transition-all duration-300 absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
 					>
 						<img
@@ -318,7 +319,7 @@ function Footer() {
 			<div className="footer_bottom_box flex flex-col justify-between sm:flex-row justify-between items-center px-6 sm:px-12 py-8 gap-8 relative z-10">
 				{/* Col 1: Logo & location */}
 				<div className="flex flex-col gap-3 ">
-					<Link to="/">
+					<Link to="/" aria-label="We Summit Mountains home">
 						<img
 							id="footer-logo"
 							src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
@@ -343,10 +344,10 @@ function Footer() {
 
 				{/* Col 3: Links */}
 				<div className="flex flex-col gap-2 text-sm sm:text-right">
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">AI Consulting</Link>
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">Salesforce Implementation</Link>
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">CTO Services</Link>
-					<Link to="/expertise" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">System Integrations</Link>
+					<Link to="/expertise" aria-label="View AI Consulting service" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">AI Consulting</Link>
+					<Link to="/expertise" aria-label="View Salesforce Implementation service" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">Salesforce Implementation</Link>
+					<Link to="/expertise" aria-label="View CTO Services" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">CTO Services</Link>
+					<Link to="/expertise" aria-label="View System Integrations service" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">System Integrations</Link>
 					
 				</div>
 			</div>

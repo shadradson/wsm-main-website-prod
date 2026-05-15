@@ -32,6 +32,7 @@ export function Welcome({ message }: { message: string }) {
 										href={href}
 										target="_blank"
 										rel="noreferrer"
+										aria-label={`Open ${text} in a new tab`}
 									>
 										{icon}
 										{text}

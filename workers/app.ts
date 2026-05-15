@@ -28,7 +28,7 @@ export default {
 			Promise.all([
 				runSync(env).then((result) => {
 					console.log(
-						`Sync complete: ${result.contactsSynced} contacts, ${result.articlesSynced} articles`,
+						`Sync complete (${result.mode}): ${result.contactsSynced} contacts, ${result.articlesSynced} articles, ${result.csatSurveysSynced} csat, ${result.articleRefsSynced} refs upserted; ${result.contactsDeleted}/${result.articlesDeleted}/${result.csatSurveysDeleted}/${result.articleRefsDeleted} deleted`,
 					);
 				}).catch((error) => {
 					console.error("Sync failed:", error);

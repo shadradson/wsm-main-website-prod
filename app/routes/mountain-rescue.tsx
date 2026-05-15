@@ -290,6 +290,7 @@ function CommonScenarios() {
 								</p>
 								<Link
 									to="/contact"
+									aria-label="Contact us to request mountain rescue services"
 									className="inline-flex items-center justify-center px-8 py-4 bg-brand-coral text-white font-semibold hover:bg-brand-coral/90 transition-all hover:shadow-lg"
 								>
 									Request Mountain Rescue

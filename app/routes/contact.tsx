@@ -339,6 +339,7 @@ function ContactContent() {
 									</p>
 									<Link
 										to="/contact"
+										aria-label="Book a free 30-minute consultation call"
 										className="inline-flex items-center px-5 py-2.5 bg-brand-teal text-white text-sm font-semibold hover:bg-brand-teal/90 transition-colors"
 									>
 										Book a Call

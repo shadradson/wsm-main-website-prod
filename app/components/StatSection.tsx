@@ -49,7 +49,7 @@ export default function StatsSection({ stats, title, subtitle, tag, theme = "dar
                                         <p className="stat-value text-6xl font-bold">{stat.value}</p>
                                         <p className="stat-label font-bold mt-2">{stat.label}</p>
                                         {stat.link && (
-                                            <Link to={stat.link} className="text-brand-sky text-sm mt-2 inline-block hover:underline">
+                                            <Link to={stat.link} aria-label={`Learn more about ${stat.label}`} className="text-brand-sky text-sm mt-2 inline-block hover:underline">
                                                 Learn more
                                             </Link>
                                         )}

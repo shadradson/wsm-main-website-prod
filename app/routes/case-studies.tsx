@@ -6,7 +6,7 @@ import { buildMeta } from "~/lib/seo";
 import type { Article } from "~/lib/types";
 import StatsSection from "~/components/StatSection";
 
-const TITLE = "Client Success Stories | Salesforce & AI Results | We Summit Mountains";
+const TITLE = "Case Studies | Salesforce & AI Studies | We Summit Mountains";
 const DESCRIPTION =
 	"See how We Summit Mountains delivers real results — Salesforce transformations, AI implementations, and system integrations across industries.";
 

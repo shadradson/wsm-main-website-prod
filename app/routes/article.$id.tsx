@@ -200,7 +200,7 @@ export default function ArticlePage() {
 	}, [article.sf_id]);
 
 	return (
-		<div className="min-h-screen bg-gray-400 relative">
+		<div className="min-h-screen bg-gradient-to-b from-gray-200 to-gray-400 relative">
 			<div className="absolute bottom-200 -left-40 rotate-90">
 				<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10rem" height="" version="1.1" viewBox="0 0 13275 3982" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<g>
@@ -214,17 +214,16 @@ export default function ArticlePage() {
 				className="pt-10 lg:pt-18 pb-2 lg:pb-8 flex flex-col relative bg-gradient-to-b from-[#e3E5EA] to-[#e3E5EA00] z-2"
 				style={article.splash_image_background ? { backgroundColor: article.splash_image_background } : undefined}
 			>
-				<div className="hidden 2xl:block absolute top-5 left-0"><p className="text-[15vh] rotate-90 w-[10vh] font-bold text-[#fff] opacity-20">ARTICLE</p></div>
-				<div className="flex flex-row justify-center">
-					{/* <div className="flex-1 pattern-bg-dots-darkthick z-3 opacity-20"></div> */}
-					
+
+				<div className="flex flex-row ">
+					<div className="flex-1 pattern-bg-dots-darkthick z-3 opacity-20"></div>
 					<div className="max-w-7xl w-full p-4 sm:p-6 lg:p-8 flex justify-between flex-row z-3">
 
 						{/*Title Box*/}
 
 						<div className="flex flex-col">
 							<div className="flex items-between">
-								<div className="flex flex-col gap-4">
+								<div className="">
 									<div className="flex flex-wrap">
 										{article.subcategory && (
 											<span className="px-3 py-1 bg-brand-blue text-gray-100 text-xs font-semibold">
@@ -263,16 +262,16 @@ export default function ArticlePage() {
 										</span>
 									</nav>
 
-									<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-tight ">
+									<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-tight mb-4 ">
 										{article.name}
 									</h1>
 
 									{article.subtitle && (
-										<p className="text-xl text-wsm-cliff font-bold">{article.subtitle}</p>
+										<p className="text-xl text-wsm-cliff font-bold mb-6">{article.subtitle}</p>
 									)}
 
 									{article.short_description && (
-										<p className="text-lg text-gray-300 leading-relaxed">{article.short_description}</p>
+										<p className="text-lg text-gray-300 leading-relaxed mb-6">{article.short_description}</p>
 									)}
 
 									{article.author_first_name && (
@@ -289,30 +288,18 @@ export default function ArticlePage() {
 						{/*image Box*/}
 						<div className="flex ">
 							{article.splash_image_url && (
-
-								article.article_category === "Bio" ? (
-									<div className=" z-1 flex items-center justify-center">
-										<img
-											src={article.splash_image_url}
-											alt={article.name}
-											className="rounded-lg object-contain hidden sm:block w-[20vw] max-w-[300px] border-4 border-gray-900"
-										/>
-									</div>
-								) : (
-									<div className="opacity-80 z-1 flex items-center justify-center">
-										<img
-											src={article.splash_image_url}
-											alt={article.name}
-											className="object-contain hidden sm:block w-[20vw] max-w-[300px]"
-										/>
-									</div>
-								)
+								<div className="opacity-80 z-1 flex items-center justify-center">
+									<img
+										src={article.splash_image_url}
+										alt={article.name}
+										className="object-contain hidden sm:block w-[20vw] max-w-[300px]"
+									/>
+								</div>
 							)}
 						</div>
 
 					</div>
-					{/* <div className="flex-1 pattern-bg-dots-darkthick opacity-20 z-3"></div> */}
-					
+					<div className="flex-1 pattern-bg-dots-darkthick opacity-20 z-3"></div>
 				</div>
 
 			</div>
@@ -321,31 +308,31 @@ export default function ArticlePage() {
 			{/* Body */}
 			{(hasHtml || hasBody) && (
 				<div className=" relative">
-					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#cfcfdd] inset-shadow-xs inset-shadow-gray-50 shadow-xl shadow-gray-500" >
+					<div className="max-w-7xl min-h-[300px] mx-auto bg-[#e2e2ef] inset-shadow-xs inset-shadow-gray-50 shadow-xl shadow-gray-500" >
 						<div className="bg-gradient-to-r from-[#a365c1] to-wsm-mountain h-3"></div>
 						{bodyType === "HTML" && hasHtml ? (
 							<div
-								className="prose prose-lg max-w-none px-4"
+								className="prose prose-lg max-w-none px-2"
 								dangerouslySetInnerHTML={{ __html: article.html_body! }}
 							/>
 						) : bodyType === "Rich Text" && hasBody ? (
 							<div
-								className="prose prose-lg max-w-none px-4"
+								className="prose prose-lg max-w-none px-2"
 								dangerouslySetInnerHTML={{ __html: article.article_body! }}
 							/>
 						) : (bodyType === "MD" || bodyType === "Markdown") && hasHtml ? (
 							<div
-								className="prose prose-lg max-w-none px-4"
+								className="prose prose-lg max-w-none px-2"
 								dangerouslySetInnerHTML={{ __html: markdownToHtml(article.html_body!) }}
 							/>
 						) : hasHtml ? (
 							<div
-								className="prose prose-lg max-w-none px-4"
+								className="prose prose-lg max-w-none px-2"
 								dangerouslySetInnerHTML={{ __html: article.html_body! }}
 							/>
 						) : hasBody ? (
 							<div
-								className="prose prose-lg max-w-none px-4"
+								className="prose prose-lg max-w-none px-2"
 								dangerouslySetInnerHTML={{ __html: article.article_body! }}
 							/>
 						) : (

@@ -57,6 +57,88 @@ export async function soqlQuery<T = Record<string, unknown>>(
 	return data.records;
 }
 
+// Salesforce expects ISO 8601 datetimes with millisecond precision for the
+// getUpdated/getDeleted endpoints (e.g. 2024-01-15T12:34:56.000+00:00 or Z).
+function toSfDateTime(date: Date): string {
+	return date.toISOString();
+}
+
+export async function getUpdatedIds(
+	token: SalesforceTokenResponse,
+	sobjectType: string,
+	start: Date,
+	end: Date,
+): Promise<string[]> {
+	const params = new URLSearchParams({
+		start: toSfDateTime(start),
+		end: toSfDateTime(end),
+	});
+	const url = `${token.instance_url}/services/data/v62.0/sobjects/${sobjectType}/updated/?${params}`;
+
+	const res = await fetch(url, {
+		headers: { Authorization: `Bearer ${token.access_token}` },
+	});
+
+	if (!res.ok) {
+		const text = await res.text();
+		throw new Error(`getUpdated(${sobjectType}) failed (${res.status}): ${text}`);
+	}
+
+	const data = (await res.json()) as { ids: string[]; latestDateCovered: string };
+	return data.ids ?? [];
+}
+
+export async function getDeletedIds(
+	token: SalesforceTokenResponse,
+	sobjectType: string,
+	start: Date,
+	end: Date,
+): Promise<string[]> {
+	const params = new URLSearchParams({
+		start: toSfDateTime(start),
+		end: toSfDateTime(end),
+	});
+	const url = `${token.instance_url}/services/data/v62.0/sobjects/${sobjectType}/deleted/?${params}`;
+
+	const res = await fetch(url, {
+		headers: { Authorization: `Bearer ${token.access_token}` },
+	});
+
+	if (!res.ok) {
+		const text = await res.text();
+		throw new Error(`getDeleted(${sobjectType}) failed (${res.status}): ${text}`);
+	}
+
+	const data = (await res.json()) as {
+		deletedRecords: { id: string; deletedDate: string }[];
+		earliestDateAvailable: string;
+		latestDateCovered: string;
+	};
+	return (data.deletedRecords ?? []).map((r) => r.id);
+}
+
+// Runs a SOQL query in chunks for a large list of IDs. The caller supplies a
+// query template containing the literal "{IDS}" placeholder; this is replaced
+// with the chunked IN clause. Chunk size kept conservative to stay well under
+// the 20k-character SOQL limit.
+export async function soqlQueryByIds<T = Record<string, unknown>>(
+	token: SalesforceTokenResponse,
+	queryTemplate: string,
+	ids: string[],
+	chunkSize = 200,
+): Promise<T[]> {
+	if (ids.length === 0) return [];
+	const out: T[] = [];
+	for (let i = 0; i < ids.length; i += chunkSize) {
+		const chunk = ids.slice(i, i + chunkSize);
+		const inClause = chunk.map((id) => `'${id}'`).join(",");
+		const query = queryTemplate.replace("{IDS}", inClause);
+		const records = await soqlQuery<T>(token, query);
+		out.push(...records);
+	}
+	return out;
+}
+
 export async function fetchImage(
 	token: SalesforceTokenResponse,
 	imageUrl: string,

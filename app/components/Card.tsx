@@ -115,12 +115,12 @@ function ContactCard({ data }: { data: ContactCardData }) {
 				</div>
 				<div className="flex items-center gap-3 mt-auto border-t border-gray-500 p-2 pattern-bg-dots-sm relative">
 					{data.linkedinUrl && (
-						<a href={data.linkedinUrl} target="_blank" rel="noreferrer" className="text-white hover:text-brand-sky transition-colors">
+						<a href={data.linkedinUrl} target="_blank" rel="noreferrer" aria-label={`Visit LinkedIn profile of ${data.name}`} className="text-white hover:text-brand-sky transition-colors">
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
 						</a>
 					)}
 					{data.trailblazerUrl && (
-						<a href={data.trailblazerUrl} target="_blank" rel="noreferrer" className="text-white hover:text-brand-sky transition-colors">
+						<a href={data.trailblazerUrl} target="_blank" rel="noreferrer" aria-label={`Visit Salesforce Trailhead profile of ${data.name}`} className="text-white hover:text-brand-sky transition-colors">
 							<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10.006 5.415a4.195 4.195 0 013.045-1.306c1.56 0 2.954.856 3.69 2.148a5.173 5.173 0 012.009-.404c2.868 0 5.19 2.337 5.19 5.218 0 2.882-2.322 5.22-5.19 5.22a5.15 5.15 0 01-1.316-.171 4.074 4.074 0 01-3.594 2.147 4.074 4.074 0 01-1.88-.46 4.622 4.622 0 01-3.81 2.022c-2.198 0-4.028-1.542-4.49-3.6a4.166 4.166 0 01-.56.038C1.232 16.267 0 14.71 0 12.818c0-1.263.683-2.467 1.727-3.1a4.498 4.498 0 01-.333-1.691C1.394 5.36 3.763 3 6.71 3c1.37 0 2.63.49 3.296 2.415z" /></svg>
 						</a>
 					)}
@@ -136,6 +136,7 @@ function ArticleCard({ data }: { data: ArticleCardData }) {
 	return (
 		<Link
 			to={`/article/${data.sfId}`}
+			aria-label={`Read article: ${data.name}`}
 			className="w-full sm:w-[calc(50%-0.5rem)] min-w-[340px] grow group p-1 hover:shadow-xl transition-all"
 		>
 			<div className="bg-wsm-dark group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
@@ -185,6 +186,7 @@ function RelatedArticleCard({ data }: { data: RelatedArticleCardData }) {
 	return (
 		<Link
 			to={`/article/${data.sfId}`}
+			aria-label={`Read related article: ${data.name}`}
 			className="w-full sm:w-[calc(50%-0.25rem)] min-w-[300px] grow group p-1 hover:shadow-xl transition-all"
 		>
 			<div className="bg-wsm-dark group-hover:bg-[#141b2a] border-2 border-solid border-gray-600 group-hover:border-brand-sky flex h-full relative z-10 transition-colors">
@@ -287,7 +289,7 @@ function SplashCard({ data }: { data: SplashCardData }) {
 
 	if (data.linkUrl) {
 		return (
-			<Link to={data.linkUrl} className="w-full sm:w-[calc(33%-0.5rem)] min-w-[280px] grow group p-1 hover:shadow-xl transition-all">
+			<Link to={data.linkUrl} aria-label={`Learn more about ${data.title}`} className="w-full sm:w-[calc(33%-0.5rem)] min-w-[280px] grow group p-1 hover:shadow-xl transition-all">
 				{content}
 			</Link>
 		);

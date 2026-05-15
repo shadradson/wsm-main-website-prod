@@ -93,7 +93,7 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 
 	if (cardType === "regular") {
 		return (
-			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
+			<Link to={href} aria-label={`Read article: ${article.name}`} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
 				{/* Outer Box */}
 				<div className={`${s.cardOuter} p-1 aspect-[3/2] relative rounded-lg`}>
 					{/* Hover gradient overlay */}
@@ -167,7 +167,7 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 	}
 	if (cardType === "regular_no_img") {
 		return (
-			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] min-h-20 grow group p-0" >
+			<Link to={href} aria-label={`Read article: ${article.name}`} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] min-h-20 grow group p-0" >
 				{/* Outer Box */}
 				<div className={`${s.cardOuter} h-full p-1 relative rounded-lg`}>
 					{/* Hover gradient overlay */}
@@ -227,7 +227,7 @@ export default function ArticleLinkCard({ article, theme = "dark", trail, cardTy
 	}
 	else if (cardType === "compact") {
 		return (
-			<Link to={href} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
+			<Link to={href} aria-label={`Read article: ${article.name}`} className="w-full sm:w-[calc(50%-0.5rem)] min-w-[200px] max-w-[100%] sm:max-w-[50%] lg:max-w-[30%] grow group p-0" >
 				{/* Outer Box */}
 				<div className={`${s.cardOuter} p-1 relative rounded-lg`}>
 					{/* Hover gradient overlay */}

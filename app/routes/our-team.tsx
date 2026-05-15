@@ -52,7 +52,7 @@ export function meta({ }: Route.MetaArgs) {
 export async function loader({ context }: Route.LoaderArgs) {
 	const db = context.cloudflare.env.DB;
 	const { results } = await db.prepare(
-		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key, bio_article_id FROM contacts ORDER BY about_us_sort_order ASC",
+		"SELECT sf_id, first_name, last_name, title, certifications, about_us_sort_order, trailblazer_url, linkedin_url, date_started_in_industry, time_in_industry, date_started_at_wsm, years_at_wsm, photo_r2_key, bio_article_id FROM contacts WHERE contact_status = 'WSM - Actively Employed' ORDER BY about_us_sort_order ASC",
 	).all<TeamMember>();
 
 	const team = results ?? [];
@@ -313,7 +313,7 @@ function TeamGrid() {
 									const initials = `${(member.first_name?.[0] ?? "")}${(member.last_name?.[0] ?? "")}`;
 									const Wrapper = member.bio_article_id
 										? ({ children }: { children: React.ReactNode }) => (
-											<Link to={`/article/${member.bio_article_id}?trail=our-team`} className="w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33%-1.5rem)] min-w-[340px] group">
+											<Link to={`/article/${member.bio_article_id}?trail=our-team`} aria-label={`View bio of ${member.first_name} ${member.last_name}`} className="w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33%-1.5rem)] min-w-[340px] group">
 												{children}
 											</Link>
 										)

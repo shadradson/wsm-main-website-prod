@@ -88,6 +88,7 @@ function WhatWeDoSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 								with your existing stack. We make AI work for you." theme="light" vertAlign="top" horzAlign="left" noPad="true" titlemultiline="true"/>
 							<Link
 								to="/contact"
+								aria-label="Contact us about AI consulting"
 								className="inline-flex items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-wsm-mountain transition-colors"
 							>
 								LET'S SUMMIT AI
@@ -125,6 +126,7 @@ function CapabilitiesSection({ articleRefs }: { articleRefs: ArticleRef[] }) {
 								<Link
 									key={ref.child_sf_id}
 									to={`/article/${ref.child_sf_id}`}
+									aria-label={`Read article: ${ref.child_name}`}
 									className="relative p-1 flex-1 min-w-[200px] min-h-[100px] items-center flex flex-col justify-center hover:bg-white/5 transition-colors"
 								>
 									{/* Top-left */}

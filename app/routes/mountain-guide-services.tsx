@@ -88,6 +88,7 @@ function WhatWeDoSection() {
 							</p>
 							<Link
 								to="/contact"
+								aria-label="Contact us about Salesforce mountain guide services"
 								className="inline-flex items-center px-6 py-3 bg-summit-dark text-white font-semibold hover:bg-wsm-mountain transition-colors"
 							>
 								FIND YOUR GUIDE

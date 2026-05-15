@@ -377,6 +377,7 @@ function ServicesOverview() {
 							<Link
 								key={service.title}
 								to={service.href}
+								aria-label={`Learn about ${service.title}`}
 								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
 							>
 								<div className="w-14 h-14 bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
@@ -395,6 +396,7 @@ function ServicesOverview() {
 					<div className="text-center mt-12">
 						<Link
 							to="/expertise"
+							aria-label="Explore our full capabilities"
 							className="inline-flex items-center text-brand-sky font-semibold hover:text-white transition-colors"
 						>
 							EXPLORE OUR CAPABILITIES
