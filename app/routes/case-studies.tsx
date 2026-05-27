@@ -51,6 +51,7 @@ export default function CaseStudies() {
 				trail="case-studies"
 				dots="true"
 				tag="INDUSTRIES"
+				searchAndFilter="true"
 			/>
 			<ArticleCardSection
 				id="cases-products"

@@ -26,6 +26,7 @@ export interface ArticleCardData {
 	name: string;
 	subtitle?: string | null;
 	short_description?: string | null;
+	article_category?: string | null;
 	subcategory?: string | null;
 	vertical_product?: string | null;
 	splash_image_url?: string | null;
@@ -57,6 +58,7 @@ export interface CsatSurvey {
 	website_testimonial_blurb: string | null;
 	permission_for_website: number;
 	csat_date: string | null;
+	testimonial_article_id: string | null;
 }
 
 /** Known page slugs for breadcrumb trail */

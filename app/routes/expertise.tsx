@@ -6,6 +6,9 @@ import Transition from "~/components/Transition";
 import SplashSection from "~/components/SplashSection";
 import ProcessSection from "~/components/ProcessSection";
 import SimplePillSection from "~/components/SimplePillSection";
+import SectionHeaderText from "~/components/SectionHeaderText";
+import { Link, useLoaderData } from "react-router";
+import SimpleButton from "~/components/SimpleButton";
 import Tag from "~/components/Tag";
 
 const TITLE = "Salesforce & AI Consulting Services | We Summit Mountains";
@@ -63,7 +66,8 @@ export default function Expertise() {
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
 			<PageHero />
-			<SplashSection
+			<ServicesOverview/>
+			{/*<SplashSection
 				theme="light"
 				dots="true"
 				titlesize="small"
@@ -113,19 +117,14 @@ export default function Expertise() {
 						infotext: "KPIs,Reporting,Business Process Optimization,Optimization,Business Unit Unification,Multi-Department Automation,Role Optimization"
 					},
 				]}
-			/>
-			<Transition
-				type="text"
-				text="PROCESS"
-				textpos="bot"
-				textcolor="#112C3C"
-				bgtop="#F9FAFB"
-			/>
+			/>*/}
+			
 
 			<ProcessSection
 				tag="PROCESS"
 				title1="OUR PROCESS"
 				subtitle="Our proven approach to delivering excellent results."
+				theme="light"
 				dots="true"
 				steps={[
 					{
@@ -234,6 +233,108 @@ function PageHero() {
 	);
 }
 
+function ServicesOverview() {
+	const services = [
+		{
+			title: "AI Consulting",
+			description: "Strategic Artificial Intelligence Implementation. We know AI",
+			href: "/ai-consulting",
+			alt_text: "Learn about our AI consulting services",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+				</svg>
+			),
+			button_text: "LEARN ABOUT AI",
+		},
+		{
+			title: "CTO Fractional Services",
+			description: "We provide strategic CTO guidance to fast track your business goals.",
+			href: "/fractional-cto-services",
+			alt_text: "Learn about our fractional CTO partnerships",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+				</svg>
+			),
+			button_text: "HOW WE GROW YOUR BUSINESS",
+		},
+		{
+			title: "Salesforce Implementation",
+			description: "Scalable Salesforce solutions tailored to your business.",
+			href: "/mountain-guide-services",
+			alt_text: "Learn about our Salesforce implementation successes",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+				</svg>
+			),
+			button_text: "IMPLEMENT SALESFORCE",
+		},
+		{
+			title: "System Integrations",
+			description: "Robust integrations that eliminate data silos and automate workflows.",
+			href: "/system-integration-services",
+			alt_text: "Learn about how we connect your systems",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.54a4.5 4.5 0 00-1.242-7.244l4.5-4.5a4.5 4.5 0 016.364 6.364l-1.757 1.757" />
+				</svg>
+			),
+			button_text: "CONNECT EVERYTHING",
+		},
+	];
+
+	return (
+		<section id="home-services" className="bg-gradient-to-b from-[#111] to-wsm-cliff">
+			<div className="py-20 lg:py-28 flex flex-row">
+				<div className="flex-1 pattern-bg-dots"></div>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<SectionHeaderText
+						title1="WHAT"
+						title2="WE DO"
+						subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
+						theme="dark"
+						horzAlign="left"
+					/>
+
+					<div className="flex flex-wrap justify-between gap-2 md:gap-4">
+						{services.map((service) => (
+							<Link
+								key={service.title}
+								to={service.href}
+								aria-label={`Learn about ${service.title}`}
+								className="w-full min-w-[200px] flex-1 sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] rounded-xl lg:w-[calc(25%-1.875rem)] flex flex-col justify-between group p-2 md:p-4 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
+							>
+								{/*<div className="w-14 h-14 bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+									{service.icon}
+								</div>*/}
+								<h3 className="text-xl font-bold text-white mb-3">
+									{service.title}
+								</h3>
+								<p className="text-gray-300 leading-relaxed">
+									{service.description}
+								</p>
+								<p className="inline-flex items-center justify-center text-center text-brand-sky font-semibold hover:text-white transition-colors pt-2 md:pt-4">
+									<span>LEARN MORE</span>
+									<svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+									</svg>
+								</p>
+
+							</Link>
+						))}
+					</div>
+
+					<div className="text-center mt-12">
+						<SimpleButton link="/expertise" aria_label="Explore Our Services" button_text="EXPLORE OUR SERVICES" />
+					</div>
+				</div>
+				<div className="flex-1 pattern-bg-dots"></div>
+			</div>
+		</section>
+	);
+}
 
 
 

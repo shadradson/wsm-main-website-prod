@@ -12,7 +12,7 @@ interface StatsSectionProps {
     title?: string;
     subtitle?: string;
     tag?: string;
-    theme?: "light" | "dark" | "blue";
+    theme?: "light" | "dark" | "blue" | "dark2";
     dots?: string;
 }
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import BirdsFlock from "~/components/BirdsFlock";
 import FooterContactForm from "~/components/FooterContactForm";
 import { LayoutConfigInterface } from "~/lib/LayoutConfig";
+import SimpleButton from "~/components/SimpleButton";
 
 function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,17 +37,17 @@ function Header() {
 	}, [isHome, isOurTeam]);
 
 	const navLinks = [
-		{ to: "/", label: "Home" },
-		{ to: "/about-us", label: "About Us" },
+		/*{ to: "/", label: "Home" },*/
 		{
-			to: "/expertise", label: "Expertise", children: [
+			to: "/expertise", label: "What We Do", children: [
 				{ to: "/ai-consulting", label: "AI Consulting" },
 				{ to: "/mountain-guide-services", label: "Salesforce Implementation" },
-				{ to: "/system-integration-services", label: "System Integrations" },
-				{ to: "/fractional-cto-services", label: "CTO" },
+				{ to: "/system-integration-services", label: "System Integration" },
+				{ to: "/fractional-cto-services", label: "Fractional CTO" },
 			],
 		},
-		{ to: "/case-studies", label: "Case Studies" },
+		{ to: "/about-us", label: "Who We Are" },
+		{ to: "/case-studies", label: "What We Have Learned" },
 		{ to: "/success-stories", label: "Success Stories" },
 	];
 
@@ -59,166 +60,16 @@ function Header() {
 		window.dispatchEvent(new CustomEvent("openFooterForm"));
 	}
 
-	const showEarlyHamburger = (isHome || isOurTeam) && !navVisible;
+	const showEarlyHamburger = LayoutConfig.navBarStartSmall && !navVisible;
 
 	return (
 		<>
-		{/* Floating hamburger shown before main nav appears on home/about-us */}
-		{showEarlyHamburger && (
-			<div className="fixed top-0 right-0 z-[60]">
-				<button
-					className="text-white bg-black p-3 m-2"
-					onClick={() => { setNavVisible(true); setMobileOpen(!mobileOpen); }}
-					aria-label="Toggle menu"
-				>
-					{mobileOpen ? (
-						<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-						</svg>
-					) : (
-						<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-						</svg>
-					)}
-				</button>
-			</div>
-		)}
-
-		{/* Single mobile menu, shared by both early hamburger and main header */}
-		{mobileOpen && (
-			<div id="mobile-menu" className="lg:hidden fixed top-12 left-0 right-0 z-[55] bg-black border-t border-white/10 max-h-[80vh] overflow-y-auto">
-				<div id="mobile-nav-links" className="px-4 py-4 space-y-1">
-					{navLinks.map((link) => (
-						<div key={link.to}>
-							<div className="flex items-center">
-								<NavLink
-									to={link.to}
-									end={link.to === "/"}
-									onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
-									className={({ isActive }) =>
-										`flex-1 block px-4 py-3 text-sm font-medium transition-colors ${isActive
-											? "text-brand-sky bg-white/10"
-											: "text-gray-300 hover:text-white hover:bg-white/5"
-										}`
-									}
-								>
-									{link.label}
-								</NavLink>
-								{link.children && (
-									<button
-										onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
-										className="text-gray-400 hover:text-white p-3"
-									>
-										<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-										</svg>
-									</button>
-								)}
-							</div>
-							{link.children && openDropdown === link.to && (
-								<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
-									{link.children.map((child) => (
-										<NavLink
-											key={child.to}
-											to={child.to}
-											onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
-											className={({ isActive }) =>
-												`block px-4 py-2 text-sm transition-colors ${isActive
-													? "text-brand-sky bg-white/10"
-													: "text-gray-400 hover:text-white hover:bg-white/5"
-												}`
-											}
-										>
-											{child.label}
-										</NavLink>
-									))}
-								</div>
-							)}
-						</div>
-					))}
+			{/* Floating hamburger shown before main nav appears on home/about-us */}
+			{showEarlyHamburger && (
+				<div className="fixed top-0 right-0 z-[60]">
 					<button
-						onClick={handleGetClimbing}
-						className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-					>
-						Get Climbing
-					</button>
-				</div>
-			</div>
-		)}
-
-		<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(isHome || isOurTeam) && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${ !scrolled && LayoutConfig.navBarTransparentOnHero ? "bg-transparent" : "bg-black" }`}>
-			<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div id="header-row" className="relative flex items-center h-12 lg:h-16">
-					{/* Logo: centered on mobile always, left-aligned on desktop */}
-					<Link
-						to="/"
-						id="header-logo-link"
-						aria-label="We Summit Mountains home"
-						className="transition-all duration-300 absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
-					>
-						<img
-							id="header-logo"
-							src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
-							alt="We Summit Mountains"
-							className="h-10"
-						/>
-					</Link>
-
-					{/* Desktop nav: centered when logo hidden, right-aligned when logo shows */}
-					<nav id="desktop-nav" className="hidden lg:flex items-center gap-1 transition-all duration-300 ml-auto">
-						{navLinks.map((link) => (
-							<div key={link.to} className="relative group">
-								<NavLink
-									to={link.to}
-									end={link.to === "/"}
-									className={({ isActive }) =>
-										`px-4 py-2 text-sm font-medium transition-colors inline-flex items-center gap-1 ${isActive
-											? "text-brand-sky bg-white/10"
-											: "text-gray-300 hover:text-white hover:bg-white/5"
-										}`
-									}
-								>
-									{link.label}
-									{link.children && (
-										<svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-										</svg>
-									)}
-								</NavLink>
-								{link.children && (
-									<div className="absolute top-full left-0 hidden group-hover:block pt-1 min-w-[200px]">
-										<div className="bg-black border border-white/10 py-2">
-											{link.children.map((child) => (
-												<NavLink
-													key={child.to}
-													to={child.to}
-													className={({ isActive }) =>
-														`block px-4 py-2 text-sm transition-colors ${isActive
-															? "text-brand-sky bg-white/10"
-															: "text-gray-300 hover:text-white hover:bg-white/5"
-														}`
-													}
-												>
-													{child.label}
-												</NavLink>
-											))}
-										</div>
-									</div>
-								)}
-							</div>
-						))}
-						<button
-							onClick={handleGetClimbing}
-							className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-						>
-							Get Climbing
-						</button>
-					</nav>
-
-					<button
-						id="mobile-menu-toggle"
-						className="lg:hidden text-white p-2 absolute right-0"
-						onClick={() => setMobileOpen(!mobileOpen)}
+						className="text-white bg-black p-3 m-2"
+						onClick={() => { setNavVisible(true); setMobileOpen(!mobileOpen); }}
 						aria-label="Toggle menu"
 					>
 						{mobileOpen ? (
@@ -232,8 +83,161 @@ function Header() {
 						)}
 					</button>
 				</div>
-			</div>
-		</header>
+			)}
+
+			{/* Single mobile menu, shared by both early hamburger and main header */}
+			{mobileOpen && (
+				<div id="mobile-menu" className="lg:hidden fixed top-12 left-0 right-0 z-[55] bg-black border-t border-white/10 max-h-[80vh] overflow-y-auto">
+					<div id="mobile-nav-links" className="px-4 py-4 space-y-1">
+						{navLinks.map((link) => (
+							<div key={link.to}>
+								<div className="flex items-center">
+									<NavLink
+										to={link.to}
+										end={link.to === "/"}
+										onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+										className={({ isActive }) =>
+											`flex-1 block px-4 py-3 text-sm font-medium transition-colors ${isActive
+												? "text-brand-sky bg-white/10"
+												: "text-gray-300 hover:text-white hover:bg-white/5"
+											}`
+										}
+									>
+										{link.label}
+									</NavLink>
+									{link.children && (
+										<button
+											onClick={() => setOpenDropdown(openDropdown === link.to ? null : link.to)}
+											className="text-gray-400 hover:text-white p-3"
+										>
+											<svg className={`w-4 h-4 transition-transform ${openDropdown === link.to ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+											</svg>
+										</button>
+									)}
+								</div>
+								{link.children && openDropdown === link.to && (
+									<div className="ml-4 border-l border-white/10 pl-2 space-y-1">
+										{link.children.map((child) => (
+											<NavLink
+												key={child.to}
+												to={child.to}
+												onClick={() => { setMobileOpen(false); setOpenDropdown(null); }}
+												className={({ isActive }) =>
+													`block px-4 py-2 text-sm transition-colors ${isActive
+														? "text-brand-sky bg-white/10"
+														: "text-gray-400 hover:text-white hover:bg-white/5"
+													}`
+												}
+											>
+												{child.label}
+											</NavLink>
+										))}
+									</div>
+								)}
+							</div>
+						))}
+						{/*<button
+						onClick={handleGetClimbing}
+						className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+					>
+						Contact Us
+					</button>*/}
+						<SimpleButton button_text="LET'S TALK" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="schedule" theme="light" />
+
+					</div>
+				</div>
+			)}
+
+			<header id="main-header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${LayoutConfig.navBarStartSmall && !navVisible ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"} ${!scrolled && LayoutConfig.navBarTransparentOnHero ? "bg-transparent" : "bg-black"}`}>
+				<div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div id="header-row" className="relative flex items-center h-12 lg:h-16">
+						{/* Logo: centered on mobile always, left-aligned on desktop */}
+						<Link
+							to="/"
+							id="header-logo-link"
+							aria-label="We Summit Mountains home"
+							className="transition-all duration-300 absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:static"
+						>
+							<img
+								id="header-logo"
+								src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
+								alt="We Summit Mountains"
+								className="h-10"
+							/>
+						</Link>
+
+						{/* Desktop nav: centered when logo hidden, right-aligned when logo shows */}
+						<nav id="desktop-nav" className="hidden lg:flex items-center gap-1 transition-all duration-300 ml-auto">
+							{navLinks.map((link) => (
+								<div key={link.to} className="relative group">
+									<NavLink
+										to={link.to}
+										end={link.to === "/"}
+										className={({ isActive }) =>
+											`px-4 py-2 text-sm font-medium transition-colors inline-flex items-center gap-1 ${isActive
+												? "text-brand-sky bg-white/10"
+												: "text-gray-300 hover:text-white hover:bg-white/5"
+											}`
+										}
+									>
+										{link.label}
+										{link.children && (
+											<svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+											</svg>
+										)}
+									</NavLink>
+									{link.children && (
+										<div className="absolute top-full left-0 hidden group-hover:block pt-1 min-w-[200px]">
+											<div className="bg-black border border-white/10 py-2">
+												{link.children.map((child) => (
+													<NavLink
+														key={child.to}
+														to={child.to}
+														className={({ isActive }) =>
+															`block px-4 py-2 text-sm transition-colors ${isActive
+																? "text-brand-sky bg-white/10"
+																: "text-gray-300 hover:text-white hover:bg-white/5"
+															}`
+														}
+													>
+														{child.label}
+													</NavLink>
+												))}
+											</div>
+										</div>
+									)}
+								</div>
+							))}
+							{/*<button
+							onClick={handleGetClimbing}
+							className="px-4 py-2 text-sm font-medium bg-wsm-dark text-gray-300 hover:text-white hover:bg-wsm-cliff transition-colors"
+						>
+							Contact Us
+						</button>*/}
+							<SimpleButton button_text="LET'S TALK" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="schedule" theme="light" />
+						</nav>
+
+						<button
+							id="mobile-menu-toggle"
+							className="lg:hidden text-white p-2 absolute right-0"
+							onClick={() => setMobileOpen(!mobileOpen)}
+							aria-label="Toggle menu"
+						>
+							{mobileOpen ? (
+								<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+								</svg>
+							) : (
+								<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+								</svg>
+							)}
+						</button>
+					</div>
+				</div>
+			</header>
 		</>
 	);
 }
@@ -257,7 +261,7 @@ function Footer() {
 		<footer id="main-footer" className="text-gray-400 flex min-h-[100vh] flex-col items-center w-full relative overflow-clip">
 
 			{/* Footer parallax layers */}
-			
+
 			<div className="footer_parallax_layer footer_mountains_anim">
 				<img src="/images/Rendered_Bright_Mountains.png" alt="" className="footer_mountains_img" />
 			</div>
@@ -271,8 +275,9 @@ function Footer() {
 
 			<BirdsFlock birdColor="#eeBDA0" birdCount={200} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.2} birdWiggleRandomMultiplier={100} />
 
-			<div id="footer-content" className="relative z-10">
+			<div id="footer-content" className="relative z-10 h-[80vh] flex flex-col justify-center items-center text-center max-w-3xl px-6 py-12">
 
+				{/* OLD VERSION WITH LEAD GEN FORM - KEPT COMMENTED IN CASE WE WANT TO REVERT OR REUSE DESIGNS/ANIMATIONS
 				{LayoutConfig.showCta && (
 					<div id="home-cta-card" className="sm:py-4 lg:py-20">
 						<div className="max-w-7xl mx-auto md:px-8 pb-30 sm:px-2 lg:px-8">
@@ -312,7 +317,29 @@ function Footer() {
 							</div>
 						</div>
 					</div>
-				)}
+				)}*/}
+
+				<div id="home-cta-card" className="sm:py-4 lg:py-20">
+					<div className="max-w-7xl mx-auto md:px-8 pb-30 sm:px-2 lg:px-8">
+						<div className="relative p-4 sm:p-6 md:p-12 lg:p-16 text-center overflow-hidden">
+							<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
+							<div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-blue/10  blur-3xl" />
+
+							<div className="relative">
+								<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+									{LayoutConfig.title}
+								</h2>
+								<p className="text-lg text-white max-w-xl mx-auto mb-8">
+									{LayoutConfig.subtitle}
+								</p>
+								<div className="flex flex-col sm:flex-row gap-4 justify-center p-4">
+									<SimpleButton button_text="SCHEDULE A FREE INTRO CALL" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="schedule" theme="light" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 
 			</div>
 
@@ -348,7 +375,7 @@ function Footer() {
 					<Link to="/expertise" aria-label="View Salesforce Implementation service" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">Salesforce Implementation</Link>
 					<Link to="/expertise" aria-label="View CTO Services" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">CTO Services</Link>
 					<Link to="/expertise" aria-label="View System Integrations service" className="text-gray-400 hover:text-wsm-mountain font-[700] transition-colors">System Integrations</Link>
-					
+
 				</div>
 			</div>
 

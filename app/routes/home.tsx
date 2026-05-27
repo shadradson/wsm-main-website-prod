@@ -6,6 +6,7 @@ import Transition from "~/components/Transition"
 import SectionHeaderText from "~/components/SectionHeaderText";
 import ArticleCardSection from "~/components/ArticleCardSection";
 import CsatCardSection from "~/components/CsatCardSection";
+import SimpleButton from "~/components/SimpleButton";
 import type { Article, CsatSurvey } from "~/lib/types";
 
 import { buildMeta, SITE_URL, SITE_LOGO, OG_IMAGE } from "~/lib/seo";
@@ -34,12 +35,16 @@ export async function loader({ context }: Route.LoaderArgs) {
 			LIMIT 6`
 		).all<Article>(),
 		db.prepare(
-			`SELECT sf_id, name, account_name, first_name, last_name, title,
-				star_rating, refer_likelihood, website_testimonial_blurb,
-				permission_for_website, csat_date
-			FROM csat_surveys
-			WHERE permission_for_website = 1
-			ORDER BY csat_date DESC
+			`SELECT cs.sf_id, cs.name, cs.account_name, cs.first_name, cs.last_name, cs.title,
+				cs.star_rating, cs.refer_likelihood, cs.website_testimonial_blurb,
+				cs.permission_for_website, cs.csat_date,
+				ar.parent_or_primary_id AS testimonial_article_id
+			FROM csat_surveys cs
+			LEFT JOIN article_references ar
+				ON ar.csat_survey_id = cs.sf_id
+				AND ar.parent_relationship_type = 'Testimonial'
+			WHERE cs.permission_for_website = 1
+			ORDER BY cs.csat_date DESC
 			LIMIT 16`
 		).all<CsatSurvey>(),
 	]);
@@ -128,6 +133,7 @@ export default function Home() {
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }} />
 			<HeroSection />
+
 			<Transition
 				type="text"
 				text="CLIMBING"
@@ -135,13 +141,27 @@ export default function Home() {
 				textcolor="#111"
 				bgbottom="#fff"
 			/>
+
+			<StatsSection
+				tag="STATS"
+				theme="dark2"
+				dots="true"
+				stats={[
+					{ value: "2023", label: "Founded" },
+					{ value: "5 / 5", label: "CSAT Score" },
+					{ value: "100+", label: "Projects Delivered" },
+					{ value: "30+", label: "Certifications" },
+					{ value: "USA", label: "Located" },
+				]}
+			/>
 			<ServicesOverview />
+			
 
 			<Transition
 				type="text"
 				text="KEEP"
 				textpos="bot"
-				textcolor="#101622"
+				textcolor="#BEE2EE"
 				bgtop="#036588"
 			/>
 
@@ -149,12 +169,12 @@ export default function Home() {
 				type="text"
 				text="MOVING"
 				textpos="bot"
-				textcolor="#fff"
-				bgtop="#101622"
+				textcolor="black"
+				bgtop="#BEE2EE"
 			/>
-
-			<SplashSection
-				//title=""
+			<WhyWorkWithUs />
+			{/*<SplashSection
+				title="WHY YOU SHOULD CHOOSE US"
 				//subtitle=""
 				theme="light" // "light, dark, blue"
 				dots="true"
@@ -190,9 +210,9 @@ export default function Home() {
 						infotext: "Every engagement is focused on delivering tangible business outcomes that you can measure and build upon."
 					},
 				]}
-			/>
+			/>*/}
 
-			{testimonials.length > 0 && (
+			{/*testimonials.length > 0 && (
 				<ArticleCardSection
 					id="home-testimonials"
 					title1="CLIENT"
@@ -203,30 +223,19 @@ export default function Home() {
 					dots
 					trail="home"
 				/>
-			)}
+			)*/}
 
 			<CsatCardSection
 				surveys={csatSurveys}
-				title1="CLIENT"
-				title2="SATISFACTION"
+				title1="WHAT OUR"
+				title2="CLIENTS SAY"
 				subtitle="Real feedback from the people at the tops of their mountains."
 				id="home-csat"
 				dots={true}
 				multiLineTitles={false}
+				theme="dark"
 			/>
 
-			<StatsSection
-				tag="STATS"
-				theme="light"
-				dots="true"
-				stats={[
-					{ value: "2023", label: "Founded" },
-					{ value: "5 / 5", label: "CSAT Score" },
-					{ value: "100+", label: "Projects Delivered" },
-					{ value: "30+", label: "Certifications" },
-					{ value: "USA", label: "Located" },
-				]}
-			/>
 		</>
 	);
 }
@@ -253,48 +262,49 @@ function HeroSection() {
 			{/* Layer 3: Logo + tagline + arrow */}
 			<div className="paralayer midlay lay3">
 				<div className="logo_outer_box">
-					<div className="splash1_logo">
+					{/*<div className="splash1_logo">
 						<div className="header_logo_main">
-							<img
-								src="/images/WSM_LOGO_V2_Norm_TXT_Wht.svg"
-								alt="We Summit Mountains"
-								className="logo_img"
-							/>
-							<img
-								src="/images/WSM Logo V2 White Vertical.svg"
-								alt="We Summit Mountains"
-								className="logo_img_vert"
-							/>
-						</div>
-					</div>
-					<div className="blurb_outer textcenter">
-						<p>WE ARE HERE TO HELP YOU</p>
-						<p>SUMMIT YOUR SOFTWARE MOUNTAINS</p>
-					</div>
-					<div className="arrow-container">
-						<div className="arrow floating fill-wsm-glacier flex justify-center">
-							<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="68.7114mm" height="59.5059mm" version="1.1" className="max-h-[5rem]"
-								viewBox="0 0 5047 4371"
-								xmlns:xlink="http://www.w3.org/1999/xlink">
-								<defs>
-									<linearGradient x1="50%" y1="92.034%" x2="50%" y2="7.2%" id="a">
-										<stop stop-opacity="1" offset="0%" stop-color="#ddddee" />
-										<stop stop-opacity="1" offset="100%" stop-color="#ddeeee" />
-									</linearGradient>
-								</defs>
-								<g id="Layer_x0020_1">
-									<path fill="url(#a)" d="M0 0l5047 0 -2523 4371 -2524 -4371zm2524 2513l912 -1580 -1825 0 913 1580z" />
-								</g>
-							</svg>
 
 						</div>
+					</div>*/}
+					<div className="px-8 py-4">
+						<h1 className="text-[#ddddee] text-3xl text-center md:text-4xl lg:text-6xl font-semibold max-w-4xl mx-auto">
+							Your AI and Software growth partners.
+						</h1>
+					</div>
+					<div className="blurb_outer textcenter max-w-2xl mx-auto">
+						<h2 className="">We build the AI atomated systems that generate sales, close deals, and help you scale.</h2>
+					</div>
+					<div id="home-call-to-action" className="flex flex-row gap-0 z-1000">
+						<SimpleButton button_text="WHAT WE DO" link="/expertise" theme="dark" type="rounded"/>
+						<SimpleButton button_text="LET'S TALK" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="rounded" theme="light"/>
 					</div>
 				</div>
 			</div>
 
 			{/* Layer 4: Mountains */}
-			<div className="paralayer botlay lay4">
+			<div className="paralayer botlay lay4 pointer-events-none">
 				<div className="splash1_mountains">
+					{/*<div className="absolute top-[45vh] left-0 w-full">
+						<div className="arrow-container w-full">
+							<div className="arrow floating fill-wsm-glacier flex justify-center z-100 w-[100vw]">
+								<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="68.7114mm" height="59.5059mm" version="1.1" className="max-h-[5rem]"
+									viewBox="0 0 5047 4371"
+									xmlns:xlink="http://www.w3.org/1999/xlink">
+									<defs>
+										<linearGradient x1="50%" y1="92.034%" x2="50%" y2="7.2%" id="a">
+											<stop stop-opacity="1" offset="0%" stop-color="#ddddee" />
+											<stop stop-opacity="1" offset="100%" stop-color="#ddeeee" />
+										</linearGradient>
+									</defs>
+									<g id="Layer_x0020_1">
+										<path fill="url(#a)" d="M0 0l5047 0 -2523 4371 -2524 -4371zm2524 2513l912 -1580 -1825 0 913 1580z" />
+									</g>
+								</svg>
+
+							</div>
+						</div>
+					</div>*/}
 					<img
 						src="/images/Mountains Rendered Cutout.png"
 						alt=""
@@ -304,7 +314,7 @@ function HeroSection() {
 			</div>
 
 			{/* Layer 5: Tag text */}
-			<div className="paralayer midlay lay5">
+			<div className="paralayer midlay lay5 pointer-events-none">
 				<div className="splash_tag_box">
 					<div className="splash_tag_text text-white">GET</div>
 				</div>
@@ -319,43 +329,51 @@ function ServicesOverview() {
 	const services = [
 		{
 			title: "AI Consulting",
-			description: "Leverage the power of artificial intelligence to drive smarter decisions. From strategy to deployment, we make AI work for your business.",
+			description: "Strategic Artificial Intelligence Implementation. We know AI",
 			href: "/ai-consulting",
+			alt_text: "Learn about our AI consulting services",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
 				</svg>
 			),
+			button_text: "LEARN ABOUT AI",
 		},
 		{
 			title: "CTO Fractional Services",
-			description: "Get executive-level technology leadership without the full-time cost. We provide strategic CTO guidance to align your tech vision with business goals.",
+			description: "We provide strategic CTO guidance to fast track your business goals.",
 			href: "/fractional-cto-services",
+			alt_text: "Learn about our fractional CTO partnerships",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
 				</svg>
 			),
+			button_text: "HOW WE GROW YOUR BUSINESS",
 		},
 		{
 			title: "Salesforce Implementation",
-			description: "End-to-end Salesforce solutions tailored to your business processes. From Sales Cloud to Service Cloud, we build systems that scale.",
+			description: "Scalable Salesforce solutions tailored to your business.",
 			href: "/mountain-guide-services",
+			alt_text: "Learn about our Salesforce implementation successes",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
 				</svg>
 			),
+			button_text: "IMPLEMENT SALESFORCE",
 		},
 		{
 			title: "System Integrations",
-			description: "Seamlessly connect your business tools and platforms. We build robust integrations that eliminate data silos and automate workflows.",
+			description: "Robust integrations that eliminate data silos and automate workflows.",
 			href: "/system-integration-services",
+			alt_text: "Learn about how we connect your systems",
 			icon: (
 				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.54a4.5 4.5 0 00-1.242-7.244l4.5-4.5a4.5 4.5 0 016.364 6.364l-1.757 1.757" />
 				</svg>
 			),
+			button_text: "CONNECT EVERYTHING",
 		},
 	];
 
@@ -365,45 +383,125 @@ function ServicesOverview() {
 				<div className="flex-1 pattern-bg-dots"></div>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<SectionHeaderText
-						title1="OUR "
-						title2="EXPERTISE"
+						title1="WHAT"
+						title2="WE DO"
 						subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
 						theme="dark"
-						horzAlign="center"
+						horzAlign="left"
 					/>
 
-					<div className="flex flex-wrap gap-5 md:gap-10">
+					<div className="flex flex-wrap justify-between gap-2 md:gap-4">
 						{services.map((service) => (
 							<Link
 								key={service.title}
 								to={service.href}
 								aria-label={`Learn about ${service.title}`}
-								className="w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] flex flex-col group p-8 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
+								className="w-full min-w-[200px] flex-1 sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] rounded-xl lg:w-[calc(25%-1.875rem)] flex flex-col justify-between group p-2 md:p-4 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
 							>
-								<div className="w-14 h-14 bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+								{/*<div className="w-14 h-14 bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
 									{service.icon}
-								</div>
+								</div>*/}
 								<h3 className="text-xl font-bold text-white mb-3">
 									{service.title}
 								</h3>
 								<p className="text-gray-300 leading-relaxed">
 									{service.description}
 								</p>
+								<p className="inline-flex items-center justify-center text-center text-brand-sky font-semibold hover:text-white transition-colors pt-2 md:pt-4">
+									<span>LEARN MORE</span>
+									<svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+									</svg>
+								</p>
+
 							</Link>
 						))}
 					</div>
 
 					<div className="text-center mt-12">
-						<Link
-							to="/expertise"
-							aria-label="Explore our full capabilities"
-							className="inline-flex items-center text-brand-sky font-semibold hover:text-white transition-colors"
-						>
-							EXPLORE OUR CAPABILITIES
-							<svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-							</svg>
-						</Link>
+						<SimpleButton link="/expertise" aria_label="Explore Our Services" button_text="EXPLORE OUR SERVICES" />
+					</div>
+				</div>
+				<div className="flex-1 pattern-bg-dots"></div>
+			</div>
+		</section>
+	);
+}
+
+
+
+function WhyWorkWithUs() {
+	const reasons = [
+		{
+			title: "We Are Experienced",
+			description: "We have been automating systems, integrating AI, and delivering innovative solutions over 100 projects since 2020",
+			href: "/ai-consulting",
+			alt_text: "Learn about our AI consulting services",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+				</svg>
+			),
+			button_text: "LEARN ABOUT AI",
+		},
+		{
+			title: "We Are Certified",
+			description: "30 team certifications prove our capabilities and deep knowledge of systems. We strive for excellence, and it shows.",
+			href: "/fractional-cto-services",
+			alt_text: "Learn about our fractional CTO partnerships",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+				</svg>
+			),
+			button_text: "HOW WE GROW YOUR BUSINESS",
+		},
+		{
+			title: "We Are Your Partners",
+			description: "We are here to build long-term business relations where we contribute to your growth and success.",
+			href: "/mountain-guide-services",
+			alt_text: "Learn about our Salesforce implementation successes",
+			icon: (
+				<svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+				</svg>
+			),
+			button_text: "IMPLEMENT SALESFORCE",
+		},
+	];
+
+	return (
+		<section id="home-services" className="bg-gradient-to-b from-black to-wsm-dark">
+			<div className="py-20 lg:py-28 flex flex-row">
+				<div className="flex-1 pattern-bg-dots"></div>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<SectionHeaderText
+						title1="WHY YOU WANT TO"
+						title2="WORK WITH US"
+						subtitle="We combine technical expertise with a collaborative approach to deliver solutions that enable operational excellence and sustainable success."
+						theme="dark"
+						horzAlign="left"
+					/>
+
+					<div className="flex flex-wrap justify-between gap-2 md:gap-4">
+						{reasons.map((reason) => (
+							<div
+								key={reason.title}
+								aria-label={`Learn about ${reason.title}`}
+								className="w-full min-w-[200px] flex-1 sm:w-[calc(50%-0.625rem)] md:w-[calc(50%-1.25rem)] rounded-xl lg:w-[calc(25%-1.875rem)] flex flex-col justify-between group p-2 md:p-4 border-4 border-white/10 hover:border-brand-sky/30 hover:shadow-xl hover:shadow-brand-sky/5 transition-all overflow-hidden"
+							>
+								{/*<div className="w-14 h-14 bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+									{reason.icon}
+								</div>*/}
+								<h3 className="text-xl font-bold text-white mb-3">
+									{reason.title}
+								</h3>
+								<p className="text-gray-300 leading-relaxed">
+									{reason.description}
+								</p>
+
+							</div>
+						))}
 					</div>
 				</div>
 				<div className="flex-1 pattern-bg-dots"></div>

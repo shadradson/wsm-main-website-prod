@@ -242,8 +242,8 @@ pre.mermaid {
 	animation-timeline: view();
 	animation-range-start: 90vh;
 	animation-range-end: 260vh;
-	z-index: 3;
-	top: calc(100px - 20vw);
+	z-index: 6;
+	top: 0;
 }
 
 .lay4 {
@@ -256,6 +256,14 @@ pre.mermaid {
 }
 
 .lay5 {
+	animation: paralayer5 linear;
+	animation-timeline: view();
+	animation-range-start: 90vh;
+	animation-range-end: 260vh;
+	z-index: 5;
+}
+
+.lay6 {
 	animation: paralayer5 linear;
 	animation-timeline: view();
 	animation-range-start: 90vh;
@@ -286,30 +294,6 @@ img.clouds_image {
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
-}
-
-@media screen and (max-width:728px) {
-	.header_logo_main > img.logo_img_vert {
-	width: 200px;
-	padding: 1rem;
-	display: block;
-	}
-	.header_logo_main > img.logo_img {
-	width: 400px;
-	display: none;
-	}
-}
-
-@media screen and (min-width:728px) {
-	.header_logo_main > img.logo_img_vert {
-	width: 200px;
-	padding: 1rem;
-	display: none;
-	}
-	img.logo_img {
-	width: 400px;
-	display: block;
-	}
 }
 
 .blurb_outer {
