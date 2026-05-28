@@ -143,7 +143,7 @@ function Header() {
 					>
 						Contact Us
 					</button>*/}
-						<SimpleButton button_text="LET'S TALK" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="schedule" theme="light" />
+						<SimpleButton button_text="LET'S TALK" link="https://calendar.app.google/5L58xusGKv5YfVeQ9" type="schedule" theme="light" />
 
 					</div>
 				</div>
@@ -216,7 +216,7 @@ function Header() {
 						>
 							Contact Us
 						</button>*/}
-							<SimpleButton button_text="LET'S TALK" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="schedule" theme="light" />
+							<SimpleButton button_text="LET'S TALK" link="https://calendar.app.google/5L58xusGKv5YfVeQ9" type="schedule" theme="light" />
 						</nav>
 
 						<button
@@ -333,7 +333,7 @@ function Footer() {
 									{LayoutConfig.subtitle}
 								</p>
 								<div className="flex flex-col sm:flex-row gap-4 justify-center p-4">
-									<SimpleButton button_text="SCHEDULE A FREE INTRO CALL" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="schedule" theme="light" />
+									<SimpleButton button_text="SCHEDULE A FREE INTRO CALL" link="https://calendar.app.google/5L58xusGKv5YfVeQ9" type="schedule" theme="light" />
 								</div>
 							</div>
 						</div>
