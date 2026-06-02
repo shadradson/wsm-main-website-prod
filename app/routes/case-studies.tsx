@@ -22,48 +22,32 @@ export async function loader({ context }: Route.LoaderArgs) {
 			splash_image_url, splash_image_background, publish_status, article_order,
 			vertical_product, admin_approval
 		FROM articles
-		WHERE article_category = 'Case Study'
+		WHERE (article_category = 'Case Study' OR article_category = 'Customer Success Story')
 			AND admin_approval = 1
 			AND publish_status = 'Published'
 		ORDER BY article_order ASC`
 	).all<Article>();
 
-	const articles = results ?? [];
-	const industryArticles = articles.filter((a) => a.subcategory === "Industry");
-	const productArticles = articles.filter((a) => a.subcategory === "Product");
-
-	return { industryArticles, productArticles };
+	return { articles: results ?? [] };
 }
 
 export default function CaseStudies() {
-	const { industryArticles, productArticles } = useLoaderData<typeof loader>();
+	const { articles } = useLoaderData<typeof loader>();
 	return (
 		<>
 			<PageHero />
 			<ArticleCardSection
-				id="cases-industry"
-				title1="INDUSTRY "
-				title2="KNOWLEDGE"
-				subtitle="Deep expertise across the industries we serve."
-				articles={industryArticles}
+				id="cases-all"
+				title1="WHAT WE HAVE "
+				title2="LEARNED"
+				subtitle="This is our knowledge database of the things we have learned. Case Studies in specific industries, tools, and software. Customer success stories showcasing our success in implementation with our clients."
+				articles={articles}
 				emptyText="No case studies yet."
 				theme="dark"
 				trail="case-studies"
-				dots="true"
-				tag="INDUSTRIES"
-				searchAndFilter="true"
-			/>
-			<ArticleCardSection
-				id="cases-products"
-				title1="SOFTWARE "
-				title2="PROFICIENCIES"
-				subtitle="Proven results with the platforms and tools we specialize in."
-				articles={productArticles}
-				emptyText="No case studies yet."
-				theme="dark"
-				trail="case-studies"
-				dots="true"
-				tag="SOFTWARES"
+				dots
+				tag="OUR WORK"
+				searchAndFilter
 			/>
 			<StatsSection
 				tag="STATS"
@@ -72,7 +56,7 @@ export default function CaseStudies() {
 				stats={[
 					{ value: "95%", label: "CLIENT RETENTION" },
 					{ value: "60%", label: "AVG. EFFICIENCY GAIN" },
-					{ value: "4.9/6", label: "CLIENT SATISFACTION" },
+					{ value: "4.9/5", label: "CLIENT SATISFACTION" },
 					{ value: "<2wk", label: "AVG. TIME TO FIRST VALUE" },
 				]}
 			/>
@@ -107,35 +91,3 @@ function PageHero() {
 	);
 }
 
-function ResultsSection() {
-	const stats = [
-		{ value: "95%", label: "Client Retention Rate" },
-		{ value: "60%", label: "Avg. Efficiency Gain" },
-		{ value: "4.9/5", label: "Client Satisfaction" },
-		{ value: "<2wk", label: "Avg. Time to First Value" },
-	];
-
-	return (
-		<section id="cases-results" className="bg-summit-dark">
-			<div className="py-16">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<h2 className="text-2xl font-bold text-white text-center mb-12">
-						By the Numbers
-					</h2>
-					<div className="flex flex-wrap gap-8 justify-center">
-						{stats.map((stat) => (
-							<div key={stat.label} className="w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] text-center">
-								<p className="text-3xl sm:text-4xl font-bold text-brand-sky mb-2">
-									{stat.value}
-								</p>
-								<p className="text-gray-400 text-sm uppercase tracking-wider">
-									{stat.label}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}

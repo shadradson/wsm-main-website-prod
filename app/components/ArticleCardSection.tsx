@@ -6,6 +6,16 @@ import Tag from "./Tag";
 
 type Theme = "light" | "dark" | "blue";
 
+// Hardcoded filter buttons (only used when searchAndFilter === true).
+// Each button matches if EITHER articleCategory OR subcategory equals the
+// article's value. Empty/undefined fields mean "no constraint" (show all).
+const FILTER_BUTTONS: { label: string; articleCategory?: string; subcategory?: string }[] = [
+	{ label: "All Case Studies", articleCategory: "Case Study" },
+	{ label: "All Customer Success Stories", articleCategory: "Customer Success Story" },
+	{ label: "Industries", subcategory: "Industry" },
+	{ label: "Products", subcategory: "Product" },
+];
+
 interface ArticleCardSectionProps {
 	articles: ArticleCardData[];
 	title1?: string;
@@ -95,30 +105,26 @@ export default function ArticleCardSection({
 }: ArticleCardSectionProps) {
 	const s = themeStyles[theme];
 	const dotsClass = dots
-		? theme === "light" ? "pattern-bg-dots-light" : "pattern-bg-dots"
+		? theme === "light" ? "pattern-bg-dots-light opacity-50" : "pattern-bg-dots opacity-50"
 		: "";
 
 	const [query, setQuery] = useState("");
-	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-	// Categories present in this set of articles (only show buttons for what exists)
-	const categories = useMemo(() => {
-		const set = new Set<string>();
-		for (const a of articles) {
-			if (a.article_category) set.add(a.article_category);
-		}
-		return [...set].sort();
-	}, [articles]);
+	// Index into FILTER_BUTTONS, or null = no filter (show all)
+	const [selectedFilterIdx, setSelectedFilterIdx] = useState<number | null>(null);
 
 	// When searchAndFilter is off, never apply filters — pass articles through unchanged.
 	const filteredArticles = useMemo(() => {
 		if (!searchAndFilter) return articles;
+		const activeFilter = selectedFilterIdx !== null ? FILTER_BUTTONS[selectedFilterIdx] : null;
 		return articles.filter((a) => {
-			if (selectedCategory && a.article_category !== selectedCategory) return false;
+			if (activeFilter) {
+				if (activeFilter.articleCategory && a.article_category !== activeFilter.articleCategory) return false;
+				if (activeFilter.subcategory && a.subcategory !== activeFilter.subcategory) return false;
+			}
 			if (!matchesQuery(a, query)) return false;
 			return true;
 		});
-	}, [articles, searchAndFilter, selectedCategory, query]);
+	}, [articles, searchAndFilter, selectedFilterIdx, query]);
 
 	return (
 		<section id={id}>
@@ -126,7 +132,7 @@ export default function ArticleCardSection({
 				<div className="">
 					{(title1 || title2 || subtitle) && (
 									<SectionHeaderText title1={title1} title2={title2} subtitle={subtitle} theme={theme} vertAlign="center" horzAlign="center" noPad="false" compact="true" />
-								)}
+									)}
 				</div>
 				<div className="flex">
 					<div className={`flex-1 ${dotsClass}`}>
@@ -146,26 +152,24 @@ export default function ArticleCardSection({
 											aria-label="Search articles"
 											className={`w-full px-4 py-2 border rounded outline-none transition-colors ${s.searchInput}`}
 										/>
-										{categories.length > 0 && (
-											<div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-												{categories.map((cat) => {
-													const isActive = selectedCategory === cat;
-													return (
-														<button
-															key={cat}
-															type="button"
-															onClick={() =>
-																setSelectedCategory(isActive ? null : cat)
-															}
-															aria-pressed={isActive}
-															className={`px-3 py-1.5 text-sm font-medium border rounded transition-colors ${isActive ? s.pillActive : s.pillIdle}`}
-														>
-															{cat}
-														</button>
-													);
-												})}
-											</div>
-										)}
+										<div className="flex flex-wrap gap-2" role="group" aria-label="Filter articles">
+											{FILTER_BUTTONS.map((btn, i) => {
+												const isActive = selectedFilterIdx === i;
+												return (
+													<button
+														key={btn.label}
+														type="button"
+														onClick={() =>
+															setSelectedFilterIdx(isActive ? null : i)
+														}
+														aria-pressed={isActive}
+														className={`px-3 py-1.5 text-sm font-medium border rounded transition-colors ${isActive ? s.pillActive : s.pillIdle}`}
+													>
+														{btn.label}
+													</button>
+												);
+											})}
+										</div>
 									</div>
 								)}
 								{filteredArticles.length === 0 ? (
