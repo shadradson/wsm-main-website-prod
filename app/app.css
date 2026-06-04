@@ -1480,7 +1480,7 @@ div.section_outer {
 }
 
 .light_box {
-    background: linear-gradient(90deg, #ddd, #dbe3e7);
+    background: #ffffff44;
     border-radius: .25rem;
     flex-direction: column;
     flex-grow: 1;
@@ -1490,7 +1490,7 @@ div.section_outer {
     height: -webkit-fill-available;
     padding: .5rem;
     display: flex;
-    box-shadow: 3px 3px 3px #777;
+    box-shadow: 3px 3px 3px #00000022;
 }
 
 /*---------- Subsection ----------*/
@@ -1506,7 +1506,17 @@ div.section_outer {
 h3.sub_section_title {
     font-size: 1.25rem;
     font-weight: 700;
-    background: linear-gradient(90deg, #dddddd, #e2d1eb);
+    background: #ffffff44;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+}
+h3.sub_section_title::after {
+    content: "";
+	position: absolute;	
+	top: 1.65rem;
+	left: -20px;
+	height: 1rem;
+    background:var(--color-wsm-mountain);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
 }
@@ -1530,12 +1540,12 @@ ol.stacked_list {
     padding: 0.25rem;
 }
 ol.stacked_list>li {
-    background: linear-gradient(90deg, #dddddd, #e2d1eb);
+    background: #ffffff44;
     border-left: 2px solid #51bee7;
-    border-radius: 0 2.5rem 2.5rem 0;
+    border-radius: 0.2rem;
     padding: .5rem .75rem;
     display: block;
-    box-shadow: 2px 2px 4px #00000044;
+    box-shadow: 2px 2px 4px #00000022;
 }
 .information_cards {
     display: flex;

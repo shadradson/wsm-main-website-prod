@@ -25,7 +25,7 @@ interface BirdsFlockProps {
 export default function BirdsFlock({
 	birdCount = 1048,
 	bounds = 800,
-	speedLimit = 4,
+	speedLimit = 28,
 	separationDistance = 15,
 	alignmentDistance = 20,
 	cohesionDistance = 20,
@@ -202,7 +202,10 @@ export default function BirdsFlock({
 
 				// Flap wings (vertices 4 and 7 are wing tips)
 				TSL.If(TSL.vertexIndex.equal(4).or(TSL.vertexIndex.equal(7)), () => {
-					position.y = TSL.sin(newPhase).mul(5.0);
+					//position.y = TSL.sin(newPhase).mul(4.0);
+
+					const flapAmount = TSL.smoothstep(TSL.float(-0.2), TSL.float(0.0), newVelocity.y);
+					position.y = TSL.sin(newPhase).mul(4.0).mul(flapAmount);
 				});
 
 				const newPosition = TSL.modelWorldMatrix.mul(position);
@@ -342,7 +345,7 @@ export default function BirdsFlock({
 				const modValue = phase
 					.add(deltaTime)
 					.add(TSL.length(velocity.xz).mul(deltaTime).mul(3.0))
-					.add(TSL.max(velocity.y, 0.0).mul(deltaTime).mul(6.0));
+					.add(TSL.max(velocity.y, 0.0).mul(deltaTime).mul(3.0));
 				phaseStorage.element(TSL.instanceIndex).assign(modValue.mod(62.83));
 			})().compute(BIRDS).setName("Birds Position");
 

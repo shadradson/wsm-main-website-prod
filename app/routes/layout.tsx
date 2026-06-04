@@ -273,7 +273,7 @@ function Footer() {
 				<img src="/images/footer_hillside.svg" alt="" className="footer_hillside_img" />
 			</div>
 
-			<BirdsFlock birdColor="#eeBDA0" birdCount={200} separationDistance={20} speedLimit={7} alignmentDistance={30} birdScale={0.2} birdWiggleRandomMultiplier={100} />
+			<BirdsFlock birdColor="#eeBDA0" birdCount={200} separationDistance={10} speedLimit={9} alignmentDistance={50} birdScale={0.2} birdWiggleRandomMultiplier={100} />
 
 			<div id="footer-content" className="relative z-10 h-[80vh] flex flex-col justify-center items-center text-center max-w-3xl px-6 py-12">
 
@@ -322,9 +322,7 @@ function Footer() {
 				<div id="home-cta-card" className="sm:py-4 lg:py-20">
 					<div className="max-w-7xl mx-auto md:px-8 pb-30 sm:px-2 lg:px-8">
 						<div className="relative p-4 sm:p-6 md:p-12 lg:p-16 text-center overflow-hidden">
-							<div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/10  blur-3xl" />
-							<div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-blue/10  blur-3xl" />
-
+						
 							<div className="relative">
 								<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
 									{LayoutConfig.title}

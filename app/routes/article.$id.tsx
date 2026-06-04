@@ -6,6 +6,7 @@ import ArticleCardSection from "~/components/ArticleCardSection";
 import { PAGE_CRUMBS, MAX_TRAIL_DEPTH, buildTrailParam } from "~/lib/types";
 import { getRelatedArticles } from "~/lib/relatedArticles.server";
 import Transition from "~/components/Transition"
+import { div } from "three/tsl";
 
 function markdownToHtml(md: string): string {
 	return md
@@ -347,6 +348,11 @@ export default function ArticlePage() {
 					mountaincolor2="#383b44"
 					mountaincolor3="#000000"
 				/>
+			)}
+			{/* Transition */}
+			{relatedGroups.length === 0 && (
+				<div className="h-20">
+				</div>
 			)}
 
 			{/* Related Articles — grouped by relationship type */}
