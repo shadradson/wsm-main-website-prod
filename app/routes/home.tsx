@@ -273,7 +273,7 @@ function HeroSection() {
 						</h1>
 					</div>
 					<div className="blurb_outer textcenter max-w-2xl mx-auto">
-						<h2 className="">We build the AI atomated systems that generate sales, close deals, and help you scale.</h2>
+						<h2 className="">We build the AI automated systems that generate sales, close deals, and help you scale.</h2>
 					</div>
 					<div id="home-call-to-action" className="flex flex-row gap-0 z-1000">
 						<SimpleButton button_text="WHAT WE DO" link="/expertise" theme="dark" type="rounded"/>
