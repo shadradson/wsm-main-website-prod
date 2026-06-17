@@ -1,6 +1,5 @@
 import type { Route } from "./+types/contact";
 import { useRef } from "react";
-import { Link } from "react-router";
 import { useLeadForm } from "~/lib/useLeadForm";
 import TurnstileWidget from "~/components/TurnstileWidget";
 import ParticleDots from "~/components/ParticleDots";
@@ -337,13 +336,15 @@ function ContactContent() {
 										Book a free 30-minute consultation to
 										discuss your project.
 									</p>
-									<Link
-										to="/contact"
+									<a
+										href="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD"
+										target="_blank"
+										rel="noopener noreferrer"
 										aria-label="Book a free 30-minute consultation call"
 										className="inline-flex items-center px-5 py-2.5 bg-brand-teal text-white text-sm font-semibold hover:bg-brand-teal/90 transition-colors"
 									>
 										Book a Call
-									</Link>
+									</a>
 								</div>
 							</div>
 						</div>

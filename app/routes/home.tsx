@@ -277,7 +277,7 @@ function HeroSection() {
 					</div>
 					<div id="home-call-to-action" className="flex flex-row gap-0 z-1000">
 						<SimpleButton button_text="WHAT WE DO" link="/expertise" theme="dark" type="rounded"/>
-						<SimpleButton button_text="LET'S TALK" link="https://calendar.app.google/5L58xusGKv5YfVeQ9" type="rounded" theme="light"/>
+						<SimpleButton button_text="LET'S TALK" link="https://my.mountaintop.cloud/book/jason-booher/we-summit-mountains-30-minute-intro-call?s=CXN5nD" type="rounded" theme="light"/>
 					</div>
 				</div>
 			</div>
